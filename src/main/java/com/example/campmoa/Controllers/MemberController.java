@@ -182,6 +182,10 @@ public class MemberController {
         session.removeAttribute(UserEntity.ATTRIBUTE_NAME);
         modelAndView.setViewName("member/userLogin");
         return modelAndView;
+
+
+
+
     }
 
 }
