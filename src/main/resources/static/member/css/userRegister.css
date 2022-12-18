@@ -1,0 +1,105 @@
+/*body {*/
+/*    width: 100%;*/
+/*    height: 200vh;*/
+/*}*/
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /*height: 90%;*/
+}
+.main > .title {
+    border-bottom: 0.125rem solid rgb(171,178,185);
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-block: unset;
+    margin-bottom: 1rem;
+    margin-inline: unset;
+    padding-bottom: 0.5rem;
+}
+
+.main > .title > .icon {
+    color: #d5a854;
+    font-size: 2rem;
+    margin: 0 1.5rem ;
+}
+
+#registerForm {
+    width: 30rem;
+    align-items: stretch;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 0.0625rem solid rgb(171,178,185);
+    border-radius: 1rem;
+}
+#registerForm > ._label > * + *   {
+    margin-top: 0.5rem;
+}
+#registerForm > .contact {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+#registerForm > .contact > .contactC {
+    margin-right: 0.5rem;
+}
+
+#registerForm > .policy-container {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 2rem 0;
+}
+
+._label.contact {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+body > .main > .register-form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+}
+
+body > .main > .register-form > .warning.visible {
+    display: block;
+}
+
+body > .main > .register-form > .policy-container {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 2rem 0;
+}
+body > .main > .register-form > .policy-container > .policy > a {
+    color: cornflowerblue;
+    font-weight: 600;
+}
+body > .main > .register-form > .policy-container > .policy > a:hover {
+    text-decoration: underline;
+}
+body > .main > .register-form > .policy-container > .policy > input[type=checkbox]:checked ~ .text {
+    color: rgb(0,0,0);
+    font-weight: 500;
+}
+
+body > .main > .register-form > .policy-container > .policy + .policy {
+    margin-top: 0.75rem;
+}
+
+body > .main > .register-form > .policy-container > .policy > .text {
+    flex: 1;
+}

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--    시작 페이지 아이콘 셋팅-->
+    <!--    <link th:href="@{/}" rel="shortcut icon">-->
+    <!--    프리텐다드 글꼴 추가.-->
+    <link crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css" rel="stylesheet">
+    <!--    fontawsome 스크립트 추가.-->
+    <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
+    <!--    ==========================================================-->
+    <!--    초기값 과  header footer css 설정 :: common.css -->
+    <link rel="stylesheet" th:href="@{/resources/css/common.css}">
+    <!--    header 에 필요한 js 파일 설정. :: common.js-->
+    <script defer th:src="@{/resources/js/common.js}"></script>
+
+
+    <title>마이페이지 입니다.</title>
+</head>
+<body class="_layout-hmf">
+<!--header-->
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+
+<main class="_main">
+    <h1>마이페이지 메인 내용.</h1>
+</main>
+
+<!--footer-->
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

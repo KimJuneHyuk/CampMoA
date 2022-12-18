@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--    초기값 활용-->
+    <link rel="stylesheet" th:href="@{/resources/css/common.css}">
+    <link rel="stylesheet" th:href="@{/member/css/userRegister.css}">
+
+    <!--    fontawsome 스크립트 추가.-->
+    <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
+    <script defer th:src="@{/member/js/userRegister.js}"></script>
+    <script defer th:src="@{/resources/js/common.js}"></script>
+    <title>Document</title>
+</head>
+<body>
+<!--<th:block th:replace="~{fragments/header.html :: content}"></th:block>-->
+<main class="_main main">
+    <h1 class="title">
+        <i class="icon fa-solid fa-campground"></i>
+        <span class="text">회원가입</span>
+    </h1>
+    <form class="register-form" id="registerForm">
+
+        <label class="_label">
+            <span hidden>이메일 주소</span>
+            <input type="email" name="email" class="email t-input" maxlength="100" placeholder="이메일 주소를 입력해 주세요." autofocus>
+        </label>
+        <label class="_label">
+            <span hidden>비밀번호 입력</span>
+            <input type="password" name="password" class="password t-input" maxlength="100" placeholder="비밀번호(8~50자, 영문, 숫자 및 특수문자 사용가능)">
+        </label>
+        <label class="_label">
+            <span hidden>비밀번호 재입력</span>
+            <input type="password" name="passwordCheck" class="passwordCheck t-input" maxlength="100" placeholder="비밀번호를 한번 더 입력 해주세요." >
+        </label>
+        <label class="_label">
+            <span hidden>이름 입력</span>
+            <input type="text" name="name" class="name t-input" maxlength="20" placeholder="이름을 입력해 주세요.">
+        </label>
+        <label class="_label">
+            <span hidden>연락처 국가 코드</span>
+            <select class="contactCountryValue t-input" name="contactCountryValue">
+                <!--/*@thymesVar id="memberContactCountries" type="com.example.campmoa.entities.ContactCountryEntity[]"*/-->
+                <option th:each="memberContactCountry : ${memberContactCountries}"
+                        th:value="${memberContactCountry.getValue()}"
+                        th:selected="${memberContactCountry.getValue().equals('082')}"
+                        th:text="${'+' + memberContactCountry.getValue() + ' ' + memberContactCountry.getText()}"></option>
+            </select>
+        </label>
+        <label class="_label contact">
+            <span hidden>연락처</span>
+            <input type="text" name="contact" class="contactC t-input" maxlength="12" placeholder="연락처 ( - 없이 입력해 주세요.)">
+            <input type="hidden" name="contactAuthSalt">
+            <input type="button" name="contactAuthRequestButton" class="t-button" value="인증번호 요청" data-func="requestContactAuthCode">
+        </label>
+        <label class="_label contact">
+            <span hidden>인증번호</span>
+            <input type="text" name="contactAuthCode" class="contactC t-input"
+            maxlength="6" placeholder="인증번호 입력" disabled>
+            <input type="button" name="contactAuthCheckButton" class="t-button" value="인증번호 확인" data-func="checkContactAuthCode" disabled>
+        </label>
+<!--       정화화 경고 알림.....-->
+        <span class="warning" id="warning"></span>
+<!--        checkbox :: 정책 동의 / 비동의 부분. -->
+        <input type="submit" name="registerButton" class="t-button" value="회원가입">
+    </form>
+</main>
+<!--<th:block th:replace="~{fragments/footer.html :: content}"></th:block>-->
+</body>
+</html>

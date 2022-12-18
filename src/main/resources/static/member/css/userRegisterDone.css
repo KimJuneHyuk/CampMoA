@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body > .main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 1rem;
+}
+
+body > .main > .content-container {
+    max-width: 35rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body > .main > .content-container > .title {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+body > .main > .content-container > .message {
+    text-align: center;
+    line-height: 150%;
+    margin-bottom: 2rem;
+    /*text-align: justify;*/
+}
+
+body > .main > .content-container > .link {
+    color: rgb(255, 255, 255);
+    padding-right: 4rem;
+    padding-left: 4rem;
+}

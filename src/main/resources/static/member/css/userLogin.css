@@ -1,0 +1,218 @@
+@charset "utf-8";
+
+#main > .title {
+    border-bottom: 0.125rem solid rgb(171,178,185);
+    font-size: 2rem;
+    font-weight: 600;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-block: unset;
+    margin-bottom: 1rem;
+    margin-inline: unset;
+    padding-bottom: 0.5rem;
+}
+
+#main > .title > .icon {
+    color: #d5a854;
+    font-size: 2rem;
+    margin: 0 1.5rem ;
+}
+
+#main {
+    /*margin: 2rem;*/
+    width: 50rem;
+    position: absolute;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+}
+
+#main > .login-form {
+    align-items: center;
+    /*background-color:red;*/
+    border: 0.0625rem solid rgb(171,178,185);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+}
+#main > .login-form > ._label {
+    display: flex;
+    width: 35rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+    padding: 0.5rem;
+}
+#main > .login-form > ._label > span {
+    width: 6.25rem;
+}
+#main > .login-form > ._label > .input {
+    color: rgba(0,0, 0, 50%);
+    font-size: 1rem;
+    width: 50rem;
+    height: 2rem;
+    border-radius: 0.3rem;
+    border: 1px solid #687268;
+}
+#main > .login-form > ._label.email > .input {
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+
+}
+#main > .login-form > ._label.password > .input {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+
+}
+
+#main > .login-form >.auto-container {
+    width: 30rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /*border-bottom: 1px solid #bdbbbb;*/
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+/*========================================================================*/
+
+#main > .login-form >.auto-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*margin-top: 1rem;*/
+}
+
+#main > .login-form >.auto-container > .auto-login {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    user-select: none;
+}
+
+#main > .login-form >.auto-container > .auto-login > .checkbox {
+    display: none;
+}
+
+#main > .login-form >.auto-container > .auto-login > .checker {
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 0.0625rem solid rgb(203, 203, 203);
+    position: relative;
+    margin-right: 1rem;
+}
+
+#main > .login-form >.auto-container > .auto-login > .checker > .icon1 {
+    top: calc(50% + 0.05rem);
+    left: 50%;
+    color: #5f6958;
+    font-size: 1rem;
+    opacity: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition-duration: 250ms;
+    transition-property: top, opacity;
+    transition-timing-function: ease;
+}
+
+#main > .login-form >.auto-container > .auto-login > .checkbox:checked + .checker > .icon1 {
+    top: 50%;
+    opacity: 1;
+}
+#main > .login-form >.auto-container > .text-container {
+    display: flex;
+    flex-direction: row;
+}
+#main > .login-form >.auto-container > .text-container > .item  > .link {
+    top: -0.125rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    position: relative;
+    white-space: nowrap;
+    color: #4e78b9;
+
+}
+#main > .login-form >.auto-container > .text-container > .item  > .link:hover {
+    filter: brightness(110%);
+    text-decoration: underline;
+}
+#main > .login-form >.auto-container > .text-container > .item  > .link:active {
+    filter: brightness(90%);
+}
+
+
+/*=======================================================*/
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    padding-bottom: 2em;
+    border-bottom: 1px solid #bdbbbb;
+}
+
+.button {
+    color: cornsilk;
+    font-size: 1.3rem;
+    width: 10rem;
+    height: 3rem;
+    border-radius: 1rem;
+    /*border-bottom: 1px solid #bdbbbb;*/
+    background-color: rgb(var(--concept-color-green));
+    cursor: pointer;
+    transition: 0.2s;
+}
+.button:hover {
+    background-color: rgb(var(--concept-color-green-dim));
+}
+.button:active {
+    background-color: rgb(var(--concept-color-green-dim));
+}
+
+
+/*=======================================================*/
+#main > .login-form >.register-container {
+    padding-top:  1.5rem;
+}
+
+#main > .login-form >.register-container > .link {
+    top: -0.125rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    position: relative;
+    white-space: nowrap;
+    color: #4e78b9;
+    /*padding-top: 1rem;*/
+}
+
+#main > .login-form >.register-container > .link:hover {
+    filter: brightness(110%);
+    text-decoration: underline;
+}
+#main > .login-form >.register-container > .link:active {
+    filter: brightness(90%);
+}
+
+
+#main > .login-form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+    margin: 0.2rem 0;
+    padding-bottom: 0.5rem;
+}
+
+#main > .login-form > .warning.visible {
+    display: block;
+}

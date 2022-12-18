@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.campmoa.mappers.IMemberMapper">
+
+    <insert id="insertContactAuth"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.ContactAuthEntity">
+        INSERT INTO `campmoa_member`.`contact_auths` (`contact`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
+        VALUES (#{contact}, #{code}, #{salt}, #{createdAt}, #{expiresAt}, #{isExpired})
+    </insert>
+
+    <select id="selectContactAuthByContactCodeSalt"
+            parameterType="com.example.campmoa.entities.ContactAuthEntity"
+            resultType="com.example.campmoa.entities.ContactAuthEntity">
+        SELECT `index`        AS `index`,
+               `contact`      AS `contact`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
+               `created_at`   AS `createdAt`,
+               `expires_at`   AS `expiresAt`,
+               `expired_flag` AS `isExpired`
+        FROM `campmoa_member`.`contact_auths`
+        WHERE `contact` = #{contact}
+          AND `code` = #{code}
+          AND `salt` = #{salt}
+        LIMIT 1
+    </select>
+
+    <select id="selectUserByEmail"
+            parameterType="com.example.campmoa.entities.UserEntity"
+            resultType="com.example.campmoa.entities.UserEntity">
+        SELECT `email`                 AS `email`,
+               `password`              AS `password`,
+               `name`                  AS `name`,
+               `contact_country_value` AS `contactCountryValue`,
+               `contact`               AS `contact`,
+               `status_value`          AS `statusValue`,
+               `register_at`           AS `registerAt`
+        FROM `campmoa_member`.`users`
+        WHERE `email` = #{email}
+        LIMIT 1
+    </select>
+
+    <insert id="insertUser"
+            parameterType="com.example.campmoa.entities.UserEntity">
+        INSERT INTO `campmoa_member`.`users` (`email`, `password`, `name`, `contact_country_value`, `contact`,`status_value`)
+        VALUES (#{email}, #{password}, #{name}, #{contactCountryValue}, #{contact}, #{statusValue})
+    </insert>
+
+    <select id="selectContactCountries"
+            resultType="com.example.campmoa.entities.ContactCountryEntity">
+        SELECT `value` AS `value`,
+               `text`  AS `text`
+        FROM `campmoa_member`.`contact_countries`
+        ORDER BY `value`
+    </select>
+
+    <select id="selectUserByContact"
+            parameterType="com.example.campmoa.entities.UserEntity"
+            resultType="com.example.campmoa.entities.UserEntity">
+        SELECT `email`                 AS `email`,
+               `password`              AS `password`,
+               `name`                  AS `name`,
+               `contact_country_value` AS `contactCountryValue`,
+               `contact`               AS `contact`,
+               `status_value`          AS `statusValue`,
+               `register_at`           AS `registerAt`
+        FROM `campmoa_member`.`users`
+        WHERE `contact` = #{contact}
+        LIMIT 1
+    </select>
+
+    <select id="selectUserByEmailPassword"
+            parameterType="com.example.campmoa.entities.UserEntity"
+            resultType="com.example.campmoa.entities.UserEntity">
+        SELECT `email`                 AS `email`,
+               `password`              AS `password`,
+               `name`                  AS `name`,
+               `contact_country_value` AS `contactCountryValue`,
+               `contact`               AS `contact`,
+               `status_value`          AS `statusValue`,
+               `register_at`           AS `registerAt`
+        FROM `campmoa_member`.`users`
+        WHERE `email` = #{email}
+          AND `password` = #{password}
+        LIMIT 1
+    </select>
+
+    <update id="updateContactAuth"
+            parameterType="com.example.campmoa.entities.ContactAuthEntity">
+        UPDATE `campmoa_member`.`contact_auths`
+        SET `contact`      = #{contact},
+            `code`         = #{code},
+            `salt`         = #{salt},
+            `created_at`   = #{createdAt},
+            `expires_at`   = #{expiresAt},
+            `expired_flag` = #{isExpired}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+
+</mapper>

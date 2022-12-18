@@ -1,0 +1,126 @@
+body {
+    /*border: 5px solid #f00;*/
+}
+
+#main {
+    width: var(--content-width-default);
+    height: 100%;
+
+    position: relative;
+
+}
+
+#main > .table-container {
+    margin: 2rem auto;
+    padding: 0 1rem;
+    width: 70rem;
+    /*border: 0.0625rem solid #000;*/
+    border-radius: 0.75rem;
+
+}
+
+#main > .table-container > table {
+    margin: 1rem auto;
+    /*border: 1px solid #000;*/
+    border-collapse: collapse;
+}
+
+#main > .table-container > table > caption {
+    /*box-sizing: border-box;*/
+    width: 70rem;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 1rem 0;
+    margin-bottom: 5rem;
+    border: 0.2rem solid rgb(220, 120, 120);
+    border-radius: 0.75rem;
+}
+#main > .table-container > table > thead > tr {
+    border: 0.125rem solid rgb(150,150,150);
+    /*border-bottom: 0.125rem solid rgb(150,150,150);*/
+}
+
+#main > .table-container > table > thead > tr > th {
+    /*border: 0.125rem solid rgb(150, 150, 150);*/
+    /*border-left: 0.125rem solid rgb(150,150,150);*/
+    /*border-top: 0.125rem solid rgb(150,150,150);*/
+
+    padding: 1rem 0;
+}
+#main > .table-container > table > thead > tr > th:not(not:last-child),
+#main > .table-container > table > thead > tr > th:not(not:first-child) {
+    border-left: 0.125rem solid rgb(150,150,150);
+    /*border-right: 0.125rem solid rgb(150,150,150);*/
+}
+
+#main > .table-container > table > tbody {
+    margin-bottom: 2rem;
+}
+
+#main > .table-container > table > tbody > tr {
+    /*border-top: 0.2rem solid rgb(200, 200, 200);*/
+    border-bottom: 0.2rem solid rgb(200, 200, 200);
+    height: 4rem;
+    text-align: center;
+}
+
+#main > .table-container > table > tbody > tr > td > .comment {
+    margin-left: 0.75rem;
+    color: rgb(150,150,150);
+}
+
+#main > .table-container > table > tfoot {
+    height: 8rem;
+}
+
+#main > .table-container > table > tfoot > .page-container {
+    text-align: center;
+}
+#main > .table-container > table > tfoot > .page-container > td > * {
+    margin: 0 0.15rem;
+}
+
+#main > .table-container > table > tfoot > .page-container > td > .cur {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.4rem;
+    border: 0.125rem solid rgb(200,200,200);
+    transition: 0.2s;
+}
+#main > .table-container > table > tfoot > .page-container > td > .cur:hover {
+    border: 0.125rem solid rgb(150,150,150);
+}
+
+#main > .table-container > table > tfoot > .search-table > td > form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#main > .table-container > table > tfoot > .search-table > td > form > * + * {
+    margin: 0 1rem;
+}
+
+#main > .table-container > table > tfoot > .search-table > td > form > label > .t-input {
+    width: 30rem;
+}
+
+#main > .table-container > table > tfoot > .search-table > td > form > label > select {
+    list-style: none;
+    /*border: 0;*/
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    text-align: center;
+}
+
+#main > .table-container > table > tfoot > .search-table > td > form > .t-button {
+    margin: 0;
+    padding: 0;
+    height: 3.175rem;
+    width: 5rem;
+}
+
+
+
+

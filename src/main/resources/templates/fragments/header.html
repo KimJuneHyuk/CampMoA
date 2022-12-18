@@ -1,0 +1,60 @@
+<!--suppress HtmlRequiredTitleElement, HtmlUnknownTag, RequiredAttributes -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<header class="_header _content-wrapper" th:fragment="content">
+    <div class="_content-container content-container">
+        <ul class="write-menu" id="_writeMenu">
+            <li class="item">
+                <a th:href="@{/accompany/write}" class="link">
+                    <i class="icon fa-solid fa-envelope"></i>
+                    <span class="text">여행친구 찾기</span>
+                </a>
+            </li>
+            <li class="item">
+                <a th:href="@{/qna/write}" class="link">
+                    <i class="icon fa-solid fa-circle-question"></i>
+                    <span class="text">여행 질문하기</span>
+                </a>
+            </li>
+        </ul>
+
+        <a class="logo-container" th:href="@{/}">
+            <img alt="campMoa" class="logo" th:src="@{/}">
+        </a>
+        <ul class="menu">
+            <li class="item">
+                <a class="link" th:href="@{/}">홈</a>
+            </li>
+            <li class="item">
+                <a class="link" th:href="@{/accompany/}">동행</a>
+            </li>
+            <li class="item">
+                <a class="link" th:href="@{/qna/}">Q&A</a>
+            </li>
+        </ul>
+        <form class="search-form" method="get">
+            <label class="input-container">
+                <span hidden>여행 qna을 검색해보세요!</span>
+                <i class="icon fa-solid fa-magnifying-glass"></i>
+                <input class="input" maxlength="50" name="keyword" placeholder="여행 qna을 검색해보세요!" type="text">
+            </label>
+        </form>
+        <ul class="side-menu">
+            <li class="item" th:if="${session.memberUser == null}">
+                <a class="link" th:href="@{/member/userLogin}">로그인</a>
+            </li>
+            <li class="item" th:if="${session.memberUser == null}">
+                <a class="link" th:href="@{/member/userRegister}">회원가입</a>
+            </li>
+
+            <li class="item" th:if="${session.memberUser != null}">
+                <a class="link" th:href="@{/member/userLogout}">로그아웃</a>
+            </li>
+            <li class="item" th:if="${session.memberUser != null}">
+                <a class="link" th:href="@{/member/myPage}">마이페이지</a>
+            </li>
+            <li class="item Wbutton" id="_writeButton">글쓰기</li>
+        </ul>
+    </div>
+</header>
+</html>
