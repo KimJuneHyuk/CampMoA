@@ -6,14 +6,33 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>캠프모아 회원가입 완료</title>
+    <title>캠프모아 무엇이든 질문하세요.</title>
     <link rel="stylesheet" th:href="@{/resources/css/common.css}">
+    <link rel="stylesheet" th:href="@{/qna/css/write.css}">
 </head>
 <body class="_layout-hmf">
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main main">
-    <h1>qna 글쓰기 페이지 입니다.</h1>
+<!--    <h1>qna 글쓰기 페이지 입니다.</h1>-->
+    <form class="form" id="form">
+        <label class="_label title-container">
+            <span>제목</span>
+            <input type="text" class="t-input title" name="title" maxlength="100" placeholder="제목을 입력해 주세요. (100자 이내로)">
+        </label>
+
+        <label class="_label content-container">
+            <span>무엇이든 물어보세요 :)</span>
+            <textarea rows="15" class="t-input content" name="content" maxlength="5000" placeholder="내용을 입력해 주세요. (5000자 이내로 입력해주세요.)"></textarea>
+        </label>
+
+        <span class="warning" id="warning"></span>
+        <div class="button-container">
+            <input type="button" class="t-button back" name="back" value="돌아가기">
+            <input type="submit" class="t-button" value="작성완료">
+        </div>
+    </form>
+
 </main>
 
 <th:block th:replace="~{fragments/footer.html :: content}"></th:block>

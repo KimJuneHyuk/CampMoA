@@ -1,0 +1,22 @@
+main {
+    margin-top: 1rem;
+}
+main > .form > ._label {
+    margin-top: 2rem;
+}
+main > .form > ._label > span {
+    margin-bottom: 1rem;
+}
+main > .form > .title-container > span {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+main > .form > .content-container > span {
+    font-size: 1rem;
+    font-weight: 600;
+}
+main > .form > .content-container > .content {
+    height: 10rem;
+}
+
