@@ -21,6 +21,12 @@ public class BbsController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "read", method = RequestMethod.GET)
+    public ModelAndView getRead(ModelAndView modelAndView) {
+        modelAndView.setViewName("bbs/read");
+        return modelAndView;
+    }
+
 
 
 
