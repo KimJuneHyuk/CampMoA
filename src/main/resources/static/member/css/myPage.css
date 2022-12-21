@@ -1,0 +1,8 @@
+._header > .content-container > .search-form > .input-container {
+    margin-bottom: 1.5rem;
+
+}
+
+._header > .content-container > .search-form > .input-container > .icon {
+    margin-top: 0.5rem;
+}
