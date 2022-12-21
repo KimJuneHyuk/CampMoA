@@ -43,7 +43,7 @@
         <label class="_label">
             <span hidden>연락처 국가 코드</span>
             <select class="contactCountryValue t-input" name="contactCountryValue">
-                <!--/*@thymesVar id="memberContactCountries" type="com.example.campmoa.entities.ContactCountryEntity[]"*/-->
+                <!--/*@thymesVar id="memberContactCountries" type="com.example.campmoa.entities.member.ContactCountryEntity[]"*/-->
                 <option th:each="memberContactCountry : ${memberContactCountries}"
                         th:value="${memberContactCountry.getValue()}"
                         th:selected="${memberContactCountry.getValue().equals('082')}"

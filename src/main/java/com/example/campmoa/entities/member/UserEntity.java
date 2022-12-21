@@ -1,7 +1,4 @@
-package com.example.campmoa.entities;
-
-import com.example.campmoa.mappers.IMemberMapper;
-import com.example.campmoa.services.MemberService;
+package com.example.campmoa.entities.member;
 
 import java.util.Date;
 import java.util.Objects;

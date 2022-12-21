@@ -1,4 +1,4 @@
-package com.example.campmoa.entities;
+package com.example.campmoa.entities.member;
 
 import java.util.Date;
 import java.util.Objects;

@@ -1,6 +1,5 @@
 package com.example.campmoa.enums;
 
-import com.example.campmoa.entities.ContactCountryEntity;
 import com.example.campmoa.interfaces.IResult;
 
 public enum CommonResult implements IResult {

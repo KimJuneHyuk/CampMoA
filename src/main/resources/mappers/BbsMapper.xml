@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.campmoa.mappers.IBbsMapper">
+
+    <select id="selectBoardById"
+            resultType="com.example.campmoa.entities.bss.BoardEntity">
+        SELECT `value` AS `value`,
+               `text`  AS `text`
+        FROM `campmoa-bbs`.`boards`
+        WHERE BINARY `value` = #{value}
+        LIMIT 1
+    </select>
+
+</mapper>

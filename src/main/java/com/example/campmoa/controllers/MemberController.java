@@ -1,22 +1,18 @@
-package com.example.campmoa.Controllers;
+package com.example.campmoa.controllers;
 
-import com.example.campmoa.entities.ContactAuthEntity;
-import com.example.campmoa.entities.ContactCountryEntity;
-import com.example.campmoa.entities.UserEntity;
+import com.example.campmoa.entities.member.ContactAuthEntity;
+import com.example.campmoa.entities.member.ContactCountryEntity;
+import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
 import com.example.campmoa.exceptions.RollbackException;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.services.MemberService;
-import org.apache.catalina.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.InvalidKeyException;

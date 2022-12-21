@@ -1,10 +1,9 @@
 package com.example.campmoa.mappers;
 
-import com.example.campmoa.entities.ContactAuthEntity;
-import com.example.campmoa.entities.ContactCountryEntity;
-import com.example.campmoa.entities.EmailAuthEntity;
-import com.example.campmoa.entities.UserEntity;
-import org.apache.catalina.User;
+import com.example.campmoa.entities.member.ContactAuthEntity;
+import com.example.campmoa.entities.member.ContactCountryEntity;
+import com.example.campmoa.entities.member.EmailAuthEntity;
+import com.example.campmoa.entities.member.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

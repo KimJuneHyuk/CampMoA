@@ -1,21 +1,21 @@
-package com.example.campmoa.entities;
+package com.example.campmoa.entities.member;
 
 import java.util.Objects;
 
-public class ContactCountryEntity {
-    public static final String ATTRIBUTE_NAME = "memberContactCountry";
-    public static final String ATTRIBUTE_NAME_PLURAL = "memberContactCountries";
+public class StatusEntity {
+    public static final String ATTRIBUTE_NAME = "memberStatus";
+    public static final String ATTRIBUTE_NAME_PLURAL = "memberStatuses";
     private String value;
     private String text;
 
-    public static ContactCountryEntity build() {
-        return new ContactCountryEntity();
+    public StatusEntity build() {
+        return new StatusEntity();
     }
 
-    public ContactCountryEntity() {
+    public StatusEntity() {
     }
 
-    public ContactCountryEntity(String value, String text) {
+    public StatusEntity(String value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -24,7 +24,7 @@ public class ContactCountryEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactCountryEntity that = (ContactCountryEntity) o;
+        StatusEntity that = (StatusEntity) o;
         return Objects.equals(value, that.value);
     }
 
@@ -37,7 +37,7 @@ public class ContactCountryEntity {
         return value;
     }
 
-    public ContactCountryEntity setValue(String value) {
+    public StatusEntity setValue(String value) {
         this.value = value;
         return this;
     }
@@ -46,7 +46,7 @@ public class ContactCountryEntity {
         return text;
     }
 
-    public ContactCountryEntity setText(String text) {
+    public StatusEntity setText(String text) {
         this.text = text;
         return this;
     }

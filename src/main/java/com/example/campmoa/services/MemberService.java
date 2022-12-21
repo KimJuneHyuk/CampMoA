@@ -4,9 +4,9 @@ package com.example.campmoa.services;
 
 import com.example.campmoa.components.MailComponent;
 import com.example.campmoa.components.SmsComponent;
-import com.example.campmoa.entities.ContactAuthEntity;
-import com.example.campmoa.entities.ContactCountryEntity;
-import com.example.campmoa.entities.UserEntity;
+import com.example.campmoa.entities.member.ContactAuthEntity;
+import com.example.campmoa.entities.member.ContactCountryEntity;
+import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
 import com.example.campmoa.exceptions.RollbackException;
 import com.example.campmoa.interfaces.IResult;

@@ -1,4 +1,4 @@
-package com.example.campmoa.Controllers;
+package com.example.campmoa.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

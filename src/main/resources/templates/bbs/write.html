@@ -21,8 +21,10 @@
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main main">
-<!--    <h1>qna 글쓰기 페이지 입니다.</h1>-->
+
     <form class="form" id="form">
+<!--        <h1 class="title-name" th:text="${board.getText()}">qna 글쓰기 페이지 입니다.</h1>-->
+<!--        <input name="bid" type="hidden" th:value="${board.getValue}">-->
         <label class="_label title-container">
             <span>제목</span>
             <input type="text" class="t-input title" name="title" maxlength="100" placeholder="제목을 입력해 주세요. (100자 이내로)">

@@ -6,14 +6,14 @@
             useGeneratedKeys="true"
             keyColumn="index"
             keyProperty="index"
-            parameterType="com.example.campmoa.entities.ContactAuthEntity">
+            parameterType="com.example.campmoa.entities.member.ContactAuthEntity">
         INSERT INTO `campmoa_member`.`contact_auths` (`contact`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
         VALUES (#{contact}, #{code}, #{salt}, #{createdAt}, #{expiresAt}, #{isExpired})
     </insert>
 
     <select id="selectContactAuthByContactCodeSalt"
-            parameterType="com.example.campmoa.entities.ContactAuthEntity"
-            resultType="com.example.campmoa.entities.ContactAuthEntity">
+            parameterType="com.example.campmoa.entities.member.ContactAuthEntity"
+            resultType="com.example.campmoa.entities.member.ContactAuthEntity">
         SELECT `index`        AS `index`,
                `contact`      AS `contact`,
                `code`         AS `code`,
@@ -29,8 +29,8 @@
     </select>
 
     <select id="selectUserByEmail"
-            parameterType="com.example.campmoa.entities.UserEntity"
-            resultType="com.example.campmoa.entities.UserEntity">
+            parameterType="com.example.campmoa.entities.member.UserEntity"
+            resultType="com.example.campmoa.entities.member.UserEntity">
         SELECT `email`                 AS `email`,
                `password`              AS `password`,
                `name`                  AS `name`,
@@ -44,13 +44,13 @@
     </select>
 
     <insert id="insertUser"
-            parameterType="com.example.campmoa.entities.UserEntity">
+            parameterType="com.example.campmoa.entities.member.UserEntity">
         INSERT INTO `campmoa_member`.`users` (`email`, `password`, `name`, `contact_country_value`, `contact`,`status_value`)
         VALUES (#{email}, #{password}, #{name}, #{contactCountryValue}, #{contact}, #{statusValue})
     </insert>
 
     <select id="selectContactCountries"
-            resultType="com.example.campmoa.entities.ContactCountryEntity">
+            resultType="com.example.campmoa.entities.member.ContactCountryEntity">
         SELECT `value` AS `value`,
                `text`  AS `text`
         FROM `campmoa_member`.`contact_countries`
@@ -58,8 +58,8 @@
     </select>
 
     <select id="selectUserByContact"
-            parameterType="com.example.campmoa.entities.UserEntity"
-            resultType="com.example.campmoa.entities.UserEntity">
+            parameterType="com.example.campmoa.entities.member.UserEntity"
+            resultType="com.example.campmoa.entities.member.UserEntity">
         SELECT `email`                 AS `email`,
                `password`              AS `password`,
                `name`                  AS `name`,
@@ -73,8 +73,8 @@
     </select>
 
     <select id="selectUserByEmailPassword"
-            parameterType="com.example.campmoa.entities.UserEntity"
-            resultType="com.example.campmoa.entities.UserEntity">
+            parameterType="com.example.campmoa.entities.member.UserEntity"
+            resultType="com.example.campmoa.entities.member.UserEntity">
         SELECT `email`                 AS `email`,
                `password`              AS `password`,
                `name`                  AS `name`,
@@ -89,7 +89,7 @@
     </select>
 
     <update id="updateContactAuth"
-            parameterType="com.example.campmoa.entities.ContactAuthEntity">
+            parameterType="com.example.campmoa.entities.member.ContactAuthEntity">
         UPDATE `campmoa_member`.`contact_auths`
         SET `contact`      = #{contact},
             `code`         = #{code},
