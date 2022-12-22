@@ -20,3 +20,15 @@ main > .form > .content-container > .content {
     height: 10rem;
 }
 
+
+#main > .form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+    margin: 0.2rem 0;
+    padding-bottom: 0.5rem;
+}
+
+#main > .form > .warning.visible {
+    display: block;
+}
+

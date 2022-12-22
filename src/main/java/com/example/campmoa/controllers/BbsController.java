@@ -1,15 +1,18 @@
 package com.example.campmoa.controllers;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
+import com.example.campmoa.entities.bss.ArticleEntity;
 import com.example.campmoa.entities.bss.BoardEntity;
 import com.example.campmoa.entities.member.UserEntity;
+import com.example.campmoa.enums.CommonResult;
+import com.example.campmoa.enums.bbs.WriteResult;
+import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.services.BbsService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
@@ -46,8 +49,38 @@ public class BbsController {
         return modelAndView;
     }
 
+//write ,method 포스트 방식으로 ajax 반환
+    @RequestMapping(value = "write", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postWrite(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            @RequestParam(value = "bid", required = false) String bid,
+            ArticleEntity article
+    ) {
+        Enum<?> result; //= this.bbsService.RegisterBoard(user, bid, article)
+        if (user == null) {
+            result = WriteResult.NOT_ALLOWED;
+        } else if (bid == null) {
+            result = WriteResult.NO_SUCH_BOARD;
+        }
 
-//    ====================================================================================
+        result = this.bbsService.RegisterBoard(article);
+
+        JSONObject responseJson = new JSONObject();
+        if (result == CommonResult.SUCCESS) {
+            responseJson.put("aid", article.getIndex());
+        }
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
+
+
+
+
+
+
+
+//    ================================================================================= Read
 
     @RequestMapping(value = "read", method = RequestMethod.GET)
     public ModelAndView getRead(ModelAndView modelAndView) {
