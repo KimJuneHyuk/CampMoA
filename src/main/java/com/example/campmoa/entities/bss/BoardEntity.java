@@ -9,14 +9,14 @@ public class BoardEntity {
     public static BoardEntity build() {
         return new BoardEntity();
     }
-    private String value;
+    private String id;
     private String text;
 
     public BoardEntity() {
     }
 
-    public BoardEntity(String value, String text) {
-        this.value = value;
+    public BoardEntity(String id, String text) {
+        this.id = id;
         this.text = text;
     }
 
@@ -25,20 +25,20 @@ public class BoardEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BoardEntity board = (BoardEntity) o;
-        return Objects.equals(value, board.value);
+        return Objects.equals(id, board.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(id);
     }
 
-    public String getValue() {
-        return value;
+    public String getId() {
+        return id;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getText() {

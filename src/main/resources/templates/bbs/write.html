@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/resources/css/common.css}">
     <link rel="stylesheet" th:href="@{/qna/css/write.css}">
     <script defer th:src="@{/resources/js/common.js}"></script>
+    <script defer th:src="@{/qna/js/write.js}"></script>
 </head>
 <body class="_layout-hmf">
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
@@ -23,11 +24,21 @@
 <main class="_main main">
 
     <form class="form" id="form">
-<!--        <h1 class="title-name" th:text="${board.getText()}">qna 글쓰기 페이지 입니다.</h1>-->
-<!--        <input name="bid" type="hidden" th:value="${board.getValue}">-->
+        <input type="hidden" id="email" name="email" th:value="${session.memberUser.getEmail()}">
+<!--        <input type="hidden" id="bid" name="bid" th:value="${board.getId()}">-->
         <label class="_label title-container">
             <span>제목</span>
             <input type="text" class="t-input title" name="title" maxlength="100" placeholder="제목을 입력해 주세요. (100자 이내로)">
+        </label>
+        <label class="_label">
+            <span hidden>게시판 분류</span>
+            <select class="boardValue t-input"  name="bid">
+                <!--/*@thymesVar id="bbsBoards" type="com.example.campmoa.entities.bss.BoardEntity[]"*/-->
+                <option th:each="board : ${bbsBoards}"
+                        th:value="${board.getId()}"
+                        th:selected="${board.getId().equals('qna')}"
+                        th:text="${board.getId() + ' - ' + board.getText()}"></option>
+            </select>
         </label>
 
         <label class="_label content-container">

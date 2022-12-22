@@ -2,13 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.campmoa.mappers.IBbsMapper">
 
+    <select id="selectBoardIdByText"
+            resultType="com.example.campmoa.entities.bss.BoardEntity">
+        SELECT `id`   AS `id`,
+               `text` AS `text`
+        FROM `campmoa-bbs`.`boards`
+        ORDER BY `id`
+    </select>
+
     <select id="selectBoardById"
             resultType="com.example.campmoa.entities.bss.BoardEntity">
-        SELECT `value` AS `value`,
-               `text`  AS `text`
+        SELECT `id`   AS `id`,
+               `text` As `text`
         FROM `campmoa-bbs`.`boards`
-        WHERE BINARY `value` = #{value}
-        LIMIT 1
+        WHERE BINARY `id` = #{id}
+        LIMIT 1;
     </select>
+
+<!-- useGeneratedKeys : 생성된 기준키를 사용하겠냐 ?   -->
+<!--    keyColume : 기준키 이름-->
+<!--    keyProperty : 키의 값-->
+    <insert id="insertArticle"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.bss.ArticleEntity">
+        INSERT INTO `campmoa-bbs`.`articles` (`board_value`, `user_email`, `title`, `content`, `view`, `created_at`)
+        VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
+    </insert>
 
 </mapper>
