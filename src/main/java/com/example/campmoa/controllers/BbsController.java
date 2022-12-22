@@ -31,23 +31,23 @@ public class BbsController {
         modelAndView.setViewName("bbs/index");
         return modelAndView;
     }
-//===========================================================================
+//============================================================================= 글쓰기 write
     @RequestMapping(value = "write", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView getWrite(ModelAndView modelAndView,
-                                 @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                                 @RequestParam(value = "bid", required = false) String bid) {
+    public ModelAndView getWrite(
+            ModelAndView modelAndView ,
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user
+    ) {
         if (user == null) {
             modelAndView.setViewName("redirect:/member/userLogin");
         } else {
-            BoardEntity board =
-                    bid == null ? null
-                            : this.bbsService.getBoard(bid);
             modelAndView.setViewName("bbs/write");
-            modelAndView.addObject("board", board);
+            modelAndView.addObject(BoardEntity.ATTRIBUTE_NAME_PLURAL, this.bbsService.getBoard());
         }
-
         return modelAndView;
     }
+
+
+//    ====================================================================================
 
     @RequestMapping(value = "read", method = RequestMethod.GET)
     public ModelAndView getRead(ModelAndView modelAndView) {

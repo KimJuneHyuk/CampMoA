@@ -23,11 +23,19 @@
 <main class="_main main">
 
     <form class="form" id="form">
-<!--        <h1 class="title-name" th:text="${board.getText()}">qna 글쓰기 페이지 입니다.</h1>-->
-<!--        <input name="bid" type="hidden" th:value="${board.getValue}">-->
         <label class="_label title-container">
             <span>제목</span>
             <input type="text" class="t-input title" name="title" maxlength="100" placeholder="제목을 입력해 주세요. (100자 이내로)">
+        </label>
+        <label class="_label">
+            <span hidden>게시판 분류</span>
+            <select class="boardValue t-input" name="boardValue">
+                <!--/*@thymesVar id="bbsBoards" type="com.example.campmoa.entities.bss.BoardEntity[]"*/-->
+                <option th:each="board : ${bbsBoards}"
+                        th:value="${board.getId()}"
+                        th:selected="${board.getId().equals('qna')}"
+                        th:text="${board.getId() + ' ' + board.getText()}"></option>
+            </select>
         </label>
 
         <label class="_label content-container">

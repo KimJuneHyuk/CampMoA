@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface IBbsMapper {
-    BoardEntity selectBoardById(@Param(value = "id") String id);
+    BoardEntity[] selectBoardIdByText();
 }
