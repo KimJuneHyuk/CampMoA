@@ -1,4 +1,4 @@
-package com.example.campmoa.entities.bss;
+package com.example.campmoa.entities.bbs;
 
 import java.util.Objects;
 

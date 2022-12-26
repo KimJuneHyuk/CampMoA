@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.campmoa.mappers.IBbsMapper">
 
+    <!-- useGeneratedKeys : 생성된 기준키를 사용하겠냐 ?   -->
+    <!--    keyColume : 기준키 이름-->
+    <!--    keyProperty : 키의 값-->
+    <insert id="insertArticle"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.bbs.ArticleEntity">
+        INSERT INTO `campmoa-bbs`.`articles` (`board_value`, `user_email`, `title`, `content`, `view`, `created_at`)
+        VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
+    </insert>
+
+
     <select id="selectBoardIdByText"
-            resultType="com.example.campmoa.entities.bss.BoardEntity">
+            resultType="com.example.campmoa.entities.bbs.BoardEntity">
         SELECT `id`   AS `id`,
                `text` AS `text`
         FROM `campmoa-bbs`.`boards`
@@ -11,7 +24,7 @@
     </select>
 
     <select id="selectBoardById"
-            resultType="com.example.campmoa.entities.bss.BoardEntity">
+            resultType="com.example.campmoa.entities.bbs.BoardEntity">
         SELECT `id`   AS `id`,
                `text` As `text`
         FROM `campmoa-bbs`.`boards`
@@ -19,16 +32,51 @@
         LIMIT 1;
     </select>
 
-<!-- useGeneratedKeys : 생성된 기준키를 사용하겠냐 ?   -->
-<!--    keyColume : 기준키 이름-->
-<!--    keyProperty : 키의 값-->
-    <insert id="insertArticle"
-            useGeneratedKeys="true"
-            keyColumn="index"
-            keyProperty="index"
-            parameterType="com.example.campmoa.entities.bss.ArticleEntity">
-        INSERT INTO `campmoa-bbs`.`articles` (`board_value`, `user_email`, `title`, `content`, `view`, `created_at`)
-        VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
-    </insert>
+    <select id="selectArticles"
+            resultType="com.example.campmoa.vos.bbs.ArticleVo">
+        SELECT `articles`.`index`       AS `index`,
+               `articles`.`board_value` AS `boardValue`,
+               `articles`.`user_email`  AS `userEmail`,
+               `articles`.`title`       AS `title`,
+               `articles`.`content`     AS `content`,
+               `articles`.`view`        AS `view`,
+               `articles`.`created_at`  AS `createdAt`,
+               `user`.`name`            AS `name`
+        FROM `campmoa-bbs`.`articles`
+                 LEFT JOIN `campmoa_member`.`users` AS `user` on `user`.email = `articles`.`user_email`
+        ORDER BY `index` DESC
+    </select>
+
+    <select id="selectArticleByIndex"
+            resultType="com.example.campmoa.vos.bbs.ArticleVo">
+        SELECT `index`       AS `index`,
+               `board_value` AS `boardValue`,
+               `user_email`  AS `userEmail`,
+               `title`       AS `title`,
+               `content`     AS `content`,
+               `view`        AS `view`,
+               `created_at`  AS `createdAt`,
+               `user`.`name` AS `name`
+        FROM `campmoa-bbs`.`articles`
+                 LEFT JOIN `campmoa_member`.`users` AS `user` on `user`.email = `articles`.`user_email`
+        WHERE `articles`.`index` = #{index}
+        LIMIT 1
+    </select>
+
+
+    <update id="updateArticle"
+            parameterType="com.example.campmoa.entities.bbs.ArticleEntity">
+        UPDATE `campmoa-bbs`.`articles`
+        SET `board_value` = #{boardValue},
+            `user_email`  = #{userEmail},
+            `title`       = #{title},
+            `content`     = #{content},
+            `view`        = #{view},
+            `created_at`  = #{createdAt}
+        WHERE `index` = #{index}
+        LIMIT 1
+
+    </update>
+
 
 </mapper>

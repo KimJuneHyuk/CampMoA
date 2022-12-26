@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" th:href="@{/resources/css/common.css}">
+    <link rel="stylesheet" th:href="@{/qna/css/index.css}">
+    <script defer th:src="@{/resources/js/common.js}"></script>
+
+    <link crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css"
+          rel="stylesheet">
+    <!--    fontawsome 스크립트 추가.-->
+    <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
+    <title>QnA 물어보세요</title>
+</head>
+<body class="_layout-hmf">
+<!--  header  -->
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+
+<main class="_main" id="main">
+    <h1 hidden>Qna 페이지 입니다.</h1>
+
+    <div class="table-container">
+        <table>
+            <caption class="">Q&A 페이지 입니다.</caption>
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+                <th>일시</th>
+            </tr>
+            </thead>
+
+            <!--/*@thymesVar id="bbsArticles" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+            <tbody >
+            <tr th:if="${bbsArticles.length == 0}">
+                <th class="article-container" colspan="5" th:text="${'표시할 내용이 없습니다.'}"></th>
+            </tr>
+            <tr th:each="article : ${bbsArticles}">
+                <th th:text="${article.getIndex()}">
+                    <!-- index 글 번호 -->1
+                </th>
+                <td>
+                    <a th:href="@{/qna/read(aid=${article.getIndex()})}">
+                    <span th:text="${article.getTitle()}"><!--title 제목-->제목</span>
+                    <span class="comment" th:text="${' [ ' + 0 + ' ] '}"><!--comments 댓글 수-->< 999 ></span>
+                    </a>
+                </td>
+                <td th:text="${article.getName()}"><!--작성자 작성자 -->관리자</td>
+                <td th:text="${article.getView()}"><!--view 조회수 -->10000</td>
+                <td th:text="${#dates.format(article.getCreatedAt(), 'yyyy-MM-dd')}"><!-- 글생성 일시 일시-->2022-12-13</td>
+            </tr>
+
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;1-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;1-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;1-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;1-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;6-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;6-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;6-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;6-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>-->
+<!--                    &lt;!&ndash; 글 번호 &ndash;&gt;10-->
+<!--                </th>-->
+<!--                <td>-->
+<!--                    <a href="#">&lt;!&ndash;제목&ndash;&gt;제목</a>-->
+<!--                    <span class="comment">&lt;!&ndash;댓글 수&ndash;&gt;< 999 ></span>-->
+<!--                </td>-->
+
+<!--                <td>&lt;!&ndash; 작성자 &ndash;&gt;관리자</td>-->
+<!--                <td>&lt;!&ndash; 조회수 &ndash;&gt;10000</td>-->
+<!--                <td>&lt;!&ndash; 작성 일시&ndash;&gt;2022-12-13</td>-->
+<!--            </tr>-->
+
+
+            </tbody>
+
+            <tfoot>
+            <tr class="search-table">
+                <td colspan="5">
+                    <form name="searchForm" id="search-form">
+                        <label>
+                            <span hidden>검색 기준</span>
+                            <select name="crieria" id="crieria">
+                                <option selected value="titleByContent">제목 + 내용</option>
+                                <option value="byTitle">제목</option>
+                                <option value="byName">작성자</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span hidden class="hint">검색어</span>
+                            <input class="t-input" type="text" maxlength="50" name="keyword" placeholder="무엇이든 물어보세요.">
+                        </label>
+                        <input type="submit" class="t-button" value="검색">
+                        <!--                        <input type="button" class="t-button" value="글쓰기">-->
+                    </form>
+                </td>
+            </tr>
+            <tr class="page-container">
+                <td colspan="5">
+                    <a href="#" target="_self">&lt;&lt;</a>
+                    <a href="#" target="_self">&lt;</a>
+
+                    <a href="#" target="_self"><!-- 요청페이지 앞으로 보일 페이지 수 --></a>
+                    <a href="#" class="cur"><!-- 현재 요청 페이지.-->1</a>
+                    <a><!--요청 페이지 뒤로 보일 페이지 수--></a>
+
+                    <a href="#" target="_self">&gt;</a>
+                    <a href="#" target="_self">&gt;&gt;</a>
+
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</main>
+
+<!--footer-->
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>
