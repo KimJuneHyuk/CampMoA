@@ -6,7 +6,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--/*@thymesVar id="boardId" type="com.example.campmoa.entities.bbs.BoardEntity"*/-->
     <title>캠프모아 무엇이든 질문하세요.</title>
+    <script th:if="boardId == null">
+        alert('존재하지 않는 게시판 입니다.');
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.close();
+        }
+    </script>
 
     <link crossorigin
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css"
@@ -18,12 +27,14 @@
     <script defer th:src="@{/resources/js/common.js}"></script>
     <script defer th:src="@{/qna/js/write.js}"></script>
 </head>
+<!--/*@thymesVar id="boardId" type="com.example.campmoa.entities.bbs.BoardEntity"*/-->
 <body class="_layout-hmf">
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main main">
 
     <form class="form" id="form">
+<!--        <h1 class="title-name" th:text="${boardId.getText()}">글 쓰기</h1>-->
         <input type="hidden" id="email" name="email" th:value="${session.memberUser.getEmail()}">
 <!--        <input type="hidden" id="bid" name="bid" th:value="${board.getId()}">-->
         <label class="_label title-container">
@@ -33,7 +44,7 @@
         <label class="_label">
             <span hidden>게시판 분류</span>
             <select class="boardValue t-input"  name="bid">
-                <!--/*@thymesVar id="bbsBoards" type="com.example.campmoa.entities.bss.BoardEntity[]"*/-->
+                <!--/*@thymesVar id="bbsBoards" type="com.example.campmoa.entities.bbs.BoardEntity[]"*/-->
                 <option th:each="board : ${bbsBoards}"
                         th:value="${board.getId()}"
                         th:selected="${board.getId().equals('qna')}"

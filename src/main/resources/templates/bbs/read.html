@@ -6,7 +6,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>캠프모아 무엇이든 질문하세요.</title>
+    <title>캠프모아 - 읽기(read) 페이지 입니다..</title>
+    <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+    <script th:if="${article == null}">
+        alert('존재하지 않는 게시글 입니다.');
+            window.history.back();
+    </script>
 
     <link crossorigin
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css"
@@ -17,22 +22,26 @@
     <link rel="stylesheet" th:href="@{/qna/css/read.css}">
     <script defer th:src="@{/resources/js/common.js}"></script>
 </head>
-<body class="_layout-hmf">
+<!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+<body class="_layout-hmf" th:if="${article != null}">
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main main">
 <!--        <h1>qna 글 읽 기 페이지 입니다.</h1>-->
     <div class="content-container">
         <div class="content_box">
-            <h1 class="title" id="title">제목입니다.</h1>
-            <div class="content" id="content">내용입니다.</div>
-            <div class="createdAt" id="createdAt"></div>
+            <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+            <h1 class="title" id="title" th:text="${article.getTitle()}" >제목입니다.</h1>
+            <div class="content" id="content" th:text="${article.getContent()}">내용입니다.</div>
+            <div class="createdAt" id="createdAt" th:text="${#dates.format(article.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></div>
         </div>
 
         <aside class="aside">
             <div class="user-container">
                 <span class="thumb"></span>
-                <span class="name" id="name">기무주녁</span>
+                <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+                <span class="name" id="name" th:text="${article.getName()}">기무주녁</span>
+                <span ></span>
             </div>
             <button class="t-button like" id="likeButton"
                 th:data-signed="${session.memberUser != null}"> 좋아요 </button>

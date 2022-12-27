@@ -1,12 +1,13 @@
 package com.example.campmoa.services;
 
-import com.example.campmoa.entities.bss.ArticleEntity;
-import com.example.campmoa.entities.bss.BoardEntity;
+import com.example.campmoa.entities.bbs.ArticleEntity;
+import com.example.campmoa.entities.bbs.BoardEntity;
+import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
 import com.example.campmoa.enums.bbs.WriteResult;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IBbsMapper;
-import org.json.JSONObject;
+import com.example.campmoa.vos.bbs.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,6 @@ public class BbsService {
 //        return boardEntity;
 //    }
 
-
     public Enum<? extends IResult> RegisterBoard (
             ArticleEntity article
     ) {
@@ -43,9 +43,21 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
-
-
+    public ArticleVo[] getArticles () {
+        return this.bbsMapper.selectArticles();
+    }
 
 
 //    ==========================================================================
+//    상세 보기. read
+
+    public ArticleVo readArticle(int index) {
+        ArticleVo existingArticleReadVo = this.bbsMapper.selectArticleByIndex(index);
+        if (existingArticleReadVo != null) {
+            existingArticleReadVo.setView(existingArticleReadVo.getView() +1);
+            this.bbsMapper.updateArticle(existingArticleReadVo);
+        }
+        return existingArticleReadVo;
+    }
+
 }

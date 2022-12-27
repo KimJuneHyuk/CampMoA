@@ -63,8 +63,11 @@ body {
     height: 4rem;
     text-align: center;
 }
+/*#main > .table-container > table > tbody > tr > td > a > tit {*/
+/*    */
+/*}*/
 
-#main > .table-container > table > tbody > tr > td > .comment {
+#main > .table-container > table > tbody > tr > td > a >.comment {
     margin-left: 0.75rem;
     color: rgb(150,150,150);
 }
