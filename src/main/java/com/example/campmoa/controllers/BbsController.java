@@ -1,6 +1,7 @@
 package com.example.campmoa.controllers;
 
 import com.example.campmoa.entities.bbs.ArticleEntity;
+import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
@@ -162,10 +163,25 @@ public class BbsController {
     }
 
 
-//    @RequestMapping(value = "read", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-//    public ModelAndView getRead(ModelAndView modelAndView) {
-//        modelAndView.setViewName("bbs/read");
-//        return modelAndView;
+//    @RequestMapping(value = "articleLiked", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public String postArticleLike(
+//            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+//            ArticleLikeEntity articleLike,
+//            @RequestParam(value = "aid", required = false) int aid
+//    ) {
+//        Enum<?> result;
+//        if (user == null) {
+//            result = WriteResult.NOT_ALLOWED;
+//        } else if (articleLike.getArticleIndex() == 0) {
+//            result = WriteResult.NO_SUCH_BOARD;
+//        } else {
+//            result = this.bbsService.likedArticle(articleLike, user);
+//        }
+//        JSONObject responseJson = new JSONObject();
+//        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+//        responseJson.put("aid", aid);
+//        return responseJson.toString();
 //    }
 
 

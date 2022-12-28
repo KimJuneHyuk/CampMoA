@@ -41,10 +41,11 @@
                 <span class="thumb"></span>
                 <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
                 <span class="name" id="name" th:text="${article.getName()}">기무주녁</span>
-                <span ></span>
+                <i class="icon fa-solid fa-heart"></i>
+                <span class="likeCount">좋아요 꾹~~ :)</span>
             </div>
-            <button class="t-button like" id="likeButton"
-                th:data-signed="${session.memberUser != null}"> 좋아요 </button>
+            <button class="t-button like visible" id="likeButton"
+                th:if="${session.memberUser != null}"> 좋아요.</button>
             <button class="t-button retract" id="retractButton">좋아요 취소하기</button>
             <a class="t-button modify"  id="modifyButton"
             th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"

@@ -1,6 +1,7 @@
 package com.example.campmoa.mappers;
 
 import com.example.campmoa.entities.bbs.ArticleEntity;
+import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
 import com.example.campmoa.vos.bbs.ArticleVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface IBbsMapper {
 
     int insertArticle(ArticleEntity article);
+
+//    int insertArticleLike(ArticleLikeEntity articleLike);
 
     BoardEntity[] selectBoardIdByText();
 

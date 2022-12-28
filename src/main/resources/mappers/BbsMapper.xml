@@ -14,6 +14,12 @@
         VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
     </insert>
 
+<!--    <insert id="insertArticleLike"-->
+<!--    parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
+<!--        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`, `created_at`)-->
+<!--        VALUES ( #{userEmail}, #{articleIndex}, #{createdAt})-->
+<!--    </insert>-->
+
 
     <select id="selectBoardIdByText"
             resultType="com.example.campmoa.entities.bbs.BoardEntity">

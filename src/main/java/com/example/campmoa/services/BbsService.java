@@ -1,6 +1,7 @@
 package com.example.campmoa.services;
 
 import com.example.campmoa.entities.bbs.ArticleEntity;
+import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
@@ -110,6 +111,20 @@ public class BbsService {
                 ? CommonResult.FAILURE
                 : CommonResult.SUCCESS;
     }
+
+    // ================= 좋아요 기능
+
+//    public Enum<? extends IResult> likedArticle(ArticleLikeEntity articleLike, UserEntity user) {
+//        ArticleVo existingArticleLiked = this.bbsMapper.selectArticleByIndex(articleLike.getArticleIndex());
+//        if (existingArticleLiked == null) {
+//            return CommonResult.FAILURE;
+//        }
+//        articleLike.setUserEmail(user.getEmail());
+//        articleLike.setCreatedAt(new Date());
+//        return this.bbsMapper.insertArticleLike(articleLike) > 0
+//                ? CommonResult.SUCCESS
+//                : CommonResult.FAILURE;
+//    }
 
 
 }

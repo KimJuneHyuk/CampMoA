@@ -5,7 +5,13 @@ import java.util.Objects;
 
 public class ArticleLikeEntity {
 
-    private boolean isLike;
+    public  static final String ATTRIBUTE_NAME = "articleLike";
+    public  static final String ATTRIBUTE_NAME_PLURAL = "articleLikes";
+
+    public static ArticleLikeEntity build() {
+        return new ArticleLikeEntity();
+    }
+
     private String userEmail;
     private int articleIndex;
     private Date createdAt;
@@ -13,8 +19,7 @@ public class ArticleLikeEntity {
     public ArticleLikeEntity() {
     }
 
-    public ArticleLikeEntity(boolean isLike, String userEmail, int articleIndex, Date createdAt) {
-        this.isLike = isLike;
+    public ArticleLikeEntity(String userEmail, int articleIndex, Date createdAt) {
         this.userEmail = userEmail;
         this.articleIndex = articleIndex;
         this.createdAt = createdAt;
@@ -33,13 +38,6 @@ public class ArticleLikeEntity {
         return Objects.hash(userEmail, articleIndex);
     }
 
-    public boolean isLike() {
-        return isLike;
-    }
-
-    public void setLike(boolean like) {
-        isLike = like;
-    }
 
     public String getUserEmail() {
         return userEmail;

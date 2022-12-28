@@ -87,6 +87,13 @@ body > .main > .content-container > .aside > .request.visible {
     display: inline-block;
 }
 
+body > .main > .content-container > .aside > .like {
+    display: none;
+}
+body > .main > .content-container > .aside > .like.visible {
+    display: block;
+}
+
 body > .main > .content-container > .aside > .retract {
     background-color: rgb(231, 76, 60);
     display: none;
@@ -150,6 +157,21 @@ body > .main > .content-container > .aside > .user-container > .thumb {
 body > .main > .content-container > .aside > .user-container > .name {
     font-size: 1.125rem;
     font-weight: 500;
+}
+
+body > .main > .content-container > .aside > .user-container .icon {
+    margin-left: 2rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: rgb(255, 67, 53);
+}
+body > .main > .content-container > .aside > .user-container .likeCount {
+    text-align: center;
+    font-size: 1.15rem;
+    color: rgb(200, 67, 53);
+    margin-left: 2rem;
+    font-weight: 400;
 }
 
 ._footer {
