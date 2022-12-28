@@ -46,8 +46,11 @@
             <button class="t-button like" id="likeButton"
                 th:data-signed="${session.memberUser != null}"> 좋아요 </button>
             <button class="t-button retract" id="retractButton">좋아요 취소하기</button>
-            <button class="t-button modify" id="modifyButton">수정하기</button>
-            <button class="t-button delete" id="deleteButton">삭제하기</button>
+            <a class="t-button modify"  id="modifyButton"
+            th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
+            th:href="@{/qna/modify (aid=${article.getIndex()})}">수정하기</a>
+            <button class="t-button delete" id="deleteButton"
+            th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}">삭제하기</button>
         </aside>
     </div>
 

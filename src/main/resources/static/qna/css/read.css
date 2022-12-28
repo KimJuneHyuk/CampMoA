@@ -102,8 +102,11 @@ body > .main > .content-container > .aside > .retract:hover {
 
 body > .main > .content-container > .aside > .modify {
     background-color: rgb(52, 152, 219);
-    display: none;
-}기
+    text-align: center;
+    color: rgb(255,255,255);
+    /*font-weight: 300;*/
+    /*display: none;*/
+}
 
 body > .main > .content-container > .aside > .modify.visible {
     display: block;
@@ -115,7 +118,7 @@ body > .main > .content-container > .aside > .modify:hover {
 
 body > .main > .content-container > .aside > .delete {
     background-color: rgb(231, 76, 60);
-    display: none;
+    /*display: none;*/
 }
 
 body > .main > .content-container > .aside > .delete.visible {
