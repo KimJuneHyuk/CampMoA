@@ -14,25 +14,31 @@ public interface IBbsMapper {
 
     int insertArticle(ArticleEntity article);
 
-//    int insertArticleLike(ArticleLikeEntity articleLike);
-
     BoardEntity[] selectBoardIdByText();
 
     BoardEntity selectBoardById(@Param(value = "id") String id);
 
     ArticleVo[] selectArticles();
 
+
     //    ========================================read 상세보기 페이지.....
     ArticleVo selectArticleByIndex(@Param(value = "index") int index);
-//    {
-//        return this.selectArticleByIndex(index);
-//    }
-//    오버로딩....
-//    ArticleVo selectArticleByIndex (@Param(value = "index") int index,
-//                                    @Param(value = "email") String email);
-
 
     int updateArticle(ArticleEntity article);
 
+//    =========================================== 좋아요 구현부.
 
+    ArticleLikeEntity[] selectArticleLike(@Param(value = "index") int index);
+    boolean insertArticleLike(@Param(value = "index") int index,
+                          @Param(value = "userEmail") String userEmail);
+    boolean deleteArticleLike(@Param(value = "index") int index,
+                          @Param(value = "userEmail") String userEmail);
+    int selectLikeInfo(@Param("aid") int aid);
+
+
+
+//    int insertLike(@Param("aid") int aid,@Param("userEmail") String userEmail);
+//
+//
+//    int deleteLike(@Param("aid")int aid);
 }

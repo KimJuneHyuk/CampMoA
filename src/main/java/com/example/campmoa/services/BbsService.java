@@ -18,11 +18,11 @@ import java.util.Date;
 @Service(value = "com.example.campmoa.services.BbsService")
 public class BbsService {
     private final IBbsMapper bbsMapper;
+
     @Autowired
     public BbsService(IBbsMapper bbsMapper) {
         this.bbsMapper = bbsMapper;
     }
-
 
 
     public BoardEntity[] getBoard() {
@@ -35,7 +35,7 @@ public class BbsService {
 //        return boardEntity;
 //    }
 
-    public Enum<? extends IResult> RegisterBoard (
+    public Enum<? extends IResult> RegisterBoard(
             ArticleEntity article
     ) {
         BoardEntity board = this.bbsMapper.selectBoardById(article.getBoardValue());
@@ -47,7 +47,7 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
-    public ArticleVo[] getArticles () {
+    public ArticleVo[] getArticles() {
         return this.bbsMapper.selectArticles();
     }
 
@@ -58,7 +58,7 @@ public class BbsService {
     public ArticleVo readArticle(int index) {
         ArticleVo existingArticleReadVo = this.bbsMapper.selectArticleByIndex(index);
         if (existingArticleReadVo != null) {
-            existingArticleReadVo.setView(existingArticleReadVo.getView() +1);
+            existingArticleReadVo.setView(existingArticleReadVo.getView() + 1);
             this.bbsMapper.updateArticle(existingArticleReadVo);
         }
         return existingArticleReadVo;
@@ -95,7 +95,7 @@ public class BbsService {
         return CommonResult.SUCCESS;
     }
 
-    public Enum<? extends IResult> modifyArticle (UserEntity user, ArticleEntity article) {
+    public Enum<? extends IResult> modifyArticle(UserEntity user, ArticleEntity article) {
         ArticleEntity exsitingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
         if (exsitingArticle == null) {
             return ModifyArticleResult.NO_SUCH_ARTICLE;
@@ -112,19 +112,24 @@ public class BbsService {
                 : CommonResult.SUCCESS;
     }
 
+
+
+
     // ================= 좋아요 기능
 
-//    public Enum<? extends IResult> likedArticle(ArticleLikeEntity articleLike, UserEntity user) {
-//        ArticleVo existingArticleLiked = this.bbsMapper.selectArticleByIndex(articleLike.getArticleIndex());
-//        if (existingArticleLiked == null) {
-//            return CommonResult.FAILURE;
-//        }
-//        articleLike.setUserEmail(user.getEmail());
-//        articleLike.setCreatedAt(new Date());
-//        return this.bbsMapper.insertArticleLike(articleLike) > 0
-//                ? CommonResult.SUCCESS
-//                : CommonResult.FAILURE;
-//    }
+    public ArticleLikeEntity[] getLikeArticles(int aid) {
+        ArticleLikeEntity[] existingArticleLike = this.bbsMapper.selectArticleLike(aid);
+        System.out.println(existingArticleLike.length);
+        return existingArticleLike;
+    }
+
+    public boolean createArticleLike(int aid, String userEmail) {
+        return this.bbsMapper.insertArticleLike(aid, userEmail);
+    }
+
+    public boolean deleteArticle(int aid, String userEmail) {
+        return this.bbsMapper.deleteArticleLike(aid, userEmail);
+    }
 
 
 }

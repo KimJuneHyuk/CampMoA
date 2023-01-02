@@ -5,6 +5,7 @@ import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
+import com.example.campmoa.enums.bbs.ModifyArticleResult;
 import com.example.campmoa.enums.bbs.WriteResult;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IBbsMapper;
@@ -14,8 +15,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.jws.soap.SOAPBinding;
 
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
 @RequestMapping(value = "/qna")
@@ -123,14 +127,14 @@ public class BbsController {
             @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
             @RequestParam(value = "aid") int aid,
             ArticleEntity article
-            ) {
+    ) {
         article.setIndex(aid);
         Enum<?> result = this.bbsService.modifyArticle(user, article);
         // 위 메서드를 받아오는 메서드의 타입이 Enum 이기 때문에, Enum 타입으로 받아옴
 
         JSONObject responseJson = new JSONObject();
         // Object 타입으로 결과 값을 key: value 를 담아서 js로 결과를 넘겨준다.
-        // 즉            key == result : value == success, Failure, NO_SUCH_ARTICLE...등
+        // 즉            key == result : value == success, Failure, NO_SUCH_ARTICLE...
         responseJson.put("result", result.name().toLowerCase());
         if (result == CommonResult.SUCCESS) {
             responseJson.put("aid", aid);
@@ -153,36 +157,46 @@ public class BbsController {
         ArticleVo article = this.bbsService.readArticle(aid);
         modelAndView.setViewName("bbs/read");
         modelAndView.addObject("article", article);
+//        int likeNum = this.bbsMapper.selectLikeInfo(aid);
+//        modelAndView.addObject("like", likeNum);
 
         if (article != null) {
             BoardEntity board = this.bbsMapper.selectBoardById(article.getBoardValue());
             modelAndView.addObject("board", board);
+//            modelAndView.addObject("liked", article.isArticleLiked());
+//            modelAndView.addObject("likeCount", article.getArticleLikedCount());
         }
-
         return modelAndView;
     }
 
+    //  좋아요 기능 구현
 
-//    @RequestMapping(value = "articleLiked", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public String postArticleLike(
-//            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-//            ArticleLikeEntity articleLike,
-//            @RequestParam(value = "aid", required = false) int aid
-//    ) {
-//        Enum<?> result;
-//        if (user == null) {
-//            result = WriteResult.NOT_ALLOWED;
-//        } else if (articleLike.getArticleIndex() == 0) {
-//            result = WriteResult.NO_SUCH_BOARD;
-//        } else {
-//            result = this.bbsService.likedArticle(articleLike, user);
-//        }
-//        JSONObject responseJson = new JSONObject();
-//        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
-//        responseJson.put("aid", aid);
-//        return responseJson.toString();
-//    }
+    @RequestMapping(value = "article-like", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ArticleLikeEntity[] getArticleLike(
+            @RequestParam(value = "aid", required = false) int aid
+    ) {
+        //1. 모든 like테이블을 읽어오기 (현재 aid와 일치하는 게시물만) => list로 (Vo혹은 Entity형식의)
+        return this.bbsService.getLikeArticles(aid);
+    }
 
+
+    @RequestMapping(value = "article-like", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void postArticleLike(
+            int aid,
+            @RequestParam(value = "userEmail", required = false) String userEmail
+    ) {
+        this.bbsService.createArticleLike(aid, userEmail);
+    }
+
+    @RequestMapping(value = "article-like", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public boolean deleteArticleLike(
+            int aid,
+            @RequestParam(value = "userEmail", required = false) String userEmail
+    ) {
+        return this.bbsService.deleteArticle(aid, userEmail);
+    }
 
 }

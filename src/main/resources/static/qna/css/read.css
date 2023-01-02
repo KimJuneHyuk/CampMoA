@@ -89,9 +89,11 @@ body > .main > .content-container > .aside > .request.visible {
 
 body > .main > .content-container > .aside > .like {
     display: none;
+    text-align: center;
 }
 body > .main > .content-container > .aside > .like.visible {
     display: block;
+
 }
 
 body > .main > .content-container > .aside > .retract {
@@ -159,13 +161,21 @@ body > .main > .content-container > .aside > .user-container > .name {
     font-weight: 500;
 }
 
-body > .main > .content-container > .aside > .user-container .icon {
+body > .main > .content-container > .aside > .user-container .heart {
     margin-left: 2rem;
     text-align: center;
-    font-weight: 500;
+    /*font-weight: 500;*/
     font-size: 1.25rem;
+    font-weight: 500;
     color: rgb(255, 67, 53);
+    background-color: white;
 }
+body > .main > .content-container > .aside > .user-container .heart.visible {
+    /*color: white;*/
+    font-weight: bold;
+    /*background-color: rgb(255, 67, 53);*/
+}
+
 body > .main > .content-container > .aside > .user-container .likeCount {
     text-align: center;
     font-size: 1.15rem;
