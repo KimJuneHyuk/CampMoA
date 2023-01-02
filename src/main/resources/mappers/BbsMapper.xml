@@ -14,6 +14,12 @@
         VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
     </insert>
 
+<!--    <insert id="insertArticleLike"-->
+<!--    parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
+<!--        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`, `created_at`)-->
+<!--        VALUES ( #{userEmail}, #{articleIndex}, #{createdAt})-->
+<!--    </insert>-->
+
 
     <select id="selectBoardIdByText"
             resultType="com.example.campmoa.entities.bbs.BoardEntity">
@@ -49,17 +55,25 @@
 
     <select id="selectArticleByIndex"
             resultType="com.example.campmoa.vos.bbs.ArticleVo">
-        SELECT `index`       AS `index`,
-               `board_value` AS `boardValue`,
-               `user_email`  AS `userEmail`,
-               `title`       AS `title`,
-               `content`     AS `content`,
-               `view`        AS `view`,
-               `created_at`  AS `createdAt`,
-               `user`.`name` AS `name`
+        SELECT `articles`.`index`                       AS `index`,
+               `articles`.`board_value`                 AS `boardValue`,
+               `articles`.`user_email`                  AS `userEmail`,
+               `articles`.`title`                       AS `title`,
+               `articles`.`content`                     AS `content`,
+               `articles`.`view`                        AS `view`,
+               `articles`.`created_at`                  AS `createdAt`,
+               `user`.`name`                            AS `name`,
+               COUNT(`aLikedCount`.`article_index`)     AS `articleLikedCount`,
+               COUNT(`articleLike`.`article_index`) > 0 AS `articleLiked`
         FROM `campmoa-bbs`.`articles`
-                 LEFT JOIN `campmoa_member`.`users` AS `user` on `user`.email = `articles`.`user_email`
+                 LEFT JOIN `campmoa_member`.`users` AS `user`
+                           ON `user`.email = `articles`.`user_email`
+                 LEFT JOIN `campmoa-bbs`.`article_likes` AS `aLikedCount`
+                           ON `articles`.`index` = `aLikedCount`.`article_index`
+                 LEFT JOIN `campmoa-bbs`.`article_likes` AS `articleLike`
+                           ON `articles`.`index` = `articleLike`.`article_index`
         WHERE `articles`.`index` = #{index}
+        GROUP BY `articles`.`index`
         LIMIT 1
     </select>
 
@@ -75,8 +89,51 @@
             `created_at`  = #{createdAt}
         WHERE `index` = #{index}
         LIMIT 1
-
     </update>
+
+<!--  좋아요 작업 구현부.  -->
+    <select id="selectLikeInfo" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity" resultType="_int">
+        SELECT COUNT(*)
+        FROM `campmoa-bbs`.`article_likes`
+        WHERE `article_index` = #{aid}
+    </select>
+
+
+
+    <insert id="insertArticleLike">
+        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`) VALUES ( #{userEmail}, #{index} )
+    </insert>
+
+    <delete id="deleteArticleLike">
+        DELETE
+        FROM `campmoa-bbs`.`article_likes`
+        WHERE `user_email` = #{userEmail}
+          AND `article_index` = #{index}
+    </delete>
+
+
+    <select id="selectArticleLike"
+    resultType="com.example.campmoa.entities.bbs.ArticleLikeEntity">
+        SELECT `user_email`    AS `userEmail`,
+               `article_index` AS `articleIndex`,
+               `created_at`    AS `createdAt`
+        FROM `campmoa-bbs`.`article_likes`
+        WHERE `article_index` = #{index}
+    </select>
+
+<!--    <insert id="insertLike" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
+<!--        insert into `campmoa-bbs`.`article_likes`-->
+<!--            (user_email, article_index, created_at)-->
+<!--        VALUES (#{userEmail}, #{aid}, default)-->
+
+<!--    </insert>-->
+
+<!--    <delete id="deleteLike" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
+<!--        delete-->
+<!--        from `campmoa-bbs`.article_likes-->
+<!--        where article_index = #{aid}-->
+<!--    </delete>-->
+
 
 
 </mapper>

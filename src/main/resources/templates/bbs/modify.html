@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--/*@thymesVar id="boardId" type="com.example.campmoa.entities.bbs.BoardEntity"*/-->
+    <title>캠프모아 질문을 수정하여 등록해주세요.</title>
+    <script th:if="boardId == null">
+        alert('존재하지 않는 게시판 입니다.');
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.close();
+        }
+    </script>
+
+    <link crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css"
+          rel="stylesheet">
+    <!--    fontawsome 스크립트 추가.-->
+    <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/common.css}">
+    <link rel="stylesheet" th:href="@{/qna/css/write.css}">
+    <script defer th:src="@{/resources/js/common.js}"></script>
+    <script defer th:src="@{/qna/js/modify.js}"></script>
+<!--    <script defer th:src="@{/qna/js/write.js}"></script>-->
+<!--    <script defer th:src="@{/qna/js/modify.js}"></script>-->
+</head>
+<!--/*@thymesVar id="boardId" type="com.example.campmoa.entities.bbs.BoardEntity"*/-->
+<body class="_layout-hmf">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<!--/*@thymesVar id="article" type="com.example.campmoa.entities.bbs.ArticleEntity"*/-->
+<main class="_main main">
+
+    <form class="form" id="form">
+        <!--        <h1 class="title-name" th:text="${boardId.getText()}">글 쓰기</h1>-->
+<!--        <input type="hidden" id="email" name="email" th:value="${session.memberUser.getEmail()}">-->
+        <!--        <input type="hidden" id="bid" name="bid" th:value="${board.getId()}">-->
+        <label class="_label title-container">
+            <span>제목</span>
+            <input type="text" class="t-input title" name="title" maxlength="100" placeholder="제목을 입력해 주세요. (100자 이내로)"
+            th:value="${article.getTitle()}">
+        </label>
+        <label class="_label">
+            <span hidden>게시판 분류</span>
+            <select class="boardValue t-input"  name="bid">
+                <option th:text="${article.getBoardValue() + ' - 질문 게시판'}"></option>
+            </select>
+        </label>
+
+        <label class="_label content-container">
+            <span>무엇이든 물어보세요 :)</span>
+            <textarea rows="15" class="t-input content" name="content" maxlength="5000" placeholder="내용을 입력해 주세요. (5000자 이내로 입력해주세요.)"
+            th:text="${article.getContent()}"></textarea>
+        </label>
+
+        <span class="warning" id="warning"></span>
+        <div class="button-container">
+            <input type="button" class="t-button back" name="back" value="돌아가기">
+            <input type="submit" class="t-button" value="수정완료">
+        </div>
+    </form>
+
+</main>
+
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

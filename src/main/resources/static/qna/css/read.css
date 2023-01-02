@@ -87,6 +87,15 @@ body > .main > .content-container > .aside > .request.visible {
     display: inline-block;
 }
 
+body > .main > .content-container > .aside > .like {
+    display: none;
+    text-align: center;
+}
+body > .main > .content-container > .aside > .like.visible {
+    display: block;
+
+}
+
 body > .main > .content-container > .aside > .retract {
     background-color: rgb(231, 76, 60);
     display: none;
@@ -102,8 +111,11 @@ body > .main > .content-container > .aside > .retract:hover {
 
 body > .main > .content-container > .aside > .modify {
     background-color: rgb(52, 152, 219);
-    display: none;
-}기
+    text-align: center;
+    color: rgb(255,255,255);
+    /*font-weight: 300;*/
+    /*display: none;*/
+}
 
 body > .main > .content-container > .aside > .modify.visible {
     display: block;
@@ -115,7 +127,7 @@ body > .main > .content-container > .aside > .modify:hover {
 
 body > .main > .content-container > .aside > .delete {
     background-color: rgb(231, 76, 60);
-    display: none;
+    /*display: none;*/
 }
 
 body > .main > .content-container > .aside > .delete.visible {
@@ -147,6 +159,29 @@ body > .main > .content-container > .aside > .user-container > .thumb {
 body > .main > .content-container > .aside > .user-container > .name {
     font-size: 1.125rem;
     font-weight: 500;
+}
+
+body > .main > .content-container > .aside > .user-container .heart {
+    margin-left: 2rem;
+    text-align: center;
+    /*font-weight: 500;*/
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: rgb(255, 67, 53);
+    background-color: white;
+}
+body > .main > .content-container > .aside > .user-container .heart.visible {
+    /*color: white;*/
+    font-weight: bold;
+    /*background-color: rgb(255, 67, 53);*/
+}
+
+body > .main > .content-container > .aside > .user-container .likeCount {
+    text-align: center;
+    font-size: 1.15rem;
+    color: rgb(200, 67, 53);
+    margin-left: 2rem;
+    font-weight: 400;
 }
 
 ._footer {

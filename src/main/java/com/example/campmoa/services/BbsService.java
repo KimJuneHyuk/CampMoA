@@ -1,9 +1,11 @@
 package com.example.campmoa.services;
 
 import com.example.campmoa.entities.bbs.ArticleEntity;
+import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
+import com.example.campmoa.enums.bbs.ModifyArticleResult;
 import com.example.campmoa.enums.bbs.WriteResult;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IBbsMapper;
@@ -11,14 +13,16 @@ import com.example.campmoa.vos.bbs.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service(value = "com.example.campmoa.services.BbsService")
 public class BbsService {
     private final IBbsMapper bbsMapper;
+
     @Autowired
     public BbsService(IBbsMapper bbsMapper) {
         this.bbsMapper = bbsMapper;
     }
-
 
 
     public BoardEntity[] getBoard() {
@@ -31,7 +35,7 @@ public class BbsService {
 //        return boardEntity;
 //    }
 
-    public Enum<? extends IResult> RegisterBoard (
+    public Enum<? extends IResult> RegisterBoard(
             ArticleEntity article
     ) {
         BoardEntity board = this.bbsMapper.selectBoardById(article.getBoardValue());
@@ -43,7 +47,7 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
-    public ArticleVo[] getArticles () {
+    public ArticleVo[] getArticles() {
         return this.bbsMapper.selectArticles();
     }
 
@@ -54,10 +58,78 @@ public class BbsService {
     public ArticleVo readArticle(int index) {
         ArticleVo existingArticleReadVo = this.bbsMapper.selectArticleByIndex(index);
         if (existingArticleReadVo != null) {
-            existingArticleReadVo.setView(existingArticleReadVo.getView() +1);
+            existingArticleReadVo.setView(existingArticleReadVo.getView() + 1);
             this.bbsMapper.updateArticle(existingArticleReadVo);
         }
         return existingArticleReadVo;
     }
+
+//    =================== read 상세보기 수정 Modify
+
+    public Enum<? extends IResult> prepareModifyArticle(ArticleEntity article, UserEntity user) {
+        if (user == null) {
+            return ModifyArticleResult.NOT_SIGNED;
+            //로그인 하지 않았을 경우
+        }
+        ArticleEntity existingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
+        if (existingArticle == null) {
+            return ModifyArticleResult.NO_SUCH_ARTICLE;
+            // 존재하지 않은 게시물일 경우
+        }
+        if (!existingArticle.getUserEmail().equals(user.getEmail())) {
+            return ModifyArticleResult.NOT_ALLOWED;
+            // 해당 게시물을 작성한 유저와 로그인 한 유저가 동일 유저가 아닐 경우.
+        }
+        // 모든 경우를 제외하면 성공 쿼리를 작성한다.
+
+        // 이걸 사용한 이유는 생성시간과 수정시간을 다르게 표시 하기 위해서 입니다.
+
+        article.setIndex(existingArticle.getIndex());
+        article.setUserEmail(existingArticle.getUserEmail());
+        article.setBoardValue(existingArticle.getBoardValue());
+        article.setTitle(existingArticle.getTitle());
+        article.setContent(existingArticle.getContent());
+        article.setView(existingArticle.getView());
+        article.setCreatedAt(existingArticle.getCreatedAt());
+
+        return CommonResult.SUCCESS;
+    }
+
+    public Enum<? extends IResult> modifyArticle(UserEntity user, ArticleEntity article) {
+        ArticleEntity exsitingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
+        if (exsitingArticle == null) {
+            return ModifyArticleResult.NO_SUCH_ARTICLE;
+        }
+        if (user == null || !user.getEmail().equals(exsitingArticle.getUserEmail())) {
+            return ModifyArticleResult.NOT_ALLOWED;
+        }
+        exsitingArticle.setTitle(article.getTitle());
+        exsitingArticle.setContent(article.getContent());
+        exsitingArticle.setCreatedAt(new Date());
+
+        return this.bbsMapper.updateArticle(exsitingArticle) == 0
+                ? CommonResult.FAILURE
+                : CommonResult.SUCCESS;
+    }
+
+
+
+
+    // ================= 좋아요 기능
+
+    public ArticleLikeEntity[] getLikeArticles(int aid) {
+        ArticleLikeEntity[] existingArticleLike = this.bbsMapper.selectArticleLike(aid);
+        System.out.println(existingArticleLike.length);
+        return existingArticleLike;
+    }
+
+    public boolean createArticleLike(int aid, String userEmail) {
+        return this.bbsMapper.insertArticleLike(aid, userEmail);
+    }
+
+    public boolean deleteArticle(int aid, String userEmail) {
+        return this.bbsMapper.deleteArticleLike(aid, userEmail);
+    }
+
 
 }
