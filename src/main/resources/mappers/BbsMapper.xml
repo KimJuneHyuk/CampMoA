@@ -14,11 +14,11 @@
         VALUES (#{boardValue}, #{userEmail}, #{title}, #{content}, #{view}, default)
     </insert>
 
-<!--    <insert id="insertArticleLike"-->
-<!--    parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
-<!--        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`, `created_at`)-->
-<!--        VALUES ( #{userEmail}, #{articleIndex}, #{createdAt})-->
-<!--    </insert>-->
+    <!--    <insert id="insertArticleLike"-->
+    <!--    parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
+    <!--        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`, `created_at`)-->
+    <!--        VALUES ( #{userEmail}, #{articleIndex}, #{createdAt})-->
+    <!--    </insert>-->
 
 
     <select id="selectBoardIdByText"
@@ -91,7 +91,7 @@
         LIMIT 1
     </update>
 
-<!--  좋아요 작업 구현부.  -->
+    <!--  좋아요 작업 구현부.  -->
     <select id="selectLikeInfo" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity" resultType="_int">
         SELECT COUNT(*)
         FROM `campmoa-bbs`.`article_likes`
@@ -99,9 +99,9 @@
     </select>
 
 
-
     <insert id="insertArticleLike">
-        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`) VALUES ( #{userEmail}, #{index} )
+        INSERT INTO `campmoa-bbs`.`article_likes` (`user_email`, `article_index`)
+        VALUES (#{userEmail}, #{index})
     </insert>
 
     <delete id="deleteArticleLike">
@@ -113,7 +113,7 @@
 
 
     <select id="selectArticleLike"
-    resultType="com.example.campmoa.entities.bbs.ArticleLikeEntity">
+            resultType="com.example.campmoa.entities.bbs.ArticleLikeEntity">
         SELECT `user_email`    AS `userEmail`,
                `article_index` AS `articleIndex`,
                `created_at`    AS `createdAt`
@@ -121,19 +121,52 @@
         WHERE `article_index` = #{index}
     </select>
 
-<!--    <insert id="insertLike" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
-<!--        insert into `campmoa-bbs`.`article_likes`-->
-<!--            (user_email, article_index, created_at)-->
-<!--        VALUES (#{userEmail}, #{aid}, default)-->
 
-<!--    </insert>-->
+    <select id="selectArticleCount"
+            resultType="com.example.campmoa.vos.bbs.ArticleVo">
+        SELECT `index` AS `index`,
+        `board_value` AS `boardValue`,
+        `user_email` AS `userEamil`,
+        `title` AS `title`,
+        `content` AS `content`,
+        `view` AS `view`,
+        `created_at` AS `createdAt`,
+        `users`.`name` AS `userName`
+        FROM `campmoa-bbs`.`articles`
+        LEFT JOIN `campmoa_member`.`users` ON `articles`.`user_email` = `users`.`email`
+        WHERE `board_value` = #{boardId}
+        <if test="criterion != null and criterion.equals('title')">
+            AND REPLACE(`articles`.`title`,' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''),'%')
+        </if>
+        <if test="criterion != null and criterion.equals('all')">
+            AND REPLACE(`articles`.`title`,' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''),'%')
+            OR REPLACE(`articles`.`content`,' ', '') LIKE CONCAT('%', REPLACE(#{keyword}, ' ', ''),'%')
+        </if>
+        <if test="criterion != null and criterion.equals('name')">
+            AND BINARY `users`.`name` = #{keyword}
+        </if>
+        GROUP BY `articles`.`index`
+        ORDER BY `articles`.`index` desc
+        LIMIT #{limit} OFFSET #{offset};
+    </select>
 
-<!--    <delete id="deleteLike" parameterType="com.example.campmoa.entities.bbs.ArticleLikeEntity">-->
-<!--        delete-->
-<!--        from `campmoa-bbs`.article_likes-->
-<!--        where article_index = #{aid}-->
-<!--    </delete>-->
 
 
+    <select id="searchArticles" resultType="com.example.campmoa.vos.bbs.ArticleVo">
+        SELECT * FROM `campmoa-bbs`.`articles`
+        LEFT JOIN `campmoa_member`.`users` ON articles.user_email = users.email
+        WHERE board_value = #{boardId}
+        <if test="criterion !=null and criterion.equals('all')">
+            AND (title LIKE CONCAT('%',#{keyword},'%') OR `users`.`name` LIKE CONCAT('%',#{keyword},'%'))
+        </if>
+        <if test="criterion !=null and criterion.equals('title')">
+            AND title LIKE CONCAT('%',#{keyword},'%')
+        </if>
+        <if test="criterion != null and criterion.equals('name')">
+            AND `users`.`name` LIKE CONCAT('%',#{keyword},'%')
+        </if>
+        ORDER BY `articles`.`index` desc
+        LIMIT ${offset}, ${limit}
+    </select>
 
 </mapper>

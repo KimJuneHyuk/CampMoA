@@ -9,10 +9,12 @@ import com.example.campmoa.enums.bbs.ModifyArticleResult;
 import com.example.campmoa.enums.bbs.WriteResult;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IBbsMapper;
+import com.example.campmoa.models.PagingModel;
 import com.example.campmoa.vos.bbs.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.util.Date;
 
 @Service(value = "com.example.campmoa.services.BbsService")
@@ -35,6 +37,12 @@ public class BbsService {
 //        return boardEntity;
 //    }
 
+
+
+
+
+
+
     public Enum<? extends IResult> RegisterBoard(
             ArticleEntity article
     ) {
@@ -47,9 +55,31 @@ public class BbsService {
                 : CommonResult.FAILURE;
     }
 
+
+
+
+
+    //    ================================================= 페이징 처리
+
+
+    public ArticleVo[] getSearchArticle(String bid,PagingModel paging, String criterion, String keyword) {
+        return bbsMapper.searchArticles(
+                bid,
+                paging.countPerPage,
+                (paging.requestPage-1) * paging.countPerPage,
+                criterion,
+                keyword);
+//        return this.bbsMapper.selectArticles();
+    }
+
     public ArticleVo[] getArticles() {
         return this.bbsMapper.selectArticles();
     }
+
+
+
+
+
 
 
 //    ==========================================================================
@@ -63,6 +93,13 @@ public class BbsService {
         }
         return existingArticleReadVo;
     }
+
+
+
+
+
+
+
 
 //    =================== read 상세보기 수정 Modify
 
@@ -95,6 +132,16 @@ public class BbsService {
         return CommonResult.SUCCESS;
     }
 
+
+
+
+
+
+
+
+
+
+
     public Enum<? extends IResult> modifyArticle(UserEntity user, ArticleEntity article) {
         ArticleEntity exsitingArticle = this.bbsMapper.selectArticleByIndex(article.getIndex());
         if (exsitingArticle == null) {
@@ -115,6 +162,8 @@ public class BbsService {
 
 
 
+
+
     // ================= 좋아요 기능
 
     public ArticleLikeEntity[] getLikeArticles(int aid) {
@@ -127,9 +176,12 @@ public class BbsService {
         return this.bbsMapper.insertArticleLike(aid, userEmail);
     }
 
-    public boolean deleteArticle(int aid, String userEmail) {
+    public boolean cancelArticleLike(int aid, String userEmail) {
         return this.bbsMapper.deleteArticleLike(aid, userEmail);
     }
+
+
+
 
 
 }

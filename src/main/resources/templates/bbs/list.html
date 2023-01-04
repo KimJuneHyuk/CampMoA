@@ -21,12 +21,16 @@
 <!--  header  -->
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
+<!--/*@thymesVar id="paging" type="com.example.campmoa.models.PagingModel"*/-->
+<!--/*@thymesVar id="requestPage" type="com.example.campmoa.models.PagingModel"*/-->
+<!--/*@thymesVar id="bbsArticles" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+
 <main class="_main" id="main">
     <h1 hidden>Qna 페이지 입니다.</h1>
 
     <div class="table-container">
         <table>
-            <caption class="">Q&A 페이지 입니다.</caption>
+            <caption >Q&A 게시판 입니다.</caption>
             <thead>
             <tr>
                 <th>번호</th>
@@ -37,7 +41,7 @@
             </tr>
             </thead>
 
-            <!--/*@thymesVar id="bbsArticles" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+
             <tbody >
             <tr th:if="${bbsArticles.length == 0}">
                 <th class="article-container" colspan="5" th:text="${'표시할 내용이 없습니다.'}"></th>
@@ -65,10 +69,10 @@
                     <form name="searchForm" id="search-form">
                         <label>
                             <span hidden>검색 기준</span>
-                            <select name="criteria" id="criteria">
+                            <select name="criterion" class="--object-input" th:with="criterion = ${#request.getParameter('criterion')}">
                                 <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 내용</option>
-                                <option value="title" th:selected="${criterion == null || criterion.equals('title')}">제목</option>
-                                <option value="name" th:selected="${criterion == null || criterion.equals('name')}">작성자</option>
+                                <option value="title" th:selected="${criterion != null && criterion.equals('title')}">제목</option>
+                                <option value="name" th:selected="${criterion != null && criterion.equals('name')}">작성자</option>
                             </select>
                         </label>
                         <label>
@@ -84,16 +88,13 @@
             </tr>
             <tr class="page-container">
                 <td colspan="5">
-                    <a href="#" target="_self">&lt;&lt;</a>
-                    <a href="#" target="_self">&lt;</a>
+                    <a th:if="${paging.requestPage != paging.minPage}" class="cur" th:href="@{'/qna/list?page=' + ${paging.minPage}}">&laquo; </a>
+                    <span th:each="pageNumber : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                        <a th:if="${paging.requestPage == pageNumber}" class="cur click active" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
 
-                    <a href="#" target="_self"><!-- 요청페이지 앞으로 보일 페이지 수 --></a>
-                    <a href="#" class="cur"><!-- 현재 요청 페이지.-->1</a>
-                    <a><!--요청 페이지 뒤로 보일 페이지 수--></a>
-
-                    <a href="#" target="_self">&gt;</a>
-                    <a href="#" target="_self">&gt;&gt;</a>
-
+                        <a th:if="${paging.requestPage != pageNumber}" class="cur" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
+                    </span>
+                    <a th:if="${paging.requestPage != paging.maxPage}" class="cur" th:href="@{'/qna/list?page=' + ${paging.maxPage}}">&raquo;</a>
                 </td>
             </tr>
             </tfoot>

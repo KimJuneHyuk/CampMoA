@@ -89,6 +89,15 @@ body {
     border: 0.125rem solid rgb(200,200,200);
     transition: 0.2s;
 }
+#main > .table-container > table > tfoot > .page-container > td > span >.cur.active {
+    color: cornflowerblue;
+    font-weight: 900;
+}
+
+#main > .table-container > table > tfoot > .page-container > td > .cur.click.active {
+    color: cornflowerblue;
+    font-weight: 900;
+}
 #main > .table-container > table > tfoot > .page-container > td > .cur:hover {
     border: 0.125rem solid rgb(150,150,150);
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
+import javax.xml.validation.Validator;
 import java.util.List;
 
 @Mapper
@@ -30,16 +31,25 @@ public interface IBbsMapper {
 //    =========================================== 좋아요 구현부.
 
     ArticleLikeEntity[] selectArticleLike(@Param(value = "index") int index);
+
     boolean insertArticleLike(@Param(value = "index") int index,
-                          @Param(value = "userEmail") String userEmail);
+                              @Param(value = "userEmail") String userEmail);
+
     boolean deleteArticleLike(@Param(value = "index") int index,
-                          @Param(value = "userEmail") String userEmail);
-    int selectLikeInfo(@Param("aid") int aid);
+                              @Param(value = "userEmail") String userEmail);
+
+//    int selectLikeInfo(@Param("aid") int aid);
 
 
+    //    ========================================================
+    ArticleVo[] searchArticles(
+            @Param(value = "boardId") String boardId,
+            @Param(value = "limit") int limit,
+            @Param(value = "offset") int offset,
+            @Param(value = "criterion") String criterion,
+            @Param(value = "keyword") String keyword);
 
-//    int insertLike(@Param("aid") int aid,@Param("userEmail") String userEmail);
-//
-//
-//    int deleteLike(@Param("aid")int aid);
+//    int selectArticleByCount(@Param(value = "boardId") String boardId,
+//                             @Param(value = "criterion") String criterion,
+//                             @Param(value = "keyword") String keyword);
 }

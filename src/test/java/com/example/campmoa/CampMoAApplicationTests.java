@@ -13,8 +13,7 @@ class CampMoAApplicationTests {
     private IBbsMapper bbsMapper;
     @Test
     void contextLoads() {
-        Arrays.stream(bbsMapper.selectArticles()).forEach(x -> System.out.println(x.getName()));
-        System.out.println(bbsMapper.selectArticleByIndex(1).getTitle());
+
     }
 
 }

@@ -9,6 +9,7 @@ import com.example.campmoa.enums.bbs.ModifyArticleResult;
 import com.example.campmoa.enums.bbs.WriteResult;
 import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IBbsMapper;
+import com.example.campmoa.models.PagingModel;
 import com.example.campmoa.services.BbsService;
 import com.example.campmoa.vos.bbs.ArticleVo;
 import org.json.JSONObject;
@@ -19,10 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jws.soap.SOAPBinding;
-
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
-@RequestMapping(value = "/qna")
+@RequestMapping(value = "/{bid}")
 public class BbsController {
 
     private final BbsService bbsService;
@@ -36,23 +35,51 @@ public class BbsController {
     }
 
 
+
+
+
+
+
+
     //  게시판 리스트 보기...전체 보기!!!
-    @RequestMapping(value = "list",
+    @RequestMapping(value = "/list",
             method = RequestMethod.GET,
             produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getIndex(
             ModelAndView modelAndView,
-            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            @PathVariable("bid") String bid,
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "criterion", required = false) String criterion,
+            @RequestParam(value = "keyword", required = false) String keyword
     ) {
+//        defaultValue 값을 줌으로써 페이지 1으로 찍히고 있는 상황.
         if (user == null) {
             modelAndView.setViewName("redirect:/member/userLogin");
         } else {
+
             modelAndView.setViewName("bbs/list");
-            ArticleVo[] articles = this.bbsService.getArticles();
+            int totalCount = this.bbsService.getArticles().length;
+            PagingModel paging = new PagingModel(10 , totalCount, page);
+            modelAndView.addObject("paging", paging);
+            ArticleVo[] articles = this.bbsService.getSearchArticle(bid, paging, criterion, keyword);
             modelAndView.addObject(ArticleEntity.ATTRIBUTE_NAME_PLURAL, articles);
+
+            System.out.println(paging.totalCount);
+            System.out.println(paging.requestPage);
+            System.out.println(paging.minPage);
+            System.out.println(paging.startPage);
+            System.out.println(paging.maxPage);
+            System.out.println(paging.endPage);
         }
         return modelAndView;
     }
+
+
+
+
+
+
 
 
     //============================================================================= 글쓰기 write
@@ -73,6 +100,15 @@ public class BbsController {
         }
         return modelAndView;
     }
+
+
+
+
+
+
+
+
+
 
     //write ,method 포스트 방식으로 ajax 반환
     @RequestMapping(value = "write", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -99,6 +135,16 @@ public class BbsController {
         return responseJson.toString();
     }
 
+
+
+
+
+
+
+
+
+
+
 //    ===================================== Modify 게시글 수정하기. 화면에 보여야 되는 부분입니다.
 
     @RequestMapping(value = "modify", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
@@ -121,6 +167,12 @@ public class BbsController {
     }
 
 
+
+
+
+
+
+
     @RequestMapping(value = "modify", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchModify(
@@ -141,6 +193,12 @@ public class BbsController {
         }
         return responseJson.toString();
     }
+
+
+
+
+
+
 
 
 //    ================================================================================= Read
@@ -169,6 +227,14 @@ public class BbsController {
         return modelAndView;
     }
 
+
+
+
+
+
+
+
+
     //  좋아요 기능 구현
 
     @RequestMapping(value = "article-like", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -196,7 +262,18 @@ public class BbsController {
             int aid,
             @RequestParam(value = "userEmail", required = false) String userEmail
     ) {
-        return this.bbsService.deleteArticle(aid, userEmail);
+        return this.bbsService.cancelArticleLike(aid, userEmail);
     }
+
+
+
+
+
+
+
+
+
+
+
 
 }
