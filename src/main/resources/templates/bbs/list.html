@@ -70,7 +70,7 @@
                         <label>
                             <span hidden>검색 기준</span>
                             <select name="criterion" class="--object-input" th:with="criterion = ${#request.getParameter('criterion')}">
-                                <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 내용</option>
+                                <option value="all" th:selected="${criterion == null || criterion.equals('all')}">제목 + 작성자</option>
                                 <option value="title" th:selected="${criterion != null && criterion.equals('title')}">제목</option>
                                 <option value="name" th:selected="${criterion != null && criterion.equals('name')}">작성자</option>
                             </select>
@@ -89,8 +89,9 @@
             <tr class="page-container">
                 <td colspan="5">
                     <a th:if="${paging.requestPage != paging.minPage}" class="cur" th:href="@{'/qna/list?page=' + ${paging.minPage}}">&laquo; </a>
+
                     <span th:each="pageNumber : ${#numbers.sequence(paging.startPage, paging.endPage)}">
-                        <a th:if="${paging.requestPage == pageNumber}" class="cur click active" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
+                        <a th:if="${paging.requestPage == pageNumber}" class="cur active" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
 
                         <a th:if="${paging.requestPage != pageNumber}" class="cur" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
                     </span>

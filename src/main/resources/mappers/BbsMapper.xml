@@ -151,7 +151,7 @@
     </select>
 
 
-
+<!--  페이징 처리 및 검색 기능 메서드-->
     <select id="searchArticles" resultType="com.example.campmoa.vos.bbs.ArticleVo">
         SELECT * FROM `campmoa-bbs`.`articles`
         LEFT JOIN `campmoa_member`.`users` ON articles.user_email = users.email
@@ -168,5 +168,10 @@
         ORDER BY `articles`.`index` desc
         LIMIT ${offset}, ${limit}
     </select>
+
+    <delete id="deleteArticleById"
+    parameterType="com.example.campmoa.entities.bbs.ArticleEntity">
+        DELETE FROM `campmoa-bbs`.`articles` WHERE `index` = #{aid}
+    </delete>
 
 </mapper>

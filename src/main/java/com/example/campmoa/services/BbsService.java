@@ -66,7 +66,9 @@ public class BbsService {
         return bbsMapper.searchArticles(
                 bid,
                 paging.countPerPage,
+//                limit  = 10
                 (paging.requestPage-1) * paging.countPerPage,
+//                2 - 1 = 1 * 10 = 10
                 criterion,
                 keyword);
 //        return this.bbsMapper.selectArticles();
@@ -180,6 +182,10 @@ public class BbsService {
         return this.bbsMapper.deleteArticleLike(aid, userEmail);
     }
 
+//    게시글 삭제하기
+    public void deleteArticle(int aid) {
+       this.bbsMapper.deleteArticleById(aid);
+    }
 
 
 

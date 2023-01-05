@@ -91,6 +91,9 @@ body {
 }
 #main > .table-container > table > tfoot > .page-container > td > span >.cur.active {
     color: cornflowerblue;
+    border-radius: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: 0.125rem solid rgb(200,200,200);
     font-weight: 900;
 }
 

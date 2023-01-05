@@ -6,3 +6,14 @@
 ._header > .content-container > .search-form > .input-container > .icon {
     margin-top: 0.5rem;
 }
+
+._header > .content-container > .search-form > .input-container > .input {
+    display: none;
+}
+
+#yap{
+    display:block;
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}

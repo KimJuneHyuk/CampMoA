@@ -38,6 +38,8 @@ public interface IBbsMapper {
     boolean deleteArticleLike(@Param(value = "index") int index,
                               @Param(value = "userEmail") String userEmail);
 
+    void deleteArticleById(@Param(value = "aid")int aid);
+
 //    int selectLikeInfo(@Param("aid") int aid);
 
 

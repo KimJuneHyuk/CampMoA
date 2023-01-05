@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script th:src="@{/qna/js/jquery-3.6.3.min.js}"></script>
@@ -10,7 +11,17 @@
     <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
     <script th:if="${article == null}">
         alert('존재하지 않는 게시글 입니다.');
-            window.history.back();
+        window.history.back();
+    </script>
+    <script>
+
+        function deleteAlert() {
+            if (confirm("정말로 삭제 하시겠습니까?") === true) {
+               window.location.href= `/qna/delete?aid=${aid}`
+            } else {
+                alert("게시글 삭제를 취소하셨습니다.");
+            }
+        }
     </script>
 
     <link crossorigin
@@ -29,13 +40,14 @@
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main main">
-<!--        <h1>qna 글 읽 기 페이지 입니다.</h1>-->
+    <!--        <h1>qna 글 읽 기 페이지 입니다.</h1>-->
     <div class="content-container">
         <div class="content_box">
-            <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
-            <h1 class="title" id="title" th:text="${article.getTitle()}" >제목입니다.</h1>
+
+            <h1 class="title" id="title" th:text="${article.getTitle()}">제목입니다.</h1>
             <div class="content" id="content" th:text="${article.getContent()}">내용입니다.</div>
-            <div class="createdAt" id="createdAt" th:text="${#dates.format(article.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></div>
+            <div class="createdAt" id="createdAt"
+                 th:text="${#dates.format(article.getCreatedAt(), 'yyyy-MM-dd HH:mm:ss')}"></div>
         </div>
 
         <aside class="aside">
@@ -56,11 +68,13 @@
 
             <button class="t-button like visible" id="likeButton"> 좋아요.</button>
             <button class="t-button retract" id="retractButton">좋아요 취소하기</button>
-            <a class="t-button modify"  id="modifyButton"
-            th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
-            th:href="@{/qna/modify (aid=${article.getIndex()})}">수정하기</a>
+            <a class="t-button modify" id="modifyButton"
+               th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
+               th:href="@{/qna/modify (aid=${article.getIndex()})}">수정하기</a>
             <button class="t-button delete" id="deleteButton"
-            th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}">삭제하기</button>
+               th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
+                onclick="deleteAlert()">삭제하기</button>
+
         </aside>
     </div>
 

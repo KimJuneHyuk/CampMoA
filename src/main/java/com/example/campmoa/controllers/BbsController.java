@@ -35,12 +35,6 @@ public class BbsController {
     }
 
 
-
-
-
-
-
-
     //  게시판 리스트 보기...전체 보기!!!
     @RequestMapping(value = "/list",
             method = RequestMethod.GET,
@@ -60,26 +54,29 @@ public class BbsController {
 
             modelAndView.setViewName("bbs/list");
             int totalCount = this.bbsService.getArticles().length;
-            PagingModel paging = new PagingModel(10 , totalCount, page);
+            PagingModel paging = new PagingModel(10, totalCount, page);
             modelAndView.addObject("paging", paging);
             ArticleVo[] articles = this.bbsService.getSearchArticle(bid, paging, criterion, keyword);
             modelAndView.addObject(ArticleEntity.ATTRIBUTE_NAME_PLURAL, articles);
 
-            System.out.println(paging.totalCount);
-            System.out.println(paging.requestPage);
-            System.out.println(paging.minPage);
-            System.out.println(paging.startPage);
-            System.out.println(paging.maxPage);
-            System.out.println(paging.endPage);
+//            System.out.println(paging.totalCount);
+//            System.out.println(paging.requestPage);
+//            System.out.println(paging.minPage);
+//            System.out.println(paging.startPage);
+//            System.out.println(paging.maxPage);
+//            System.out.println(paging.endPage);
         }
         return modelAndView;
     }
 
 
-
-
-
-
+    @RequestMapping(value = "delete", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public String getDeleteArticle(
+            @RequestParam(value = "aid") int aid,
+            @PathVariable String bid) {
+        bbsService.deleteArticle(aid);
+        return "redirect:/"+bid+"/list";
+    }
 
 
     //============================================================================= 글쓰기 write
@@ -100,14 +97,6 @@ public class BbsController {
         }
         return modelAndView;
     }
-
-
-
-
-
-
-
-
 
 
     //write ,method 포스트 방식으로 ajax 반환
@@ -136,15 +125,6 @@ public class BbsController {
     }
 
 
-
-
-
-
-
-
-
-
-
 //    ===================================== Modify 게시글 수정하기. 화면에 보여야 되는 부분입니다.
 
     @RequestMapping(value = "modify", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
@@ -167,12 +147,6 @@ public class BbsController {
     }
 
 
-
-
-
-
-
-
     @RequestMapping(value = "modify", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchModify(
@@ -193,12 +167,6 @@ public class BbsController {
         }
         return responseJson.toString();
     }
-
-
-
-
-
-
 
 
 //    ================================================================================= Read
@@ -226,13 +194,6 @@ public class BbsController {
         }
         return modelAndView;
     }
-
-
-
-
-
-
-
 
 
     //  좋아요 기능 구현
@@ -264,16 +225,6 @@ public class BbsController {
     ) {
         return this.bbsService.cancelArticleLike(aid, userEmail);
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }
