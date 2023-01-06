@@ -1,6 +1,9 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css");
 ._header > .content-container > .search-form > .input-container {
     margin-bottom: 1.5rem;
-
+}
+._header > .content-container > .search-form > .input-container > .icon {
+    display: none;
 }
 
 ._header > .content-container > .search-form > .input-container > .icon {
