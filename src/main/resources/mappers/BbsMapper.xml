@@ -155,12 +155,12 @@
     <select id="searchArticles" resultType="com.example.campmoa.vos.bbs.ArticleVo">
         SELECT * FROM `campmoa-bbs`.`articles`
         LEFT JOIN `campmoa_member`.`users` ON articles.user_email = users.email
-        WHERE board_value = #{boardId}
+        WHERE `board_value` = #{boardId}
         <if test="criterion !=null and criterion.equals('all')">
-            AND (title LIKE CONCAT('%',#{keyword},'%') OR `users`.`name` LIKE CONCAT('%',#{keyword},'%'))
+            AND (`title` LIKE CONCAT('%',#{keyword},'%') OR `users`.`name` LIKE CONCAT('%',#{keyword},'%'))
         </if>
         <if test="criterion !=null and criterion.equals('title')">
-            AND title LIKE CONCAT('%',#{keyword},'%')
+            AND `title` LIKE CONCAT('%',#{keyword},'%')
         </if>
         <if test="criterion != null and criterion.equals('name')">
             AND `users`.`name` LIKE CONCAT('%',#{keyword},'%')

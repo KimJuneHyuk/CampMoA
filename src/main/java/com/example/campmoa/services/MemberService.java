@@ -52,12 +52,12 @@ public class MemberService {
                 createdAt.getTime(),
                 Math.random(),
                 Math.random()));
-        System.out.println("인증번호 생성 관련 아이들");
-        System.out.println(createdAt);
-        System.out.println(expiresAt);
-        System.out.println(code);
-        System.out.println(salt);
-        System.out.println("====끝====");
+//        System.out.println("인증번호 생성 관련 아이들");
+//        System.out.println(createdAt);
+//        System.out.println(expiresAt);
+//        System.out.println(code);
+//        System.out.println(salt);
+//        System.out.println("====끝====");
 
         contactAuth.setCode(code)
                 .setSalt(salt)
@@ -89,7 +89,7 @@ public class MemberService {
             return CommonResult.FAILURE;
         }
         contactAuth = this.memberMapper.selectContactAuthByContactCodeSalt(contactAuth);
-        System.out.println(contactAuth + "checkContactAuth");
+//        System.out.println(contactAuth + "checkContactAuth");
         if (contactAuth == null) {
             return CommonResult.FAILURE;
         }
@@ -149,6 +149,41 @@ public class MemberService {
                 : CommonResult.DUPLICATE;
     }
 
+
+//    비밀번호 수정을 위해 이메일과 비밀번호로 기존 유조의 존재 여부 체크 하기  checkUserEmailByPassword
+    public IResult checkUserEmailByPassword(String email, String password) {
+        if (email == null ||
+                password == null ||
+                !email.matches(MemberRegex.USER_EMAIL) ||
+                !password.matches(MemberRegex.USER_PASSWORD)) {
+            return CommonResult.FAILURE;
+        }
+        String pw = CryptoUtils.hashSha512(password);
+
+//        user.setPassword(CryptoUtils.hashSha512(user.getPassword()));
+        UserEntity existingUser = this.memberMapper.selectCheckPassword(email, pw);
+        System.out.println(email);
+        System.out.println(pw);
+        System.out.println("디비 쿼리로 읽어 들어온 결과 :" + existingUser);
+        if (existingUser == null) {
+            return CommonResult.FAILURE;
+        }
+        if (existingUser.getStatusValue().equals("SUS")) {
+            return CommonResult.SUSPENDED;
+        }
+        if (existingUser.getStatusValue().equals("RES")) {
+            return CommonResult.RESIGNED;
+        }
+
+        return CommonResult.SUCCESS;
+
+    }
+
+
+
+
+
+
     public ContactCountryEntity[] getContactCountries() {
         return this.memberMapper.selectContactCountries();
     }
@@ -184,10 +219,10 @@ public class MemberService {
         }
 
         user.setPassword(CryptoUtils.hashSha512(user.getPassword()));
-        System.out.println(user.getPassword());
+//        System.out.println(user.getPassword());
         UserEntity existingUser = this.memberMapper.selectUserByEmailPassword(user);
 
-        System.out.println(existingUser);
+//        System.out.println(existingUser);
         if (existingUser == null) {
             return CommonResult.FAILURE;
         }
@@ -200,7 +235,7 @@ public class MemberService {
                 .setStatusValue(existingUser.getStatusValue())
                 .setRegisterAt(existingUser.getRegisterAt());
 
-        System.out.println(user);
+//        System.out.println(user);
         if (user.getStatusValue().equals("SUS")) {
             return CommonResult.SUSPENDED;
         }

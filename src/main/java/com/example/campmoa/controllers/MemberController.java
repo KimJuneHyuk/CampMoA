@@ -9,6 +9,7 @@ import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.services.MemberService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -127,10 +128,31 @@ public class MemberController {
 //    ===============================================================================================
 
     @RequestMapping(value = "myPage", method = RequestMethod.GET)
-    public ModelAndView getMyPage (ModelAndView modelAndView) {
+    public ModelAndView getMyPage(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user
+            , ModelAndView modelAndView) {
+        if (user == null) {
+            modelAndView.setViewName("member.userLogin");
+        }
         modelAndView.setViewName("member/myPage");
         return modelAndView;
     }
+
+    @RequestMapping(value = "userPasswordCheck", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postRecoverPassword(
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "password", required = false) String password
+    ) {
+        IResult result = this.memberService.checkUserEmailByPassword(email, password);
+        System.out.println("비밀번호 수정 버튼 클릭시 결과 : " + result);
+        JSONObject responseJson = new JSONObject();
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
+
+
+
 
 
 //===================================================================================================
@@ -178,8 +200,6 @@ public class MemberController {
         session.removeAttribute(UserEntity.ATTRIBUTE_NAME);
         modelAndView.setViewName("member/userLogin");
         return modelAndView;
-
-
 
 
     }

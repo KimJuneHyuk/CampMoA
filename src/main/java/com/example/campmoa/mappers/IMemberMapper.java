@@ -5,6 +5,7 @@ import com.example.campmoa.entities.member.ContactCountryEntity;
 import com.example.campmoa.entities.member.EmailAuthEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface IMemberMapper {
@@ -16,7 +17,15 @@ public interface IMemberMapper {
     ContactAuthEntity selectContactAuthByContactCodeSalt(ContactAuthEntity contactAuth);
     UserEntity selectUserByContact(UserEntity user);
     UserEntity selectUserByEmail(UserEntity user);
+//    UserEntity selectUserEmailByPassword(UserEntity user);
+
+
+    UserEntity selectCheckPassword(@Param(value = "email") String email,
+                                   @Param(value = "password") String password);
     UserEntity selectUserByEmailPassword(UserEntity user);
+
+
+
     ContactCountryEntity[] selectContactCountries();
 
 

@@ -66,9 +66,8 @@ public class BbsService {
         return bbsMapper.searchArticles(
                 bid,
                 paging.countPerPage,
-//                limit  = 10
                 (paging.requestPage-1) * paging.countPerPage,
-//                2 - 1 = 1 * 10 = 10
+//                6 -1 = 5 * 10 = 50 ~ 59
                 criterion,
                 keyword);
 //        return this.bbsMapper.selectArticles();

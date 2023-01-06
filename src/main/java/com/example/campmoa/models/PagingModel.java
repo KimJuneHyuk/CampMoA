@@ -4,8 +4,8 @@ public class PagingModel {
     public final int countPerPage; //페이지당 표시할 게시글의 개수   10
     public final int totalCount; //전체 게시글 개수
     public final int requestPage; //요청한 페이지 번호          2
-    public final int maxPage; //이동 가능한 최대 페이지
-    public final int minPage; //이동 가능한 최소 페이지
+    public final int maxPage; //이동 가능한 최대 페이지 == 30
+    public final int minPage; //이동 가능한 최소 페이지 == 1
     public final int startPage; //표시 시작 페이지         요청 페이지 기준으로 앞으로 4
     public final int endPage; //표시 끝 페이지            뒤로 4개
     public final int beforeAfterCount = 4;
@@ -23,9 +23,9 @@ public class PagingModel {
         this.minPage = 1;
 
         this.startPage = (requestPage - beforeAfterCount) < 1 ? minPage : (requestPage - beforeAfterCount) ;
-//      2 - 1 =  4/10 = 0.4 * 10 = 4 + 1 = 5
+//      2 - 1 =  4/10 = 0.4 * 10 = 4 + 1 = 5   /// 6 - 4 = 2 < 1    ===      2,3,4,5
         this.endPage = Math.min((requestPage + beforeAfterCount), maxPage);
-//                                   1 + 3 = 4 , max =  3
+//                                   1 + 3 = 4 , max =  3        6 = 10 , 30   / 7,8,9,10
     }
 
 

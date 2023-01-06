@@ -42,11 +42,20 @@
                 <h1>회원정보</h1>
                 <img th:src="@{/resources/images/elmo.jpeg}" class="rounded-circle" alt="Cinque Terre" id="yap">
                 <input type="text" class="form-control-plaintext" placeholder="캠프모아에 오신것을 환영합니다." style="margin-bottom:30px">
-                <input type="text" class="form-control" placeholder="이메일" style="margin-bottom:30px" disabled>
-                <input type="text" class="form-control" placeholder="이름" style="margin-bottom:30px" disabled>
-                <input type="text" class="form-control" placeholder="연락처" style="margin-bottom:30px" disabled>
+                <input type="text" class="form-control" placeholder="이메일" th:value="${session.memberUser.getEmail()}" style="margin-bottom:30px" disabled>
+                <input type="text" class="form-control" placeholder="이름" style="margin-bottom:30px" th:value="${session.memberUser.getName()}" disabled>
+                <input type="text" class="form-control" placeholder="연락처" style="margin-bottom:30px" th:value="${session.memberUser.getContact()}" disabled>
             </div>
             <hr>
+
+
+
+
+
+
+
+
+
             <div class="container tab-pane active">
                 <h1>비밀번호 변경</h1>
                 <input type="text" class="form-control-plaintext" placeholder="비밀번호를 변경합니다." style="margin-bottom:30px">
@@ -55,8 +64,18 @@
                     <label class="form-check-label" for="mySwitch">비밀번호 수정</label>
                 </div>
                 <div class="container tab-pane active" >
-                    <form>
-                        <input type="text" class="form-control" id="NewPw1" placeholder="현재 비밀번호" style="margin-bottom:30px" disabled>
+                    <form id="form">
+                        <div class="oldPasswordCheck" id="oldPasswordCheck">
+                            <input type="hidden" name="email" th:value="${session.memberUser.getEmail()}">
+
+                            <input type="password" class="form-control" name="password" id="NewPw1" placeholder="현재 비밀번호" style="margin-bottom:30px" disabled>
+
+                            <input type="button" name="oldPwCheckBtn"  id="oldPwCheckBtn" class=" btn btn-warning btn-sm pull-right" value="비밀번호 확인" onclick="checkPassword()">
+                            </input>
+                        </div>
+
+                        <span class="warning" id="warning"></span>
+
                         <input type="text" class="form-control" id="NewPw2" placeholder="수정 할 비밀번호" style="margin-bottom:30px" disabled>
                         <input type="text" class="form-control" id="NewPw3" placeholder="수정 할 비밀번호 확인" style="margin-bottom:30px" disabled>
                         <button type="submit" class="btn btn-success btn-sm">비밀번호 변경</button>

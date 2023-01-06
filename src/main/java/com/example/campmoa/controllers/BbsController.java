@@ -53,7 +53,7 @@ public class BbsController {
         } else {
 
             modelAndView.setViewName("bbs/list");
-            int totalCount = this.bbsService.getArticles().length;
+            int totalCount = this.bbsService.getArticles().length;  // 전체 게시글 수
             PagingModel paging = new PagingModel(10, totalCount, page);
             modelAndView.addObject("paging", paging);
             ArticleVo[] articles = this.bbsService.getSearchArticle(bid, paging, criterion, keyword);

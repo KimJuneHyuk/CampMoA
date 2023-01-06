@@ -72,6 +72,22 @@
         LIMIT 1
     </select>
 
+    <select id="selectCheckPassword"
+            parameterType="com.example.campmoa.entities.member.UserEntity"
+            resultType="com.example.campmoa.entities.member.UserEntity">
+        SELECT `email`                 AS `email`,
+               `password`              AS `password`,
+               `name`                  AS `name`,
+               `contact_country_value` AS `contactCountryValue`,
+               `contact`               AS `contact`,
+               `status_value`          AS `statusValue`,
+               `register_at`           AS `registerAt`
+        FROM `campmoa_member`.`users`
+        WHERE `email` = #{email}
+          AND `password` = #{password}
+        LIMIT 1
+    </select>
+
     <select id="selectUserByEmailPassword"
             parameterType="com.example.campmoa.entities.member.UserEntity"
             resultType="com.example.campmoa.entities.member.UserEntity">

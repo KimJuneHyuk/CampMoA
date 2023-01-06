@@ -88,7 +88,7 @@
             </tr>
             <tr class="page-container">
                 <td colspan="5">
-                    <a th:if="${paging.requestPage != paging.minPage}" class="cur" th:href="@{'/qna/list?page=' + ${paging.minPage}}">&laquo; </a>
+                    <a th:if="${paging.requestPage != paging.minPage}" class="cur" th:href="@{'/qna/list?page=' + ${paging.minPage}}"> &laquo; </a>
 
                     <span th:each="pageNumber : ${#numbers.sequence(paging.startPage, paging.endPage)}">
                         <a th:if="${paging.requestPage == pageNumber}" class="cur active" th:href="@{'/qna/list?page=' + ${pageNumber}}">[[${pageNumber}]]</a>
