@@ -54,6 +54,10 @@ function checkPassword() {
                         pw1.setAttribute('disabled', 'disabled');
                         pw2.removeAttribute('disabled');
                         pw3.removeAttribute('disabled');
+                        if(!Btn.checked){
+                            pw2.setAttribute('disabled','disabled');
+                            pw3.setAttribute('disabled','disabled');
+                        }
                         break;
                     case 'suspended':
                         Warning.show('이용이 정지된 회원입니다.')
