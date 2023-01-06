@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!--/*@thymesVar id="article" type="com.example.campmoa.vos.bbs.ArticleVo"*/-->
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script th:src="@{/qna/js/jquery-3.6.3.min.js}"></script>
@@ -17,7 +18,8 @@
 
         function deleteAlert() {
             if (confirm("정말로 삭제 하시겠습니까?") === true) {
-               window.location.href= `/qna/delete?aid=${aid}`
+                window.location.href = `/qna/delete?page=${paging}&aid=${aid}`;
+                // window.history.back();
             } else {
                 alert("게시글 삭제를 취소하셨습니다.");
             }
@@ -63,6 +65,8 @@
 
             <form id="form">
                 <input type="hidden" th:id="aid" th:name="aid" th:value="${article.getIndex()}">
+                <!--/*@thymesVar id="paging" type="com.example.campmoa.models.PagingModel"*/-->
+                <input type="hidden" th:id="page" th:name="page" th:value="${paging.requestPage}">
                 <input type="hidden" th:id="userEmail" th:name="userEmail" th:value="${session.memberUser.getEmail()}">
             </form>
 
@@ -72,8 +76,9 @@
                th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
                th:href="@{/qna/modify (aid=${article.getIndex()})}">수정하기</a>
             <button class="t-button delete" id="deleteButton"
-               th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
-                onclick="deleteAlert()">삭제하기</button>
+                    th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
+                    onclick="deleteAlert()">삭제하기
+            </button>
 
         </aside>
     </div>

@@ -51,7 +51,7 @@
                     <!-- index 글 번호 -->1
                 </th>
                 <td>
-                    <a th:href="@{/qna/read(aid=${article.getIndex()})}">
+                    <a th:href="@{/qna/read (page=${paging.requestPage},aid=${article.getIndex()})}">
                     <span th:text="${article.getTitle()}"><!--title 제목-->제목</span>
                     <span class="comment" th:text="${' [ ' + 0 + ' ] '}"><!--comments 댓글 수-->< 999 ></span>
                     </a>

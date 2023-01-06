@@ -80,6 +80,7 @@
 // }
 const form = document.getElementById('form');
 const aid = form.getElementsByTagName('input').item(0).value;
+const paging = window.document.getElementById('page').value;
 const userEmail = form.getElementsByTagName('input').item(1).value;
 const likeCountSpan = document.getElementsByClassName('likeCount').item(0);
 const heart = document.getElementsByClassName('heart').item(0);

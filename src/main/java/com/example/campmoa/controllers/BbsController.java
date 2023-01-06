@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.SmartView;
 
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
 @RequestMapping(value = "/{bid}")
@@ -73,9 +74,13 @@ public class BbsController {
     @RequestMapping(value = "delete", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getDeleteArticle(
             @RequestParam(value = "aid") int aid,
-            @PathVariable String bid) {
+            @PathVariable String bid,
+            @RequestParam String page
+//            ModelAndView modelAndView
+            ) {
         bbsService.deleteArticle(aid);
-        return "redirect:/"+bid+"/list";
+//        modelAndView.addObject("page", page);
+        return "redirect:/"+bid+"/list?page=" + page;
     }
 
 
@@ -175,7 +180,8 @@ public class BbsController {
     public ModelAndView getRead(
             @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
             @RequestParam(value = "aid", required = false) int aid,
-            ModelAndView modelAndView
+            ModelAndView modelAndView,
+            @RequestParam(value = "page") String page
     ) {
         if (user == null) {
             modelAndView.setViewName("redirect:/member/userLogin");
@@ -188,6 +194,10 @@ public class BbsController {
 
         if (article != null) {
             BoardEntity board = this.bbsMapper.selectBoardById(article.getBoardValue());
+//            PagingModel paging = new
+            int totalCount = this.bbsService.getArticles().length;  // 전체 게시글 수
+            PagingModel paging = new PagingModel(10, totalCount, Integer.parseInt(page));
+            modelAndView.addObject("paging", paging);
             modelAndView.addObject("board", board);
 //            modelAndView.addObject("liked", article.isArticleLiked());
 //            modelAndView.addObject("likeCount", article.getArticleLikedCount());
