@@ -99,7 +99,7 @@ body > .main > .form > .geo-container > .sub-container > .sub > .country {
 }
 
 body > .main > .form > .geo-container > .sub-container > .sub > .country[selected] {
-    color: rgb(var(--concept-color-green));
+    color: rgb(229, 120, 31);
     font-weight: 500;
 }
 
@@ -118,9 +118,10 @@ body > .main > .form > .geo-container > .sub-container > .sub > .region-containe
 }
 
 body > .main > .form > .geo-container > .sub-container > .sub > .region-container > .region[selected] {
-    color: rgb(var(--concept-color-green));
+    color: rgb(238, 72, 72);
+    font-size: 1.125rem;
     cursor: default;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 body > .main > .form > .date-container {

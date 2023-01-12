@@ -1,8 +1,8 @@
 package com.example.campmoa.services;
 
-import com.example.campmoa.entities.acconpany.AccArticleEntity;
-import com.example.campmoa.entities.acconpany.CountryEntity;
-import com.example.campmoa.entities.acconpany.ContinentEntity;
+import com.example.campmoa.entities.acconpany.*;
+import com.example.campmoa.enums.CommonResult;
+import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.mappers.IAccMapper;
 import com.example.campmoa.mappers.IMemberMapper;
 import com.example.campmoa.vos.accompany.AccArticleSearchVo;
@@ -23,8 +23,22 @@ public class AccompanyService {
     public ContinentEntity[] getContinents() {
         return this.accMapper.selectContinents();
     }
-    public CountryEntity[] getCities() {
-        return this.accMapper.selectCities();
+    public CountryEntity[] getCountries() {
+        return this.accMapper.selectCountries();
+    }
+
+    public RegionEntity[] getRegions() {
+        return this.accMapper.selectRegions();
+    }
+
+    public ImageEntity getImage(int index) {
+        return this.accMapper.selectImageByIndex(index);
+    }
+
+    public IResult uploadImage(ImageEntity image) {
+        return this.accMapper.insertImage(image) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 
     public AccArticleEntity getArticle(int index) {
@@ -33,8 +47,14 @@ public class AccompanyService {
 
 
 
-    public AccArticleSearchVo[] searchArticles(CountryEntity city, int lastArticleIndex) {
-        return this.accMapper.selectArticlesForSearch(city, lastArticleIndex);
+    public AccArticleSearchVo[] searchArticles(RegionEntity region, int lastArticleIndex) {
+        return this.accMapper.selectArticlesForSearch(region, lastArticleIndex);
+    }
+
+    public IResult putArticle(AccArticleEntity article) {
+        return this.accMapper.insertArticle(article) > 0
+                ? CommonResult.SUCCESS
+                : CommonResult.FAILURE;
     }
 
 

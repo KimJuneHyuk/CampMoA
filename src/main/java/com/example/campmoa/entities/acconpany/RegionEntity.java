@@ -3,8 +3,8 @@ package com.example.campmoa.entities.acconpany;
 import java.util.Objects;
 
 public class RegionEntity {
-    public static final String ATTRIBUTE_NAME = "accRegion";
-    public static final String ATTRIBUTE_NAME_PLURAL = "accRegions";
+    public static final String ATTRIBUTE_NAME = "accompanyRegion";
+    public static final String ATTRIBUTE_NAME_PLURAL = "accompanyRegions";
 
     public static RegionEntity build() {
         return new RegionEntity();

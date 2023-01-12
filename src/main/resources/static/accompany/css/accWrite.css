@@ -104,7 +104,7 @@ body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .coun
 }
 
 body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .country[selected] {
-    color: rgb(var(--concept-color-green));
+    color: rgb(229, 120, 31);
     font-weight: 500;
 }
 
@@ -118,14 +118,18 @@ body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .regi
 
 body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .region-container > .region {
     color: rgb(var(--body-color-inactive));
+
     cursor: pointer;
+    /*font-size: 1.125rem;*/
     padding: 1.375rem 1rem;
 }
 
 body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .region-container > .region[selected] {
-    color: rgb(var(--concept-color-green));
+    color: rgb(238, 72, 72);
     cursor: default;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 700;
+    /*font-weight: 500;*/
 }
 
 body > .main > .form > .geo-box > .cap-container {

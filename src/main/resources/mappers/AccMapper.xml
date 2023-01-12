@@ -11,7 +11,8 @@
                `article`.`user_email`         AS `userEmail`,
                `article`.`created_at`         AS `createdAt`,
                `article`.`continent_value`    AS `continentValue`,
-               `article`.`city_value`         AS `countryValue`,
+               `article`.`country_value`      AS `countryValue`,
+               `article`.`region_value`       AS `regionValue`,
                `article`.`capacity`           AS `capacity`,
                `article`.`date_from`          AS `dateFrom`,
                `article`.`date_to`            AS `dateTo`,
@@ -21,7 +22,8 @@
         FROM `campmoa_accompany`.`articles` AS `article`
                  LEFT JOIN `campmoa_member`.`users` AS `user` ON `article`.`user_email` = `user`.`email`
         WHERE `article`.`continent_value` = #{region.continentValue}
-          AND `article`.`city_value` LIKE IFNULL(#{region.value}, '%')
+          AND `article`.`country_value` = #{region.countryValue}
+          AND `article`.`region_value` LIKE IFNULL(#{region.value}, '%')
           AND IF(#{lastArticleIndex} < 0, -2, `article`.`index`) < #{lastArticleIndex}
         ORDER BY `article`.`index` DESC
         LIMIT 8
@@ -36,12 +38,22 @@
         ORDER BY `text`
     </select>
 
-    <select id="selectCities"
+    <select id="selectCountries"
             resultType="com.example.campmoa.entities.acconpany.CountryEntity">
         SELECT `continent_value` AS `continentValue`,
                `value`           AS `value`,
                `text`            AS `text`
-        FROM `campmoa_accompany`.`cities`
+        FROM `campmoa_accompany`.`countries`
+        ORDER BY `text`
+    </select>
+
+    <select id="selectRegions"
+            resultType="com.example.campmoa.entities.acconpany.RegionEntity">
+        SELECT `continent_value` AS `continentValue`,
+               `country_value`   AS `countryValue`,
+               `value`           AS `value`,
+               `text`            AS `text`
+        FROM `campmoa_accompany`.`regions`
         ORDER BY `text`
     </select>
 
@@ -51,7 +63,8 @@
                `user_email`       AS `userEmail`,
                `created_at`       AS `createdAt`,
                `continent_value`  AS `continentValue`,
-               `city_value`       AS `cityValue`,
+               `country_value`    AS `countryValue`,
+               `region_value`     AS `regionValue`,
                `capacity`         AS `capacity`,
                `date_from`        AS `dateFrom`,
                `date_to`          AS `dateTo`,
@@ -64,5 +77,45 @@
         LIMIT 1
     </select>
 
+    <select id="selectImageByIndex"
+            resultType="com.example.campmoa.entities.acconpany.ImageEntity">
+        SELECT `index`      AS `index`,
+               `user_email` AS `userEmail`,
+               `created_at` AS `createdAt`,
+               `name`       AS `name`,
+               `mime`       AS `mime`,
+               `data`       AS `data`
+        FROM `campmoa_accompany`.`images`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+
+    <!--    ==============================================    -->
+    <insert id="insertArticle"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.acconpany.AccArticleEntity">
+        INSERT INTO `campmoa_accompany`.`articles` (`user_email`,
+                                                    `created_at`, `continent_value`, `country_value`,
+                                                    `region_value`, `capacity`,
+                                                    `date_from`,
+                                                    `date_to`,
+                                                    `cover_image`,
+                                                    `cover_image_mime`, `title`,
+                                                    `content`)
+        VALUES (#{userEmail}, #{createdAt}, #{continentValue}, #{countryValue}, #{regionValue}, #{capacity},
+                #{dateFrom}, #{dateTo}, #{coverImage}, #{coverImageMime}, #{title}, #{content})
+    </insert>
+
+    <insert id="insertImage"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.acconpany.ImageEntity">
+        INSERT INTO `campmoa_accompany`.`images` (`user_email`, `created_at`, `name`, `mime`, `data`)
+        VALUES (#{userEmail}, #{createdAt}, #{name}, #{mime}, #{data})
+    </insert>
 
 </mapper>
