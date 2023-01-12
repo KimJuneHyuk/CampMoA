@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>캠프모아 여행 친구 찾기</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/accompany/css/index.css}">
+    <script defer th:src="@{/accompany/js/index.js}"></script>
+</head>
+<body class="_layout-hmf">
+
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+
+<div class="banner">
+    <span class="small-text">
+        나와 맡는 캠핑 동행과 이야기를 나누어 보아요.
+    </span>
+    <span class="big-text">캠핑 친구 찾기</span>
+</div>
+<main class="_main main">
+    <form class="form" id="form">
+        <div class="geo-container">
+            <div class="continent-container" id="continentContainer">
+            </div>
+            <div class="sub-container" id="subContainer">
+            </div>
+        </div>
+        <div class="date-container">
+            <span class="text">날짜 선택</span>
+            <label class="date-container">
+                <span hidden>시작 날짜 선택</span>
+                <input class="t-input" name="dateFrom" placeholder="시작 날짜 선택" type="date">
+            </label>
+            <span class="dash">-</span>
+            <label class="date-container">
+                <span hidden>종료 날짜 선택</span>
+                <input class="t-input" name="dateTo" placeholder="종료 날짜 선택" type="date">
+            </label>
+            <input class="t-button button" type="submit" value="검색하기">
+        </div>
+    </form>
+    <div class="accompany-container" id="accompanyContainer">
+
+    </div>
+    <div class="more t-button" id="more">더 불러오기</div>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

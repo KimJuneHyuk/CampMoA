@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>캠프모아 동행 글쓰기</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+    <link rel="stylesheet" th:href="@{/accompany/css/accWrite.css}">
+    <script defer th:src="@{/resources/libraries/ckeditor/ckeditor.js}"></script>
+    <script defer th:src="@{/accompany/js/accWrite.js}"></script>
+</head>
+<body class="_layout-hmf">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+<div class="banner">
+    <span class="small-text">나와 맞는 캠핑 동행과 이야기를 나누어 보아요!</span>
+    <span class="big-text">캠핑 친구 찾기</span>
+</div>
+<main class="_main main">
+    <form class="form" enctype="multipart/form-data" id="form">
+        <div class="geo-box">
+            <div class="geo-container">
+                <div class="continent-container" id="continentContainer">
+<!--                    <div class="continent" data-set="EC" value="강원도"></div>-->
+                </div>
+
+
+                <div class="sub-container" id="subContainer"></div>
+            </div>
+            <div class="cap-container">
+                <span class="text">모집 인원</span>
+                <label class="cap-container">
+                    <span hidden>모집 인원</span>
+                    <input class="cap-input" min="1" max="20" name="capacity" step="1" type="range" value="1">
+                </label>
+                <span class="cap-value" id="capValue">1명</span>
+            </div>
+            <div class="date-container">
+                <span class="text">날짜 선택</span>
+                <label class="date-container">
+                    <span hidden>시작 날짜 선택</span>
+                    <input class="t-input" name="dateFrom" placeholder="시작 날짜 선택" type="date">
+                </label>
+                <span class="dash">-</span>
+                <label class="date-container">
+                    <span hidden>종료 날짜 선택</span>
+                    <input class="t-input" name="dateTo" placeholder="종료 날짜 선택" type="date">
+                </label>
+            </div>
+        </div>
+        <input accept="image/*" hidden name="coverImage" type="file">
+        <div class="cover-image-container">
+            <div class="no-cover-image visible" id="noCoverImage">배경사진을 선택해 주세요.</div>
+            <img class="cover-image-preview" id="coverImagePreview">
+        </div>
+        <label class="_object-label">
+            <span hidden>제목</span>
+            <input class="t-input" maxlength="100" name="title" placeholder="제목을 입력해 주세요. (100자 이내)" type="text">
+        </label>
+        <label class="content-container">
+            <span hidden>내용</span>
+            <textarea class="t-input content" maxlength="1000" name="content" placeholder="내용을 입력해 주세요. (1000자 이내)"></textarea>
+        </label>
+        <span class="warning" id="warning"></span>
+        <div class="button-container">
+            <input class="t-button back" name="back" type="button" value="돌아가기">
+            <input class="t-button" type="submit" value="작성완료">
+        </div>
+    </form>
+</main>
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+</html>

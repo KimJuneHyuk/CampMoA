@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.campmoa.mappers.IAccMapper">
+
+
+    <!--    동행 페이지에 들어갔을떄 게시판 처럼 처음 보여지는 페이지.-->
+    <select id="selectArticlesForSearch"
+            resultType="com.example.campmoa.vos.accompany.AccArticleSearchVo">
+                <![CDATA[
+        SELECT `article`.`index`              AS `index`,
+               `article`.`user_email`         AS `userEmail`,
+               `article`.`created_at`         AS `createdAt`,
+               `article`.`continent_value`    AS `continentValue`,
+               `article`.`city_value`         AS `countryValue`,
+               `article`.`capacity`           AS `capacity`,
+               `article`.`date_from`          AS `dateFrom`,
+               `article`.`date_to`            AS `dateTo`,
+               `article`.`title`              AS `title`,
+               LEFT(`article`.`content`, 100) AS `content`,
+               `user`.`name`                  AS `userName`
+        FROM `campmoa_accompany`.`articles` AS `article`
+                 LEFT JOIN `campmoa_member`.`users` AS `user` ON `article`.`user_email` = `user`.`email`
+        WHERE `article`.`continent_value` = #{region.continentValue}
+          AND `article`.`city_value` LIKE IFNULL(#{region.value}, '%')
+          AND IF(#{lastArticleIndex} < 0, -2, `article`.`index`) < #{lastArticleIndex}
+        ORDER BY `article`.`index` DESC
+        LIMIT 8
+        ]]>
+    </select>
+
+    <select id="selectContinents"
+            resultType="com.example.campmoa.entities.acconpany.ContinentEntity">
+        SELECT `value` AS `value`,
+               `text`  AS `text`
+        FROM `campmoa_accompany`.`continents`
+        ORDER BY `text`
+    </select>
+
+    <select id="selectCities"
+            resultType="com.example.campmoa.entities.acconpany.CountryEntity">
+        SELECT `continent_value` AS `continentValue`,
+               `value`           AS `value`,
+               `text`            AS `text`
+        FROM `campmoa_accompany`.`cities`
+        ORDER BY `text`
+    </select>
+
+    <select id="selectArticleByIndex"
+            resultType="com.example.campmoa.entities.acconpany.AccArticleEntity">
+        SELECT `index`            AS `index`,
+               `user_email`       AS `userEmail`,
+               `created_at`       AS `createdAt`,
+               `continent_value`  AS `continentValue`,
+               `city_value`       AS `cityValue`,
+               `capacity`         AS `capacity`,
+               `date_from`        AS `dateFrom`,
+               `date_to`          AS `dateTo`,
+               `cover_image`      AS `coverImage`,
+               `cover_image_mime` AS `coverImageMime`,
+               `title`            AS `title`,
+               `content`          AS `content`
+        FROM `campmoa_accompany`.`articles`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </select>
+
+
+</mapper>
