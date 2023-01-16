@@ -17,14 +17,13 @@ import java.security.NoSuchAlgorithmException;
 
 @Component
 public class SmsComponent {
-    private static final String ACCESS_KEY = "llFk3tl3DjAco5TFe9Nf";
+    private static final String ACCESS_KEY =
 //    sns 접속 키 :: ncp 등록시 생성됨.
-    private static final String SECRET_KEY = "zeDujkQcxnKNtOtEuBq8vyoNTQYNvXGIGyko0Rkf";
+    private static final String SECRET_KEY = 
 //     ncp 등록시 생성됨.
-    private static final String SERVICE_ID = "ncp:sms:kr:292567621184:study";
+    private static final String SERVICE_ID = 
     //     ncp 등록시 생성됨.
-    private static final String CALLER = "01065659172"; //발신자 번호.;;
-
+    private static final String CALLER = 
     public int send(String to, String content)
             throws NoSuchAlgorithmException, InvalidKeyException, IOException {
         long timestamp = System.currentTimeMillis();
