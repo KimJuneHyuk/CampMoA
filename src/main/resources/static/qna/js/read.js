@@ -81,12 +81,13 @@
 const form = document.getElementById('form');
 const aid = form.getElementsByTagName('input').item(0).value;
 const paging = window.document.getElementById('page').value;
-const userEmail = form.getElementsByTagName('input').item(1).value;
+const userEmail = form.getElementsByTagName('input').item(2).value;
 const likeCountSpan = document.getElementsByClassName('likeCount').item(0);
 const heart = document.getElementsByClassName('heart').item(0);
 console.log(heart)
 const likeBtn = document.getElementById('likeButton');
 const likeCancelBtn = document.getElementById('retractButton');
+console.log(userEmail)
 
 //처음 페이지 접속 시
 get_like_data();
@@ -137,8 +138,11 @@ function post_like_data(){
     xhr.open('POST', `/qna/article-like?userEmail=${userEmail}&aid=${aid}`);
     xhr.send();
     xhr.onload = () => {
+        console.log(userEmail)
         if (xhr.readyState === XMLHttpRequest.DONE) {
+            count_like(userEmail)
             if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(userEmail)
                 get_like_data();
             }
         }

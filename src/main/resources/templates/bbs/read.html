@@ -72,9 +72,10 @@
 
             <button class="t-button like visible" id="likeButton"> 좋아요.</button>
             <button class="t-button retract" id="retractButton">좋아요 취소하기</button>
+            <!--/*@thymesVar id="paging" type="com.example.campmoa.models.PagingModel"*/-->
             <a class="t-button modify" id="modifyButton"
                th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
-               th:href="@{/qna/modify (aid=${article.getIndex()})}">수정하기</a>
+               th:href="@{/qna/modify (page=${paging.requestPage},aid=${article.getIndex()})}">수정하기</a>
             <button class="t-button delete" id="deleteButton"
                     th:if="${session.memberUser.getEmail().equals(article.getUserEmail())}"
                     onclick="deleteAlert()">삭제하기

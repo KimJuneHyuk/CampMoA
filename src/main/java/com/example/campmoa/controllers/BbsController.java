@@ -12,6 +12,7 @@ import com.example.campmoa.mappers.IBbsMapper;
 import com.example.campmoa.models.PagingModel;
 import com.example.campmoa.services.BbsService;
 import com.example.campmoa.vos.bbs.ArticleVo;
+import org.apache.catalina.User;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +21,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.SmartView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
 @RequestMapping(value = "/{bid}")
@@ -157,6 +161,7 @@ public class BbsController {
     public String patchModify(
             @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
             @RequestParam(value = "aid") int aid,
+            @RequestParam(value = "page") String page,
             ArticleEntity article
     ) {
         article.setIndex(aid);
@@ -169,6 +174,7 @@ public class BbsController {
         responseJson.put("result", result.name().toLowerCase());
         if (result == CommonResult.SUCCESS) {
             responseJson.put("aid", aid);
+            responseJson.put("page", page);
         }
         return responseJson.toString();
     }
@@ -181,8 +187,10 @@ public class BbsController {
             @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
             @RequestParam(value = "aid", required = false) int aid,
             ModelAndView modelAndView,
-            @RequestParam(value = "page") String page
-    ) {
+            @RequestParam(value = "page") String page,
+            @SessionAttribute(value = "page" ,required = false) PagingModel pagingModel,
+            HttpServletRequest request
+            ) {
         if (user == null) {
             modelAndView.setViewName("redirect:/member/userLogin");
         }
@@ -191,6 +199,8 @@ public class BbsController {
         modelAndView.addObject("article", article);
 //        int likeNum = this.bbsMapper.selectLikeInfo(aid);
 //        modelAndView.addObject("like", likeNum);
+
+        HttpSession session = request.getSession();
 
         if (article != null) {
             BoardEntity board = this.bbsMapper.selectBoardById(article.getBoardValue());
@@ -201,6 +211,7 @@ public class BbsController {
             modelAndView.addObject("board", board);
 //            modelAndView.addObject("liked", article.isArticleLiked());
 //            modelAndView.addObject("likeCount", article.getArticleLikedCount());
+            session.setAttribute("pagingModel", pagingModel);
         }
         return modelAndView;
     }
@@ -212,6 +223,7 @@ public class BbsController {
     @ResponseBody
     public ArticleLikeEntity[] getArticleLike(
             @RequestParam(value = "aid", required = false) int aid
+//            @RequestParam(value = "userEmail", required = false) String userEmail
     ) {
         //1. 모든 like테이블을 읽어오기 (현재 aid와 일치하는 게시물만) => list로 (Vo혹은 Entity형식의)
         return this.bbsService.getLikeArticles(aid);
@@ -225,6 +237,8 @@ public class BbsController {
             @RequestParam(value = "userEmail", required = false) String userEmail
     ) {
         this.bbsService.createArticleLike(aid, userEmail);
+        System.out.println(aid);
+        System.out.println(userEmail);
     }
 
     @RequestMapping(value = "article-like", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -14,7 +14,6 @@ import com.example.campmoa.vos.bbs.ArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.PublicKey;
 import java.util.Date;
 
 @Service(value = "com.example.campmoa.services.BbsService")
@@ -174,7 +173,7 @@ public class BbsService {
     }
 
     public boolean createArticleLike(int aid, String userEmail) {
-        return this.bbsMapper.insertArticleLike(aid, userEmail);
+       return this.bbsMapper.insertArticleLike(aid, userEmail);
     }
 
     public boolean cancelArticleLike(int aid, String userEmail) {

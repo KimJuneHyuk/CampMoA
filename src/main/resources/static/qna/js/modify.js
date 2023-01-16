@@ -3,6 +3,7 @@ console.log(form['title']);
 console.log(form['bid']);
 console.log(form['content']);
 console.log(form['email']);
+// const page = window.document.getElementById('page');
 
 const Warning = {
     getElement: () => document.getElementById('warning'),
@@ -53,7 +54,8 @@ form.onsubmit = e => {
                     case 'success':
                         confirm('수정하시겠습니까?');
                         const aid = responseJson['aid'];
-                        window.location.href = `read?aid=${aid}`;
+                        const page = responseJson['page']
+                        window.location.href = `read?page=${page}&aid=${aid}`;
                         break;
                     default:
                         Warning.show('알수 없는 이유로 게시글 수정을 하지 못하였습니다.  //  //  xhr.open(\'PATCH\', window.location.href');
