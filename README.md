@@ -1,7 +1,10 @@
 # CampMoA
-CampMoA
-
-
+---
+- 프론트 및 JSP 관련 공부 자료
+https://www.notion.so/invite/64788b6e1a4fadcbf4de2798c2a51c72c87f85f3
+- spring boot 및 DB & java 공부 자료
+https://velog.io/@hyukkk90
+---
 ## 캠핑 정보 공유 커뮤니티 사이트 & 캠핑 동행을 구하여 함께 캠핑을 다닐 수 있도록 만들기위한 페이지.
 
 ---
