@@ -17,8 +17,7 @@ CampMoA
 * 회원가입
   - 1. 문자인증 API 사용.
   - 2. 회원가입시 정규식 & 암호화 단방향 암호화 처리.
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png">
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png"><img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
   
   ---
   
