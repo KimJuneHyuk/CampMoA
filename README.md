@@ -59,17 +59,21 @@ CampMoA
   - 글 읽기.     (완료)
   - 글 수정.     (완료)
   - 글 삭제.     (완료)
-  - 좋아요       (Ajax 구현)   (완료)
+  - 좋아요       (완료)
   - 페이징 처리.   (완료)
 
-
   - 댓글 기능 구현 예정.  ( 진행 예정. )
+![image](https://user-images.githubusercontent.com/109578385/212902180-f4525c08-b85a-428d-b9d6-d3f71cf6826e.png)
+![image](https://user-images.githubusercontent.com/109578385/212902416-8350e27f-6f5c-40f7-87fe-fb1e3ea25320.png)
+![image](https://user-images.githubusercontent.com/109578385/212902497-2e7526c0-ed5c-40cf-a342-e95e8bc8ca13.png)
+
 
 
 * 동행 구하기 게시판(진행중인 상태)
   - CKediter API 사용.
-  - 동행 글 작성.
-  - 동행 글 상세보기 읽기.
+  - 동행 글 작성. (완료)
+  - 동행글 게시판 (완료)
+  - 동행 글 상세보기 읽기. ( 진행중 ) 
   - 동행 글 수정.
   - 동행 글 삭제.
   - 동행 신청.
