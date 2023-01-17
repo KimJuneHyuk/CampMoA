@@ -49,6 +49,10 @@ CampMoA
   - 비밀번호 수정 기능 추가.  ( 완료. )
     - 현재비밀번호를 다시 입력하여 회원가입된 비밀번호와 같은지 비교 후 같다면 새로운 비밀번호 설정을 할수 있도록 하였습니다.
 
+![image](https://user-images.githubusercontent.com/109578385/212901658-8ac4b1ab-e0c0-4238-b631-027f8b6b3041.png)
+![image](https://user-images.githubusercontent.com/109578385/212901810-eb03ab5f-2e8e-4e98-98e6-7ee9a20b46e4.png)
+
+
 
 * 게시판
   - 글 작성.     (완료)
