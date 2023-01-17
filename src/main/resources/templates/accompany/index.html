@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>캠프모아 여행 친구 찾기</title>
+
     <th:block th:insert="~{fragments/head.html :: content}"></th:block>
 
     <link rel="stylesheet" th:href="@{/accompany/css/index.css}">
     <script defer th:src="@{/accompany/js/index.js}"></script>
 </head>
+
 <body class="_layout-hmf">
 
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
@@ -40,11 +42,14 @@
             <input class="t-button button" type="submit" value="검색하기">
         </div>
     </form>
+
     <div class="accompany-container" id="accompanyContainer">
 
     </div>
+
     <div class="more t-button" id="more">더 불러오기</div>
 </main>
 <th:block th:replace="~{fragments/footer.html :: content}"></th:block>
 </body>
+
 </html>

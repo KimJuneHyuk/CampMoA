@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>캠프모아 여행 친구 찾기</title>
+    <th:block th:insert="~{fragments/head.html :: content}"></th:block>
+
+    <link rel="stylesheet" th:href="@{/accompany/css/read.css}">
+    <script defer th:src="@{/accompany/js/read.js}"></script>
+</head>
+
+<body class="_layout-hmf">
+<th:block th:replace="~{fragments/header.html :: content}"></th:block>
+
+<main class="_main main">
+    <img alt="" class="cover-image" id="coverImage">
+    <div class="content-container">
+        <div class="content">
+            <h1 class="title" id="title"></h1>
+            <div class="spec-container">
+                <span class="row">
+                    <span class="caption">지역</span>
+                    <span class="value region" id="region"></span>
+                    <span class="caption">모집인원</span>
+                    <span class="value capacity" id="capacity"></span>
+                </span>
+                <span class="row">
+                    <span class="value date-from" id="dateFrom"></span>
+                    <span class="dash">~</span>
+                    <span class="value date-to" id="dateTo"></span>
+                </span>
+            </div>
+            <div class="content" id="content"></div>
+            <div class="created-at" id="createdAt"></div>
+        </div>
+        <aside class="aside">
+            <div class="user-container">
+                <span class="thumbnail"></span>
+                <span class="name" id="name">닉네임 자리</span>
+            </div>
+            <button class="t-button request" id="requestButton"
+                    th:data-signed="${session.memberUser != null}">동행 신청하기</button>
+            <button class="t-button retract" id="retractButton">동행 신청 취소하기</button>
+            <button class="t-button modify" id="modifyButton">수정하기</button>
+            <button class="t-button delete" id="deleteButton">삭제하기</button>
+        </aside>
+    </div>
+</main>
+
+<th:block th:replace="~{fragments/footer.html :: content}"></th:block>
+</body>
+
+</html>
+
+

@@ -29,5 +29,10 @@ public interface IMemberMapper {
     ContactCountryEntity[] selectContactCountries();
 
 
+    int updateExistingPassword(@Param(value = "email") String email,
+                               @Param(value = "password") String password);
+
     int updateContactAuth(ContactAuthEntity contactAuth);
+
+    UserEntity selectUserByName(String userEmail);
 }

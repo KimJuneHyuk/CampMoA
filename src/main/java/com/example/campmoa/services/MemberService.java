@@ -1,7 +1,6 @@
 package com.example.campmoa.services;
 
 
-
 import com.example.campmoa.components.MailComponent;
 import com.example.campmoa.components.SmsComponent;
 import com.example.campmoa.entities.member.ContactAuthEntity;
@@ -37,16 +36,16 @@ public class MemberService {
         this.mailComponent = mailComponent;
     }
 
-//   연락처 인증 생성 부분.......contactAuthEntity 관련 메서드
+    //   연락처 인증 생성 부분.......contactAuthEntity 관련 메서드
     @Transactional
-    protected IResult createContactAuth (ContactAuthEntity contactAuth) throws RollbackException, NoSuchAlgorithmException, IOException, InvalidKeyException {
+    protected IResult createContactAuth(ContactAuthEntity contactAuth) throws RollbackException, NoSuchAlgorithmException, IOException, InvalidKeyException {
         if (contactAuth.getContact() == null || !contactAuth.getContact().matches(MemberRegex.USER_CONTACT)) {
             return CommonResult.FAILURE;
         }
         Date createdAt = new Date();
         Date expiresAt = DateUtils.addMinutes(createdAt, 5);
         String code = RandomStringUtils.randomNumeric(6);
-        String salt = CryptoUtils.hashSha512(String.format("%s%s%d%f%f" ,
+        String salt = CryptoUtils.hashSha512(String.format("%s%s%d%f%f",
                 contactAuth.getContact(),
                 code,
                 createdAt.getTime(),
@@ -79,7 +78,7 @@ public class MemberService {
 
 
     @Transactional
-    public IResult checkContactAuth (ContactAuthEntity contactAuth) throws RollbackException {
+    public IResult checkContactAuth(ContactAuthEntity contactAuth) throws RollbackException {
         if (contactAuth.getContact() == null ||
                 contactAuth.getCode() == null ||
                 contactAuth.getSalt() == null ||
@@ -105,9 +104,9 @@ public class MemberService {
         return CommonResult.SUCCESS;
     }
 
-//    ===========================================================
+    //    ===========================================================
     @Transactional
-    public CommonResult createUser (ContactAuthEntity contactAuth, UserEntity user) throws RollbackException {
+    public CommonResult createUser(ContactAuthEntity contactAuth, UserEntity user) throws RollbackException {
         if (contactAuth.getContact() == null ||
                 contactAuth.getCode() == null ||
                 contactAuth.getSalt() == null ||
@@ -150,7 +149,7 @@ public class MemberService {
     }
 
 
-//    비밀번호 수정을 위해 이메일과 비밀번호로 기존 유조의 존재 여부 체크 하기  checkUserEmailByPassword
+    //    비밀번호 수정을 위해 이메일과 비밀번호로 기존 유조의 존재 여부 체크 하기  checkUserEmailByPassword
     public IResult checkUserEmailByPassword(String email, String password) {
         if (email == null ||
                 password == null ||
@@ -180,10 +179,6 @@ public class MemberService {
     }
 
 
-
-
-
-
     public ContactCountryEntity[] getContactCountries() {
         return this.memberMapper.selectContactCountries();
     }
@@ -210,7 +205,7 @@ public class MemberService {
 //  ==========================================================================
 
     @Transactional
-    public IResult loginUser (UserEntity user) {
+    public IResult loginUser(UserEntity user) {
         if (user.getEmail() == null ||
                 user.getPassword() == null ||
                 !user.getEmail().matches(MemberRegex.USER_EMAIL) ||
@@ -245,4 +240,27 @@ public class MemberService {
         return CommonResult.SUCCESS;
     }
 
+    @Transactional
+    public IResult recoverPassword(String email, String password) {
+        if (email == null ||
+                password == null ||
+                !email.matches(MemberRegex.USER_EMAIL) ||
+                !password.matches(MemberRegex.USER_PASSWORD)) {
+            return CommonResult.FAILURE;
+        }
+
+        String hashPassword = CryptoUtils.hashSha512(password);
+        int status = this.memberMapper.updateExistingPassword(email, hashPassword);
+
+        if (status == 0) {
+            return CommonResult.FAILURE;
+        }
+
+        return CommonResult.SUCCESS;
+    }
+
+
+    public UserEntity getUser(String userEmail) {
+        return this.memberMapper.selectUserByName(userEmail);
+    }
 }

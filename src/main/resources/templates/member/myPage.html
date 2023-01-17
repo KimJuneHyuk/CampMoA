@@ -12,6 +12,9 @@
     <link rel="stylesheet" th:href="@{/member/css/myPage.css}">
 
     <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
     <script th:src="@{/member/js/myPage.js}" defer></script>
     <script defer th:src="@{/resources/js/common.js}"></script>
 </head>
@@ -61,8 +64,8 @@
 
 
             <div class="container tab-pane active">
-                <h1>비밀번호 변경</h1>
-                <input type="text" class="form-control-plaintext" placeholder="비밀번호를 변경합니다." style="margin-bottom:30px">
+<!--                <h1>비밀번호 변경</h1>-->
+<!--                <input type="text" class="form-control-plaintext" placeholder="비밀번호를 변경합니다." style="margin-bottom:30px">-->
                 <div class="form-check form-switch" style="margin-bottom:30px">
                     <input class="form-check-input" type="checkbox" id="mySwitch" name="pwEdit" value="yes">
                     <label class="form-check-label" for="mySwitch">비밀번호 수정</label>
@@ -80,9 +83,9 @@
 
                         <span class="warning" id="warning"></span>
 
-                        <input type="text" class="form-control" id="NewPw2" placeholder="수정 할 비밀번호" style="margin-bottom:30px" disabled>
-                        <input type="text" class="form-control" id="NewPw3" placeholder="수정 할 비밀번호 확인" style="margin-bottom:30px" disabled>
-                        <button type="submit" class="btn btn-success btn-sm">비밀번호 변경</button>
+                        <input type="password" class="form-control" id="NewPw2" placeholder="수정 할 비밀번호" style="margin-bottom:30px" disabled>
+                        <input type="password" class="form-control" id="NewPw3" placeholder="수정 할 비밀번호 확인" style="margin-bottom:30px" disabled>
+                        <button id="recoverBtn" type="submit" class="btn btn-success btn-sm">비밀번호 변경</button>
                         <a th:href="@{/}" type="reset" class="btn btn-warning btn-sm">뒤로가기</a>
                     </form>
                 </div>

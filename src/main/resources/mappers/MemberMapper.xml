@@ -104,6 +104,21 @@
         LIMIT 1
     </select>
 
+    <select id="selectUserByName"
+    parameterType="com.example.campmoa.entities.member.UserEntity"
+    resultType="com.example.campmoa.entities.member.UserEntity">
+        SELECT `name` AS `name` from `campmoa_member`.`users` where `email` = #{userEmail} limit 1
+    </select>
+
+    <update id="updateExistingPassword"
+    parameterType="com.example.campmoa.entities.member.UserEntity">
+        update `campmoa_member`.`users`
+        set `password` = #{password}
+        where `email` = #{email}
+    </update>
+
+
+
     <update id="updateContactAuth"
             parameterType="com.example.campmoa.entities.member.ContactAuthEntity">
         UPDATE `campmoa_member`.`contact_auths`

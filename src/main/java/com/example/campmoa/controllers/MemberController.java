@@ -125,7 +125,7 @@ public class MemberController {
         modelAndView.setViewName("member/userRegisterDone");
         return modelAndView;
     }
-//    ===============================================================================================
+//    =============================================================================================== 개인정보 수정으로 인한 비빌번호 변경.
 
     @RequestMapping(value = "myPage", method = RequestMethod.GET)
     public ModelAndView getMyPage(
@@ -151,10 +151,23 @@ public class MemberController {
         return responseJson.toString();
     }
 
+    @RequestMapping(value = "userRecoverPassword", method = RequestMethod.PATCH)
+    @ResponseBody
+    public String patchRecoverPassword(
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "password") String password
+    ) {
+        IResult result = this.memberService.recoverPassword(email, password);
+        System.out.println("=============================");
+        System.out.println(result);
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println("========================--====");
 
-
-
-
+        JSONObject responseJson = new JSONObject();
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
 
 
 //===================================================================================================

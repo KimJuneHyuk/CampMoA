@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -40,8 +41,6 @@ public class AccompanyController {
         this.accompanyService = accompanyService;
         this.memberService = memberService;
     }
-
-
 
 
 
@@ -74,6 +73,7 @@ public class AccompanyController {
         return responseJson.toString();
     }
 
+
     @RequestMapping(value = "/", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String patchIndex() throws JsonProcessingException {
@@ -85,6 +85,7 @@ public class AccompanyController {
             continentJson.put("text", continent.getText());
             continentsJson.put(continentJson);
         }
+
         JSONArray countriesJson = new JSONArray();
         for (CountryEntity country : this.accompanyService.getCountries()) {
             JSONObject countryJson = new JSONObject();
@@ -93,6 +94,7 @@ public class AccompanyController {
             countryJson.put("text", country.getText());
             countriesJson.put(countryJson);
         }
+
         JSONArray regionsJson = new JSONArray();
         for (RegionEntity region : this.accompanyService.getRegions()) {
             JSONObject regionJson = new JSONObject();
@@ -102,6 +104,7 @@ public class AccompanyController {
             regionJson.put("text", region.getText());
             regionsJson.put(regionJson);
         }
+
         JSONObject responseJson = new JSONObject();
         responseJson.put(ContinentEntity.ATTRIBUTE_NAME_PLURAL, continentsJson);
         responseJson.put(CountryEntity.ATTRIBUTE_NAME_PLURAL, countriesJson);
@@ -152,7 +155,6 @@ public class AccompanyController {
     }
 
 
-
     @RequestMapping(value = "write", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postWrite(
@@ -196,6 +198,8 @@ public class AccompanyController {
         return new ResponseEntity<>(image.getData(), headers, HttpStatus.OK);
     }
 
+
+
     @RequestMapping(value = "image", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postImage(
@@ -218,6 +222,39 @@ public class AccompanyController {
             errorJson.put("message", "이미지 업로드에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
             responseJson.put("error", errorJson);
         }
+        return responseJson.toString();
+    }
+
+
+//    글 상세보기
+@RequestMapping(value = "read/{id}", method = RequestMethod.GET)
+public ModelAndView getRead(@PathVariable(value = "id") int id,
+                            ModelAndView modelAndView) {
+    modelAndView.setViewName("accompany/read");
+    return modelAndView;
+}
+
+    @RequestMapping(value = "read/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postRead(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            @PathVariable(value = "id") int id,
+            HttpServletResponse response
+    ) throws JsonProcessingException {
+        AccArticleEntity article = this.accompanyService.getArticle(id);
+        if (article == null) {
+            response.setStatus(404);
+            return null;
+        }
+        article.setCoverImage(null)
+                .setCoverImageMime(null);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject responseJson = new JSONObject(objectMapper.writeValueAsString(article));
+
+        UserEntity articleUser = this.memberService.getUser(article.getUserEmail());
+        responseJson.put("userName", articleUser.getName());
+        responseJson.put("mine", user != null && (user.equals(articleUser)));
         return responseJson.toString();
     }
 

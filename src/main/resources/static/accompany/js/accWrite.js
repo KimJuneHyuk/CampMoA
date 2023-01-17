@@ -128,6 +128,10 @@ const setSelectedCountry = (value) => {
         .setAttribute('selected', 'selected');
 };
 
+
+
+
+
 const getSelectedRegion = () => {
     const selectedContinent = getSelectedContinent()['value'];
     const selectedCountry = getSelectedCountry()['value'];
@@ -140,6 +144,10 @@ const getSelectedRegion = () => {
         x['countryValue'] === selectedCountry &&
         x['value'] === selectedRegion);
 };
+
+
+
+
 const setSelectedRegion = (value) => {
     subContainer
         .querySelectorAll('.region[data-value]')
@@ -193,8 +201,10 @@ const coverImagePreview = window.document.getElementById('coverImagePreview');
 coverImagePreview.addEventListener('click', () => {
     form['coverImage'].click();
 });
+
+
 form['coverImage'].addEventListener('input', () => {
-    if ((form['coverImage'].files?.length ?? 0) === 0) {
+    if ((form['coverImage'].files?.length ?? 0 ) === 0) {
         noCoverImage.classList.add('visible');
         coverImagePreview.removeAttribute('src');
         return;
@@ -203,9 +213,11 @@ form['coverImage'].addEventListener('input', () => {
     noCoverImage.classList.remove('visible');
 });
 
+
 form['back'].addEventListener('click', () => {
     window.location.href = './';
 });
+
 
 form.onsubmit = e => {
     e.preventDefault();

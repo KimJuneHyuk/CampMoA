@@ -2,7 +2,8 @@ const Btn = document.getElementById("mySwitch");
 const pw1 = document.querySelector("#NewPw1");
 const pw2 = document.querySelector("#NewPw2");
 const pw3 = document.querySelector("#NewPw3");
-const Form = window.document.getElementById('form');
+const form = window.document.getElementById('form');
+const recoverBtn = window.document.getElementById("recoverBtn");
 
 const Warning = {
     getElement: () => document.getElementById('warning'),
@@ -29,6 +30,62 @@ Btn.addEventListener('input', function () {
 
     checkPassword();
 });
+
+
+recoverBtn.addEventListener('click', e => {
+    e.preventDefault();
+    // alert("클릭")
+
+    const email = form['email'].value;
+    const password = form['NewPw2'].value;
+    const newPwCheck = form['NewPw3'].value;
+
+    if (password === '') {
+        Warning.show('새로운 비밀번호를 입력해 주세요.');
+        form['NewPw2'].focus();
+        form['NewPw2'].select();
+        return false;
+    }
+
+    if (newPwCheck === '') {
+        Warning.show('비밀번호 설정 확인 을 입력해 주세요.');
+        form['NewPw3'].focus();
+        form['NewPw3'].select();
+        return false;
+    }
+
+    if (password !== newPwCheck) {
+        Warning.show('비밀번호가 다릅니다. 다시 입력해주세요.')
+        return false;
+    }
+
+    if (password === newPwCheck) {
+        $.ajax({
+            url: '/member/userRecoverPassword',
+            method: 'patch',
+            data:{ "email": email , "password": password },
+            success: function (responseJson) {
+
+                responseJson = JSON.parse(responseJson);
+                console.log(responseJson);
+
+                if (responseJson['result'] === 'success') {
+                    alert('비밀번호를 변경하였습니다.');
+                    window.location.href = "/";
+
+                } else {
+                    alert("비밀번호 변경에 실패하였습니다.");
+                }
+            },
+            error: function () {
+                alert("서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.")
+            }
+        });
+    }
+})
+
+
+
 
 function checkPassword() {
     // e.preventDefault()

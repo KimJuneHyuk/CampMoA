@@ -1,12 +1,13 @@
 package com.example.campmoa.entities.acconpany;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
 public class AccArticleEntity {
 
-    public  static final String ATTRIBUTE_NAME = "accArticle";
-    public  static final String ATTRIBUTE_NAME_PLURAL = "accArticles";
+    public  static final String ATTRIBUTE_NAME = "accompanyArticle";
+    public  static final String ATTRIBUTE_NAME_PLURAL = "accompanyArticles";
 
     public static AccArticleEntity build() {
         return new AccArticleEntity();
@@ -174,4 +175,6 @@ public class AccArticleEntity {
         this.content = content;
         return this;
     }
+
+
 }
