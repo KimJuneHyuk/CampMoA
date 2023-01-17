@@ -33,6 +33,10 @@ CampMoA
 * 로그인 시 마이페이지 비밀번호 수정.
   - 1. 세션을 올려 로그인된 유저의 정보를 통해 회원 정보 수정기능.
     - session 으로 올려놓은 로그인 유저의 정보를 이용하여 로그인 확인 여부에 따라 로그인 로그아웃 으로 바뀌도록 만들었습니다.
+<img width="427" alt="image" src="https://user-images.githubusercontent.com/109578385/212786654-ea760d48-ec3d-4835-bb53-3b8bc0acd792.png">
+<img width="369" alt="image" src="https://user-images.githubusercontent.com/109578385/212786704-35c7b790-ed4d-4621-9fda-e60b5f7432e9.png">
+
+
   - 비밀번호 수정 기능 추가.  ( 완료. )
     - 현재비밀번호를 다시 입력하여 회원가입된 비밀번호와 같은지 비교 후 같다면 새로운 비밀번호 설정을 할수 있도록 하였습니다.
 
