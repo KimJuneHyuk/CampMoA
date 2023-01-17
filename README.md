@@ -16,8 +16,9 @@ CampMoA
 ## 구현기능 (Ajax 기능을 통한 유효성 검사 처리 및 중복 검사 처리를 하였습니다.)
 * 회원가입
   - 1. 문자인증 API 사용.
-  - 2. 회원가입시 정규식 & 암호화 단방향 암호화 처리.
-  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png"><img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
+  - 2. 회원가입시 정규식 & 암호화 단방향 암호화 처리. (SHA512 사용)
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png">
+  <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
   
   ---
   
@@ -31,7 +32,9 @@ CampMoA
 
 * 로그인 시 마이페이지 비밀번호 수정.
   - 1. 세션을 올려 로그인된 유저의 정보를 통해 회원 정보 수정기능.
+    - session 으로 올려놓은 로그인 유저의 정보를 이용하여 로그인 확인 여부에 따라 로그인 로그아웃 으로 바뀌도록 만들었습니다.
   - 비밀번호 수정 기능 추가.  ( 완료. )
+    - 현재비밀번호를 다시 입력하여 회원가입된 비밀번호와 같은지 비교 후 같다면 새로운 비밀번호 설정을 할수 있도록 하였습니다.
 
 
 * 게시판
