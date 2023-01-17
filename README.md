@@ -18,8 +18,10 @@ CampMoA
 
 
 * 회원가입
-  - 1. 문자인증 API 사용.
-  - 2. 회원가입시 정규식 & 암호화 단방향 암호화 처리. (SHA512 사용)
+  - 1. 문자인증 API 사용.          (완료)
+  - 2. 회원가입시 정규식 & 암호화 단방향 암호화 처리. (SHA512 사용) 
+  - 3. 이메일 중복검사.            (완료)
+  - 4. 정규식 및 유효성 검사       (완료)
 
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png">
   <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
@@ -32,8 +34,8 @@ CampMoA
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/109578385/212785961-415b5e0b-3813-498a-8c74-221eea50960f.png">
 
   - 이메일 기억하기 ( 미구현 :: cookie 를 생성하여 유저 아이디 관련 정보를 저장 시킬 예정.)
-  - 비밀번호 찾기 ( 미구현 )
-  - 이메일 찾기 ( 미구현 )
+  - 비밀번호 찾기 ( 미구현 :: 이메일 인증을 통한 찾기 기능 예정)
+  - 이메일 찾기 ( 미구현  :: 이메일 인증을 통한 찾기 기능 예정)
 
   - 로그인 성공의 경우 session 으로 해당 유저의 정보를 올려두었습니다.
   - 로그인 성공 실패 여부에 관한 Ajax 처리
@@ -77,8 +79,9 @@ CampMoA
   - 동행글 게시판 (완료)
   ![image](https://user-images.githubusercontent.com/109578385/212903633-1f108385-8c3b-456e-b95e-ce1bacc4d7bb.png)
 
-  - 동행 글 상세보기 읽기. ( 진행중 ) 
-  - 동행 글 수정.
-  - 동행 글 삭제.
-  - 동행 신청.
+  - 동행 글 상세보기 읽기. ( 진행중 )
+  - 동행 글 수정. (미구현)
+  - 동행 글 삭제.(미구현)
+  - 동행 신청. (미구현)
+  - 댓글 남기기 (미구현)
 
