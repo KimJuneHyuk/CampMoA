@@ -72,7 +72,11 @@ CampMoA
 * 동행 구하기 게시판(진행중인 상태)
   - CKediter API 사용.
   - 동행 글 작성. (완료)
+  ![image](https://user-images.githubusercontent.com/109578385/212903277-2f55cb60-b97e-4ae2-888e-08da2c31ea10.png)
+
   - 동행글 게시판 (완료)
+  ![image](https://user-images.githubusercontent.com/109578385/212903633-1f108385-8c3b-456e-b95e-ce1bacc4d7bb.png)
+
   - 동행 글 상세보기 읽기. ( 진행중 ) 
   - 동행 글 수정.
   - 동행 글 삭제.
