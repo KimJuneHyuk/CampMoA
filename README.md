@@ -20,7 +20,13 @@ CampMoA
   <img width="764" alt="image" src="https://user-images.githubusercontent.com/109578385/212598647-83572376-e114-4509-a4d9-9a045a643ef2.png">
   <img width="593" alt="image" src="https://user-images.githubusercontent.com/109578385/212599093-dcd10a69-7435-4e35-b6ba-4bac1c79c049.png">
   
+  ---
+  
 * 로그인
+
+<img width="924" alt="image" src="https://user-images.githubusercontent.com/109578385/212782817-61d37c9c-e247-4d34-9305-ecb4cd39a243.png">
+<img width="879" alt="image" src="https://user-images.githubusercontent.com/109578385/212785961-415b5e0b-3813-498a-8c74-221eea50960f.png">
+
   - 1. 로그인 성공의 경우 session 으로 해당 유저의 정보를 올려두었습니다.
   - 로그인 성공 실패 여부에 관한 Ajax 처리
 
