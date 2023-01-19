@@ -137,6 +137,7 @@ body > .main > .content-container > .aside > .modify {
 
 body > .main > .content-container > .aside > .modify.visible {
     display: block;
+
 }
 
 body > .main > .content-container > .aside > .modify:hover {
