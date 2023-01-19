@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
@@ -43,9 +45,8 @@ public class AccompanyController {
     }
 
 
-
     //    기본 웹서버에 보여지기 위한 ModelAndView / GET
-    @RequestMapping(value = "/" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex(ModelAndView modelAndView) {
         modelAndView.setViewName("accompany/index");
         return modelAndView;
@@ -66,7 +67,7 @@ public class AccompanyController {
         for (AccArticleSearchVo accArticle : articles) {
             accArticle.setContent(accArticle.getContent()
                     .replaceAll("<[^>]*>", "")
-                    .replaceAll("&[^;]*;",""));
+                    .replaceAll("&[^;]*;", ""));
 //            < 어쩌고 저쩌고 > 형태들을을 뒤에 나온 "" 빈 문자 형태로 다 교환해버린다 //하지만 유니코드나 &lt; &gt; &nbsp; 등은.... 그대로 남는다.
         }
         responseJson.put(AccArticleEntity.ATTRIBUTE_NAME_PLURAL, new JSONArray(om.writeValueAsString(articles)));
@@ -113,10 +114,8 @@ public class AccompanyController {
     }
 
 
-
-
     @RequestMapping(value = "cover-image/{id}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getCoverImage (
+    public ResponseEntity<byte[]> getCoverImage(
             @PathVariable(value = "id") int id) {
         AccArticleEntity article = this.accompanyService.getArticle(id);
         if (article == null) {
@@ -132,12 +131,6 @@ public class AccompanyController {
 
         return new ResponseEntity<>(article.getCoverImage(), headers, HttpStatus.OK);
     }
-
-
-
-
-
-
 
 
     //    동행신청하기 글쓰기 페이지 accWrite / GET
@@ -199,7 +192,6 @@ public class AccompanyController {
     }
 
 
-
     @RequestMapping(value = "image", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String postImage(
@@ -226,13 +218,28 @@ public class AccompanyController {
     }
 
 
-//    글 상세보기
-@RequestMapping(value = "read/{id}", method = RequestMethod.GET)
-public ModelAndView getRead(@PathVariable(value = "id") int id,
-                            ModelAndView modelAndView) {
-    modelAndView.setViewName("accompany/read");
-    return modelAndView;
-}
+    //    글 상세보기 ===============================================
+    @RequestMapping(value = "read/{id}", method = RequestMethod.GET)
+    public ModelAndView getRead(
+            @PathVariable(value = "id") int id,
+                                @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+                                ModelAndView modelAndView,
+                                HttpServletRequest request
+                                ) {
+
+
+        if (user == null) {
+            modelAndView.setViewName("redirect:/member/userLogin");
+
+        } else {
+            AccArticleEntity article = this.accompanyService.getArticle(id);
+//            UserEntity articleUser = this.memberService.getUser(article.getUserEmail());
+            modelAndView.addObject("articleUser", article);
+            modelAndView.setViewName("accompany/read");
+        }
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "read/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -254,10 +261,127 @@ public ModelAndView getRead(@PathVariable(value = "id") int id,
 
         UserEntity articleUser = this.memberService.getUser(article.getUserEmail());
         responseJson.put("userName", articleUser.getName());
-        responseJson.put("mine", user != null && (user.equals(articleUser)));
+        responseJson.put("mine", user != null && user.equals(articleUser));
+        return responseJson.toString();
+    }
+
+
+    @RequestMapping(value = "read/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String deleteRead(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            @PathVariable(value = "id") int id) {
+        JSONObject responseJson = new JSONObject();
+        AccArticleEntity article = this.accompanyService.getArticle(id);
+        if (article == null) {
+            responseJson.put(IResult.ATTRIBUTE_NAME, CommonResult.FAILURE);
+            return responseJson.toString();
+        }
+        if (user == null || !user.getEmail().equals(article.getUserEmail())) {
+            responseJson.put(IResult.ATTRIBUTE_NAME, "k");
+            return responseJson.toString();
+        }
+        IResult result = this.accompanyService.deleteArticle(id);
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
         return responseJson.toString();
     }
 
 
 
+
+    //    글 수정 하기...
+
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.GET)
+    public ModelAndView getModify(
+            @PathVariable(value = "id") int id,
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            ModelAndView modelAndView
+    ) {
+        if (user == null) {
+            modelAndView.setViewName("redirect:/member/userLogin");
+            return modelAndView;
+        }
+        modelAndView.setViewName("accompany/modify");
+        return modelAndView;
+    }
+
+
+    // 글 수정하기(완료) 읽어오기.
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String patchModify(
+            @PathVariable(value = "id") int id,
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            HttpServletResponse response
+    ) throws JsonProcessingException {
+        AccArticleEntity article = this.accompanyService.getArticle(id);
+        if (article == null) {
+            response.setStatus(404);
+            return null;
+        }
+        if (user == null || !user.getEmail().equals(article.getUserEmail())) {
+            response.setStatus(403);
+            return null;
+        }
+        article.setCoverImage(null)
+                .setCoverImageMime(null);
+        return new ObjectMapper().writeValueAsString(article);
+    }
+
+//    // 글 수정하기...
+    @RequestMapping(value = "modify/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postModify(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
+            @PathVariable(value = "id") int id,
+            @RequestParam(value = "coverImageFile", required = false) MultipartFile coverImageFile,
+            @RequestParam(value = "dateFromStr") String dateFromStr,
+            @RequestParam(value = "dateToStr") String dateToStr,
+            AccArticleEntity article
+    ) throws IOException, ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        article.setIndex(id)
+                .setUserEmail(user.getEmail())
+//                .setCreatedAt(new Date())
+                .setCoverImage(coverImageFile == null ? null : coverImageFile.getBytes())
+                .setCoverImageMime(coverImageFile == null ? null : coverImageFile.getContentType())
+                .setDateFrom(dateFormat.parse(dateFromStr))
+                .setDateTo(dateFormat.parse(dateToStr));
+        IResult result = this.accompanyService.modifyArticle(article);
+        JSONObject responseJson = new JSONObject();
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
+
+
+    //동행 신청 취소..
+    @RequestMapping(value = "request/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getRequest(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            @PathVariable(value = "id") int id
+    ) {
+        JSONObject responseJson = new JSONObject();
+        if (user == null) {
+            responseJson.put(IResult.ATTRIBUTE_NAME, false);
+        } else {
+            responseJson.put(IResult.ATTRIBUTE_NAME, this.accompanyService.checkRequest(user, id));
+        }
+        return responseJson.toString();
+    }
+
+
+
+    //    동행신청 하기 클릭시....
+    @RequestMapping(value = "request/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String postRequest(
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME) UserEntity user,
+            @PathVariable(value = "id") int id
+    ) {
+        JSONObject responseJson = new JSONObject();
+        IResult result = this.accompanyService.putRequest(user, id);
+        responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
+        return responseJson.toString();
+    }
 }

@@ -1,0 +1,275 @@
+@charset "UTF-8";
+
+body {
+    background-color: rgb(var(--body-background-color-dim));
+}
+
+body > .banner {
+    height: 21.25rem;
+    align-items: center;
+    background-image: url('../images/banner.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body > .banner > .small-text {
+    font-size: 1.625rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+body > .banner > .big-text {
+    font-size: 4.5rem;
+    font-weight: 600;
+    letter-spacing: 0.25rem;
+    pointer-events: none;
+    user-select: none;
+}
+
+body > .main {
+    padding: 3rem 0;
+}
+
+body > .main > .form {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .geo-box {
+    background-color: rgb(255, 255, 255);
+    border: 0.0625rem solid rgb(230, 230, 230);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+body > .main > .form > .geo-box > .geo-container {
+    align-items: stretch;
+    border: 0.0625rem solid rgb(230, 230, 230);
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    user-select: none;
+}
+
+body > .main > .form > .geo-box > .geo-container > .continent-container {
+    align-items: stretch;
+    border-right: 0.0625rem solid rgb(230, 230, 230);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .geo-box > .geo-container > .continent-container > .continent {
+    width: 10rem;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 1.375rem 2rem;
+}
+
+body > .main > .form > .geo-box > .geo-container > .continent-container > .continent[selected] {
+    background-color: rgb(var(--concept-color-green));
+    color: rgb(255, 255, 255);
+    cursor: default;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container {
+    align-items: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .country {
+    width: 6.25rem;
+    cursor: pointer;
+    padding: 1.375rem 1.75rem;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .country[selected] {
+    color: rgb(var(--concept-color-green));
+    font-weight: 500;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .region-container {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .region-container > .region {
+    color: rgb(var(--body-color-inactive));
+    cursor: pointer;
+    padding: 1.375rem 1rem;
+}
+
+body > .main > .form > .geo-box > .geo-container > .sub-container > .sub > .region-container > .region[selected] {
+    color: rgb(var(--concept-color-green));
+    cursor: default;
+    font-weight: 500;
+}
+
+body > .main > .form > .geo-box > .cap-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 1rem;
+}
+
+body > .main > .form > .geo-box > .cap-container > .text {
+    width: 10rem;
+    font-weight: 500;
+    padding: 0 2rem;
+}
+
+body > .main > .form > .geo-box > .cap-container > .cap-container {
+    align-items: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body > .main > .form > .geo-box > .cap-container > .cap-value {
+    margin-left: 1rem;
+}
+
+body > .main > .form > .geo-box > .date-container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 0.75rem;
+}
+
+body > .main > .form > .geo-box > .date-container > .text {
+    width: 10rem;
+    font-weight: 500;
+    padding: 1.375rem 2rem;
+}
+
+body > .main > .form > .geo-box > .date-container > .dash {
+    margin: 0 0.75rem;
+}
+
+body > .main > .form > .geo-box > .date-container > .date-container {
+    flex: 1;
+}
+
+body > .main > .form > .geo-box > .date-container > .button {
+    margin-left: 1rem;
+}
+
+body > .main > .form > * + * {
+    margin-top: 2rem;
+}
+
+body > .main > .form > .cover-image-container {
+    height: 20rem;
+    border: 0.0625rem solid rgb(230, 230, 230);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+body > .main > .form > .cover-image-container > .no-cover-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    color: rgb(var(--body-color-inactive));
+    cursor: default;
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    user-select: none;
+    z-index: 1;
+}
+
+body > .main > .form > .cover-image-container > .no-cover-image.visible {
+    display: flex;
+}
+
+body > .main > .form > .cover-image-container > .cover-image-preview {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+}
+body > .main > .form > .cover-image-container > .cover-image-preview:hover {
+    filter: brightness(125%) contrast(50%);
+}
+body > .main > .form > .content-container > .content {
+    height: auto;
+    min-height: 20rem;
+    margin-top: -1rem;
+    resize: vertical;
+}
+
+body > .main > .form > .warning {
+    color: rgb(231, 76, 60);
+    display: none;
+}
+
+body > .main > .form > .warning.visible {
+    display: block;
+}
+
+body > .main > .form > .button-container {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+body > .main > .form > .button-container > * {
+    flex: 1;
+}
+
+body > .main > .form > .button-container > * + * {
+    margin-left: 1rem;
+}
+
+body > .main > .form > .button-container > .back {
+    background-color: rgb(var(--body-color-inactive));
+}
+
+body > .main > .form > .button-container > .back:hover {
+    background-color: rgb(130, 130, 130);
+}
+
+
+
+
+
+
+
+
+
+

@@ -8,10 +8,13 @@ const dateTo = window.document.getElementById('dateTo');
 const content = window.document.getElementById('content');
 const createdAt = window.document.getElementById('createdAt');
 const name = window.document.getElementById('name');
+
 const requestButton = window.document.getElementById('requestButton');
 const modifyButton = window.document.getElementById('modifyButton');
 const deleteButton = window.document.getElementById('deleteButton');
 const retractButton = window.document.getElementById('retractButton');
+
+console.log(requestButton)
 
 const checkRequest = () => {
     // cover.show('ㄱㄷ');
@@ -22,6 +25,7 @@ const checkRequest = () => {
             // cover.hide();
             if (xhr.status >= 200 && xhr.status < 300) {
                 const responseJson = JSON.parse(xhr.responseText);
+                console.log(responseJson['result'])
                 if (responseJson['result'] === true) {
                     //    요청한적 있음.
                     retractButton.classList.add('visible');
@@ -40,11 +44,12 @@ const checkRequest = () => {
 // cover.show('요청한 정보를 불러오고 있습니다.\n\n잠시만 기다려 주세요.');
 const xhr = new XMLHttpRequest();
 // xhr.open('POST', window.location.href);
-xhr.open('POST', window.location.href);
+xhr.open('POST', window.location.href); // /accompany/read/??
 xhr.onreadystatechange = () => {
     if (xhr.readyState === XMLHttpRequest.DONE) {
         // cover.hide();
         if (xhr.status >= 200 && xhr.status < 300) {
+
             const responseJson = JSON.parse(xhr.responseText);
             const createdAtObj = new Date(responseJson['createdAt']);
             const dateFromObj = new Date(responseJson['dateFrom']);
@@ -59,13 +64,16 @@ xhr.onreadystatechange = () => {
             dateTo.innerText = `${dateToObj.getFullYear()}-${dateToObj.getMonth() + 1}-${dateToObj.getDate()}`;
             content.innerHTML = responseJson['content'];
             name.innerText = responseJson['userName'];
+            //====================================================
+            console.log("mine 값 : " + responseJson['mine']);
+            //===================================================
             if ((responseJson['mine'] ?? false) === true) {
                 modifyButton.classList.add('visible');
                 deleteButton.classList.add('visible');
             }
             createdAt.innerText = `${createdAtObj.getFullYear()}-${createdAtObj.getMonth() + 1}-${createdAtObj.getDate()} ${createdAtObj.getHours()}:${createdAtObj.getMinutes()}`;
 
-            // checkRequest();
+            checkRequest();
         } else if (xhr.status === 404) {
             alert('존재하지 않는 동행 게시글입니다.');
             if (window.history.length > 0) {
@@ -105,7 +113,7 @@ deleteButton.addEventListener('click', () => {
                         window.location.href = '../';
                         break;
                     case 'k':
-                        alert('ㅋ');
+                        alert('당신이 작성한 게시글이 아닙니다. 삭제 불가능 합니다.');
                         break;
                     default:
                         alert('알 수 없는 이유로 동행을 삭제하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
@@ -124,11 +132,13 @@ modifyButton.addEventListener('click', () => {
 })
 
 requestButton.addEventListener('click', () => {
-    if (requestButton.dataset.signed === false) {
-        window.location.href = '../../member/userLogin';
-        return;
+    console.log(requestButton.dataset.signed)
+
+    if (requestButton.dataset.signed === "false") {
+        console.log("test");
+        window.location.href = "../../member/userLogin";
+        return false;
     }
-    // cover.show('동행 신청 처리 중입니다.\n\n잠시만 기다려 주세요.')
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `../request/${id}`);
     xhr.onreadystatechange = () => {

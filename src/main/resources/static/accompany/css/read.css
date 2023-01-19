@@ -129,7 +129,7 @@ body > .main > .content-container > .aside > .retract.visible {
 body > .main > .content-container > .aside > .retract:hover {
     background-color: rgb(203, 67, 53);
 }
-
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 body > .main > .content-container > .aside > .modify {
     background-color: rgb(52, 152, 219);
     display: none;
@@ -142,7 +142,7 @@ body > .main > .content-container > .aside > .modify.visible {
 body > .main > .content-container > .aside > .modify:hover {
     background-color: rgb(51, 140, 210);
 }
-
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 body > .main > .content-container > .aside > .delete {
     background-color: rgb(231, 76, 60);
     display: none;

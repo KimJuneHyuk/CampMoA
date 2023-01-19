@@ -107,7 +107,7 @@
     <select id="selectUserByName"
     parameterType="com.example.campmoa.entities.member.UserEntity"
     resultType="com.example.campmoa.entities.member.UserEntity">
-        SELECT `name` AS `name` from `campmoa_member`.`users` where `email` = #{userEmail} limit 1
+        SELECT * from `campmoa_member`.`users` where `email` = #{userEmail} limit 1
     </select>
 
     <update id="updateExistingPassword"

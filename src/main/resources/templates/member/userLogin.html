@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>CampMoA 많은 정보를 공유해요</title>
     <!--    시작 페이지 아이콘 셋팅-->
     <!--    <link th:href="@{/}" rel="shortcut icon">-->
     <!--    프리텐다드 글꼴 추가.-->
@@ -17,6 +17,7 @@
     <link rel="stylesheet" th:href="@{/resources/css/common.css}">
 <!--    로그인 화면 css 설정 :: userLogin.css-->
     <link rel="stylesheet" th:href="@{/member/css/userLogin.css}">
+    <link th:href="@{/resources/images/_logo.svg}" rel="shortcut icon">
     <!--    header 에 필요한 js 파일 설정. :: common.js-->
     <script defer th:src="@{/resources/js/common.js}"></script>
     <script defer th:src="@{/member/js/userLogin.js}"></script>
@@ -26,10 +27,10 @@
 <!--    <th:block th:replace="~{fragments/header.html :: content}"></th:block>-->
 
     <main class="_main" id="main">
-        <h1 class="title">
+        <a th:href="@{/}" class="title">
             <i class="icon fa-solid fa-campground"></i>
             <span class="text">Camp-MoA</span>
-        </h1>
+        </a>
         <!--    h1 head 제목 부분-->
         <form class="login-form" id="loginForm">
             <label class="_label email">

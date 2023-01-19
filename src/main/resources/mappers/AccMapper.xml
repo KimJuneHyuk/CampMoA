@@ -90,6 +90,20 @@
         LIMIT 1
     </select>
 
+    <select id="selectRequestByRequesterArticleIndex"
+    resultType="com.example.campmoa.entities.acconpany.RequestEntity">
+        SELECT `index`                AS `index`,
+               `requester_user_email` AS `requesterUserEmail`,
+               `requestee_user_email` AS `requesteeUserEmail`,
+               `article_index`        AS `articleIndex`,
+               `created_at`           AS `createdAt`,
+               `granted_flag`         AS `isGranted`,
+               `declined_flag`        AS `isDeclined`
+        FROM `campmoa_accompany`.`requests`
+        WHERE `requester_user_email` = #{requesterUserEmail}
+          AND `article_index` = #{articleIndex}
+        LIMIT 1
+    </select>
 
     <!--    ==============================================    -->
     <insert id="insertArticle"
@@ -117,5 +131,44 @@
         INSERT INTO `campmoa_accompany`.`images` (`user_email`, `created_at`, `name`, `mime`, `data`)
         VALUES (#{userEmail}, #{createdAt}, #{name}, #{mime}, #{data})
     </insert>
+
+    <insert id="insertRequest"
+    useGeneratedKeys="true"
+    keyColumn="index"
+    keyProperty="index"
+    parameterType="com.example.campmoa.entities.acconpany.RequestEntity">
+        INSERT INTO `campmoa_accompany`.`requests` (requester_user_email, requestee_user_email, article_index, created_at, granted_flag, declined_flag)
+        VALUES (#{requesterUserEmail}, #{requesteeUserEmail}, #{articleIndex}, #{createdAt}, #{isGranted},
+                #{isDeclined})
+    </insert>
+
+
+
+    <update id="updateArticle"
+    parameterType="com.example.campmoa.entities.acconpany.AccArticleEntity">
+        UPDATE `campmoa_accompany`.`articles`
+        SET `user_email`       = #{userEmail},
+            `created_at`       = #{createdAt},
+            `continent_value`  = #{continentValue},
+            `country_value`    = #{countryValue},
+            `region_value`     = #{regionValue},
+            `capacity`         = #{capacity},
+            `date_from`        = #{dateFrom},
+            `date_to`          = #{dateTo},
+            `cover_image`      = #{coverImage},
+            `cover_image_mime` = #{coverImageMime},
+            `title`            = #{title},
+            `content`          = #{content}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+
+
+    <delete id="deleteArticle">
+        DELETE
+        FROM `campmoa_accompany`.`articles`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
 
 </mapper>

@@ -8,20 +8,21 @@
 <!--    초기값 활용-->
     <link rel="stylesheet" th:href="@{/resources/css/common.css}">
     <link rel="stylesheet" th:href="@{/member/css/userRegister.css}">
+    <link th:href="@{/resources/images/_logo.svg}" rel="shortcut icon">
 
     <!--    fontawsome 스크립트 추가.-->
     <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
     <script defer th:src="@{/member/js/userRegister.js}"></script>
     <script defer th:src="@{/resources/js/common.js}"></script>
-    <title>Document</title>
+    <title>CampMoA 함께 즐겨요</title>
 </head>
 <body>
 <!--<th:block th:replace="~{fragments/header.html :: content}"></th:block>-->
 <main class="_main main">
-    <h1 class="title">
+    <a style="cursor: pointer" th:href="@{/}" class="title">
         <i class="icon fa-solid fa-campground"></i>
         <span class="text">회원가입</span>
-    </h1>
+    </a>
     <form class="register-form" id="registerForm">
 
         <label class="_label">

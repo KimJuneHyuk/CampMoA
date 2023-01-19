@@ -39,9 +39,12 @@
                 <span class="name" id="name">닉네임 자리</span>
             </div>
             <button class="t-button request" id="requestButton"
-                    th:data-signed="${session.memberUser != null}">동행 신청하기</button>
+                    th:if="${session.memberUser != null}" th:data-signed="${session.memberUser != null}">동행 신청하기</button>
             <button class="t-button retract" id="retractButton">동행 신청 취소하기</button>
-            <button class="t-button modify" id="modifyButton">수정하기</button>
+            <!--/*@thymesVar id="article" type="com.example.campmoa.entities.acconpany.AccArticleEntity"*/-->
+
+            <button
+                    class="t-button modify" id="modifyButton">수정하기</button>
             <button class="t-button delete" id="deleteButton">삭제하기</button>
         </aside>
     </div>

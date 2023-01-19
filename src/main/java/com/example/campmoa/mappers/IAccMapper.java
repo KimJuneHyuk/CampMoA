@@ -1,6 +1,7 @@
 package com.example.campmoa.mappers;
 
 import com.example.campmoa.entities.acconpany.*;
+import com.example.campmoa.interfaces.IResult;
 import com.example.campmoa.vos.accompany.AccArticleSearchVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,4 +36,14 @@ public interface IAccMapper {
 
     AccArticleEntity selectArticleByIndex(@Param(value = "index") int index);
 
+    int deleteArticle(int index);
+
+    int insertRequest(RequestEntity request);
+
+    int updateArticle(AccArticleEntity article);
+
+    RequestEntity selectRequestByRequesterArticleIndex(
+            @Param(value = "requesterUserEmail") String requesterUserEmail,
+            @Param(value = "articleIndex") int articleIndex
+    );
 }
