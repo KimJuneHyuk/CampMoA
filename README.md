@@ -97,6 +97,8 @@ https://velog.io/@hyukkk90
   ![image](https://user-images.githubusercontent.com/109578385/213459696-14483b32-d0b4-433d-81ba-215b05a82beb.png)
   ![image](https://user-images.githubusercontent.com/109578385/213459820-415dc419-a2fa-4eab-8a7a-e6d6baf42377.png)
   ![image](https://user-images.githubusercontent.com/109578385/213459882-57583a65-0643-449b-bc07-9d3233922233.png)
+  ![image](https://user-images.githubusercontent.com/109578385/213462222-7547e7b2-4892-4697-a9ad-941b17dd2dfb.png)
+
   - 로그인된 유저가 와 게시글 작성자가 다른 경우, 글 수정,삭제 불가능 하도록 처리하였습니다.
   - 다른 유저가 동행 신청 클릭시 버튼 toggle 식으로 css, javaScript Ajax 처리를 하였습니다.
 
