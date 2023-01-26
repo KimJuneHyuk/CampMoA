@@ -57,7 +57,7 @@ form.onsubmit = e => {
                     case 'success':
                         alert('작성 완료 ( success )');
                         const aid = responseJson['aid'];
-                        window.location.href = `read?aid=${aid}`;
+                        window.location.href = `read?page=1&aid=${aid}`;
                         break;
                     default:
                         Warning.show('알수 없는 이유로 게시글 작성을 하지 못하였스빈다.  \'POST\', \'./write\'')

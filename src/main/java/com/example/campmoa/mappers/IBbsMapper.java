@@ -3,6 +3,7 @@ package com.example.campmoa.mappers;
 import com.example.campmoa.entities.bbs.ArticleEntity;
 import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
+import com.example.campmoa.entities.bbs.CommentEntity;
 import com.example.campmoa.vos.bbs.ArticleVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -54,4 +55,15 @@ public interface IBbsMapper {
 //    int selectArticleByCount(@Param(value = "boardId") String boardId,
 //                             @Param(value = "criterion") String criterion,
 //                             @Param(value = "keyword") String keyword);
+
+    CommentEntity selectParentComments(@Param(value = "commentIndex") int commentIndex);
+
+    void replySequence(CommentEntity comment);
+
+    int replayInsert(CommentEntity comment);
+
+    List<CommentEntity> AllComment(@Param(value = "articleIndex") int articleIndex);
+    int commentInsert(CommentEntity comment);
+
+
 }

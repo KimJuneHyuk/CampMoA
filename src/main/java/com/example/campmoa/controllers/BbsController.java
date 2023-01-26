@@ -3,6 +3,7 @@ package com.example.campmoa.controllers;
 import com.example.campmoa.entities.bbs.ArticleEntity;
 import com.example.campmoa.entities.bbs.ArticleLikeEntity;
 import com.example.campmoa.entities.bbs.BoardEntity;
+import com.example.campmoa.entities.bbs.CommentEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
 import com.example.campmoa.enums.bbs.ModifyArticleResult;
@@ -250,5 +251,62 @@ public class BbsController {
         return this.bbsService.cancelArticleLike(aid, userEmail);
     }
 
+
+
+
+
+
+
+
+//    댓글 달기 ==============================================
+    @RequestMapping(value = "/inserComment", method = RequestMethod.GET)
+    @ResponseBody
+    public String getComment(
+            @RequestParam(value = "articleIndex") int articleIndex,
+            @RequestParam(value = "userEail") String userEmail,
+            @RequestParam(value = "content") String content
+    ) {
+        CommentEntity comment = new CommentEntity();
+        comment.setContent(content);
+        comment.setUserEmail(userEmail);
+        comment.setArticleIndex(articleIndex);
+        int state = this.bbsMapper.commentInsert(comment); // 첫 댓글달기.
+
+        JSONObject responseJson = new JSONObject();
+
+        if (state != 0) {
+            responseJson.put("result", "success");
+        } else {
+            responseJson.put("result", "failure");
+        }
+        return responseJson.toString();
+    }
+
+//    댓글의 답글을 달 경우......
+    @RequestMapping(value = "/InsertReplyComment", method = RequestMethod.GET)
+    public String getReplyComment (
+            CommentEntity comment,
+            @RequestParam(value = "articleIndex", required = false) int articleIndex,
+            @RequestParam(value = "userEmail", required = false) String userEmail,
+            @RequestParam(value = "content", required = false) String content,
+            @RequestParam(value = "commentIndex") int commentIndex
+    ) {
+        CommentEntity parent = this.bbsMapper.selectParentComments(commentIndex);
+        System.out.println(parent.toString());
+
+        comment.setContent(content);
+        comment.setUserEmail(userEmail);
+        comment.setCommentGroup(parent.getCommentGroup());
+        comment.setCommentLevel(parent.getCommentLevel() + 1);
+        comment.setArticleIndex(articleIndex);
+        this.bbsMapper.replySequence(parent);
+        int state = this.bbsMapper.replayInsert(comment);
+
+        if (state != 0) {
+            return "redirect:/qna/read?aid=" + articleIndex;
+        } else {
+            return "redirect:/qna/read?aid=" + articleIndex;
+        }
+    }
 
 }

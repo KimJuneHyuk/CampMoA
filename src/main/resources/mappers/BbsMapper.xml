@@ -151,7 +151,7 @@
     </select>
 
 
-<!--  페이징 처리 및 검색 기능 메서드-->
+    <!--  페이징 처리 및 검색 기능 메서드-->
     <select id="searchArticles" resultType="com.example.campmoa.vos.bbs.ArticleVo">
         SELECT * FROM `campmoa-bbs`.`articles`
         LEFT JOIN `campmoa_member`.`users` ON articles.user_email = users.email
@@ -169,9 +169,80 @@
         LIMIT ${offset}, ${limit}
     </select>
 
+
+    <!--    댓글 달기 =================-->
+    <select id="selectParenComments"
+            parameterType="com.example.campmoa.entities.bbs.CommentEntity">
+        SELECT comment_index    AS `commentIndex`,
+               comment_group    AS `commentGroup`,
+               comment_sequence AS `commentSequence`,
+               comment_level    AS `commentLevel`,
+               user_email       AS `userEmail`,
+               article_index    AS `articleIndex`,
+               content          AS `content`,
+               written_on       AS `writtenOn`
+        FROM `campmoa-bbs`.comments
+        WHERE `comment_index` = #{commentIndex}
+        ORDER BY `comment_index` desc
+    </select>
+
+    <update id="replySequence"
+            parameterType="com.example.campmoa.entities.bbs.CommentEntity">
+        UPDATE `campmoa-bbs`.`comments`
+        SET `comment_sequence` = `comments`.`comment_sequence` + 1
+        WHERE comment_group = #{commentGroup}
+          AND `comment_sequence` > #{commentSequence}
+    </update>
+
+    <!--  댓글 달기 & 대댓글이나 댓글 의 답글을 다시 insert 경우의 <insert>   -->
+    <insert id="commentInsert"
+            parameterType="com.example.campmoa.entities.bbs.CommentEntity">
+        <selectKey keyProperty="commentIndex, commentGroup"
+                   resultType="com.example.campmoa.entities.bbs.CommentEntity"
+                   order="BEFORE">
+            SELECT IFNULL(max(`comment_index`)+1, 1) AS `commentIndex`,
+            IFNULL(max(`comment_group`)+1, 0) AS `commentGroup`
+            FROM `campmoa-bbs`.`comments`
+        </selectKey>
+        INSERT INTO `campmoa-bbs`.`comments` (`comment_index`, `comment_group`, `user_email`, `article_index`,
+        `content`)
+        VALUES ( #{commentIndex}, #{commentGroup}, #{userEmail}, #{articleIndex}, #{content} )
+    </insert>
+
+    <insert id="replayInsert"
+            parameterType="com.example.campmoa.entities.bbs.CommentEntity">
+        <selectKey keyProperty="commentIndex"
+                   resultType="com.example.campmoa.entities.bbs.CommentEntity"
+                   order="BEFORE">
+            SELECT IFNULL(max(`comment_index`)+1, 1) AS `commentIndex`
+            FROM `campmoa-bbs`.`comments`
+        </selectKey>
+        INSERT INTO `campmoa-bbs`.`comments` (`comment_group`, `comment_sequence`, `comment_level`, `user_email`,
+        `article_index`, `content`, `written_on`) VALUES ( #{commentGroup}, #{commentSequence}, #{commentLevel},
+        #{userEmail}, #{articleIndex}, #{content}, #{writtenOn})
+    </insert>
+
+    <select id="AllComment"
+            parameterType="com.example.campmoa.entities.bbs.CommentEntity"
+            resultType="com.example.campmoa.entities.bbs.CommentEntity">
+        SELECT comment_index    AS `commentIndex`,
+               comment_group    AS `commentGroup`,
+               comment_sequence AS `commentSequence`,
+               comment_level    AS `commentLevel`,
+               user_email       AS `userEmail`,
+               article_index    AS `articleIndex`,
+               content          AS `content`,
+               written_on       AS `writtenOn`
+        FROM `campmoa-bbs`.`comments`
+        WHERE `article_index` = #{articleIndex}
+        ORDER BY `comment_group`
+    </select>
+
     <delete id="deleteArticleById"
-    parameterType="com.example.campmoa.entities.bbs.ArticleEntity">
-        DELETE FROM `campmoa-bbs`.`articles` WHERE `index` = #{aid}
+            parameterType="com.example.campmoa.entities.bbs.ArticleEntity">
+        DELETE
+        FROM `campmoa-bbs`.`articles`
+        WHERE `index` = #{aid}
     </delete>
 
 </mapper>

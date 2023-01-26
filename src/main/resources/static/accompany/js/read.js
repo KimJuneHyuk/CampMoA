@@ -155,7 +155,7 @@ requestButton.addEventListener('click', () => {
                         alert('로그인 정보가 유효하지 않습니다.');
                         break;
                     case 'yourself' :
-                        alert('찐');
+                        alert('본인이 작성한 게시글의 동행신청은 불가능 합니다.');
                         break;
                     case 'success' :
                         alert('동행 신청에 성공하였습니다.');

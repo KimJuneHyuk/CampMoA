@@ -14,14 +14,6 @@ public interface IAccMapper {
     int insertImage(ImageEntity image);
 
 
-
-
-
-
-
-
-
-
     AccArticleSearchVo[] selectArticlesForSearch(
             @Param(value = "region") RegionEntity region,
             @Param(value = "lastArticleIndex") int lastArticleIndex);
