@@ -77,16 +77,30 @@ https://velog.io/@hyukkk90
 * 동행 구하기 게시판(진행중인 상태)
   - CKediter API 사용.
   - 동행 글 작성. (완료)
+  - 동행 게시글 동행 구하는 기간을 현재 시간을 기준으로 과거일 경우 [ 모집중/모집마감 ] 으로 기능 처리하였습니다.
 
   ![image](https://user-images.githubusercontent.com/109578385/212903277-2f55cb60-b97e-4ae2-888e-08da2c31ea10.png)
 
   - 동행글 게시판 (완료)
     - 페이징 처리가 아닌 더보기 기능 구현. (완료)
   ![image](https://user-images.githubusercontent.com/109578385/212903633-1f108385-8c3b-456e-b95e-ce1bacc4d7bb.png)
+  - 동행 게시글 지역별 검색 ( 완료 ).
+  ![image](https://user-images.githubusercontent.com/109578385/213461221-5bd07b54-5fc4-4fcb-886e-fe57d79d364d.png)
 
-  - 동행 글 상세보기 읽기. ( 진행중 )
-  - 동행 글 수정. (미구현)
-  - 동행 글 삭제.(미구현)
-  - 동행 신청. (미구현)
-  - 댓글 남기기 (미구현)
+  - 동행 글 상세보기 읽기. ( 완료 )
+  - 동행 글 수정. ( 완료 )
+  - 동행 글 삭제.( 완료 )
+  - 동행 신청. ( 완료 )
+  ![image](https://user-images.githubusercontent.com/109578385/213459298-b15dd7ed-66c2-42bb-9ec0-f212beec9b49.png)
+  - 로그인 된 유저 본인이 동행신청 불가능 하도록 처리하였습니다.
+  
+  ![image](https://user-images.githubusercontent.com/109578385/213459696-14483b32-d0b4-433d-81ba-215b05a82beb.png)
+  ![image](https://user-images.githubusercontent.com/109578385/213459820-415dc419-a2fa-4eab-8a7a-e6d6baf42377.png)
+  ![image](https://user-images.githubusercontent.com/109578385/213459882-57583a65-0643-449b-bc07-9d3233922233.png)
+  ![image](https://user-images.githubusercontent.com/109578385/213462222-7547e7b2-4892-4697-a9ad-941b17dd2dfb.png)
+
+  - 로그인된 유저가 와 게시글 작성자가 다른 경우, 글 수정,삭제 불가능 하도록 처리하였습니다.
+  - 다른 유저가 동행 신청 클릭시 버튼 toggle 식으로 css, javaScript Ajax 처리를 하였습니다.
+
+  - 댓글 남기기 ( 미구현 )
 
