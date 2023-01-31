@@ -102,5 +102,8 @@ https://velog.io/@hyukkk90
   - 로그인된 유저가 와 게시글 작성자가 다른 경우, 글 수정,삭제 불가능 하도록 처리하였습니다.
   - 다른 유저가 동행 신청 클릭시 버튼 toggle 식으로 css, javaScript Ajax 처리를 하였습니다.
 
-  - 댓글 남기기 ( 미구현 )
+  - 댓글 남기기 ( 구현완료 )
+  
+  ![image](https://user-images.githubusercontent.com/109578385/215677926-7b22f17d-2096-48a6-93c2-24b0a8385280.png)
+
 
