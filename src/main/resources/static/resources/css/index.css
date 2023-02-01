@@ -1,0 +1,103 @@
+.cover-image{
+    width: 95%;
+    /* 좋은거 */
+    aspect-ratio: 1 / 1;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid rgb(var(--concept-color-green));
+    margin-right: 15%;
+}
+
+
+.accompany{
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    position: relative;
+    /*margin: 2rem;*/
+    /*border: 1px solid #f00;*/
+}
+.accompany-container{
+    width: 90%;
+    /*width: 20%;*/
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    padding:1.5rem;
+    position: relative;
+}
+
+.slick-prev{
+    display: block;
+    width: 90px;
+    height: 80px;
+    /*background-image: url("../resources/static/resources/images/prev.png");*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: center;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: rgb(var(--concept-color-green));
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border:0;
+    top:40%;
+    left:-2%;
+    cursor:pointer;
+}
+
+.slick-next {
+    /*content: "<<";*/
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: rgb(var(--concept-color-green));
+    display: block;
+    width: 90px;
+    height: 80px;
+    /*background-image: url("static/resources/images/next.png")g*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: center;
+    border: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top:40%;
+    left:102%;
+    cursor:pointer;
+
+}
+.ThreeDot{
+    padding: 0.5rem 0.5rem 0 0;
+    /*padding: 0 1rem 0 0;*/
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.title {
+    font-size: 1.25rem;
+    /*color: rgb(175,200,150);*/
+}
+.content {
+    padding: 0;
+    margin: 0.325rem 0 0 0;
+    font-size: 1rem;
+    /*padding: 0.01rem;*/
+}
+.TT {
+    width: 65%;
+    height: 100px;
+    margin: 0 auto;
+    color: darkgreen;
+    text-align: center;
+    line-height: 350%;
+    font-size: 2.5rem;
+    font-weight: 600;
+    /*border: 1px solid #f00;*/
+}
