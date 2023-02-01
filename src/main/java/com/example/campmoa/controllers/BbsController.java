@@ -25,6 +25,7 @@ import org.springframework.web.servlet.SmartView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller(value = "com.example.campmoa.Controllers.BbsController")
 @RequestMapping(value = "/{bid}")
@@ -213,7 +214,11 @@ public class BbsController {
 //            modelAndView.addObject("liked", article.isArticleLiked());
 //            modelAndView.addObject("likeCount", article.getArticleLikedCount());
             session.setAttribute("pagingModel", pagingModel);
+
+            List<CommentEntity> listC = this.bbsMapper.AllComment(article.getIndex());
+            modelAndView.addObject("Pcomment", listC);
         }
+
         return modelAndView;
     }
 
@@ -259,54 +264,74 @@ public class BbsController {
 
 
 //    댓글 달기 ==============================================
-    @RequestMapping(value = "/inserComment", method = RequestMethod.GET)
+
+
+
+    @RequestMapping(value = "/insertComment", method = RequestMethod.GET)
     @ResponseBody
     public String getComment(
             @RequestParam(value = "articleIndex") int articleIndex,
-            @RequestParam(value = "userEail") String userEmail,
+            @RequestParam(value = "userEmail") String userEmail,
             @RequestParam(value = "content") String content
     ) {
         CommentEntity comment = new CommentEntity();
         comment.setContent(content);
         comment.setUserEmail(userEmail);
         comment.setArticleIndex(articleIndex);
-        int state = this.bbsMapper.commentInsert(comment); // 첫 댓글달기.
+        int state = this.bbsMapper.commentInsert(comment);
 
         JSONObject responseJson = new JSONObject();
 
         if (state != 0) {
-            responseJson.put("result", "success");
+            responseJson.put("result", 1);
+            return responseJson.toString();
         } else {
-            responseJson.put("result", "failure");
+            responseJson.put("result", 0);
+            return responseJson.toString();
         }
-        return responseJson.toString();
+
+
     }
 
-//    댓글의 답글을 달 경우......
     @RequestMapping(value = "/InsertReplyComment", method = RequestMethod.GET)
-    public String getReplyComment (
+    public String postComment(
             CommentEntity comment,
-            @RequestParam(value = "articleIndex", required = false) int articleIndex,
-            @RequestParam(value = "userEmail", required = false) String userEmail,
-            @RequestParam(value = "content", required = false) String content,
-            @RequestParam(value = "commentIndex") int commentIndex
+            @RequestParam(value = "articleIndex",required = false) int articleIndex,
+            @RequestParam(value = "userEmail",required = false) String userEmail,
+            @RequestParam(value = "content",required = false) String content,
+            @RequestParam(value = "commentIndex") int commentIndex,
+            @RequestParam(value = "page") int page
+
     ) {
         CommentEntity parent = this.bbsMapper.selectParentComments(commentIndex);
+
         System.out.println(parent.toString());
 
         comment.setContent(content);
         comment.setUserEmail(userEmail);
+
         comment.setCommentGroup(parent.getCommentGroup());
-        comment.setCommentLevel(parent.getCommentLevel() + 1);
+        comment.setCommentSequence(parent.getCommentSequence()+1);
+        comment.setCommentLevel(parent.getCommentLevel()+ 1);
         comment.setArticleIndex(articleIndex);
         this.bbsMapper.replySequence(parent);
         int state = this.bbsMapper.replayInsert(comment);
 
+
         if (state != 0) {
-            return "redirect:/qna/read?aid=" + articleIndex;
+            return "redirect:/qna/read?page="+page+"&aid="+articleIndex;
         } else {
-            return "redirect:/qna/read?aid=" + articleIndex;
+            return "redirect:/qna/read?page="+page+"&aid="+articleIndex;
         }
+
+    }
+
+    @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)
+    public String deleteComment(
+            @RequestParam(value = "commentIndex")int commentIndex
+    ) {
+        this.bbsMapper.deleteComment(commentIndex);
+        return "redirect:/";
     }
 
 }

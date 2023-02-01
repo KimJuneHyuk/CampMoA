@@ -1,9 +1,11 @@
 package com.example.campmoa.controllers;
 
 import com.example.campmoa.entities.acconpany.*;
+import com.example.campmoa.entities.bbs.CommentEntity;
 import com.example.campmoa.entities.member.UserEntity;
 import com.example.campmoa.enums.CommonResult;
 import com.example.campmoa.interfaces.IResult;
+import com.example.campmoa.mappers.IBbsMapper;
 import com.example.campmoa.services.AccompanyService;
 import com.example.campmoa.services.MemberService;
 import com.example.campmoa.vos.accompany.AccArticleSearchVo;
@@ -23,12 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller(value = "com.example.compmao.controllers.AccompanyController")
 @RequestMapping(value = "/accompany")
@@ -37,11 +39,13 @@ public class AccompanyController {
 
     private final AccompanyService accompanyService;
     private final MemberService memberService;
+    private final IBbsMapper bbsMapper;
 
     @Autowired
-    public AccompanyController(AccompanyService accompanyService, MemberService memberService) {
+    public AccompanyController(AccompanyService accompanyService, MemberService memberService, IBbsMapper bbsMapper) {
         this.accompanyService = accompanyService;
         this.memberService = memberService;
+        this.bbsMapper = bbsMapper;
     }
 
 
@@ -218,14 +222,17 @@ public class AccompanyController {
     }
 
 
+
+
+
     //    글 상세보기 ===============================================
     @RequestMapping(value = "read/{id}", method = RequestMethod.GET)
     public ModelAndView getRead(
             @PathVariable(value = "id") int id,
-                                @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
-                                ModelAndView modelAndView,
-                                HttpServletRequest request
-                                ) {
+            @SessionAttribute(value = UserEntity.ATTRIBUTE_NAME, required = false) UserEntity user,
+            ModelAndView modelAndView,
+            HttpServletRequest request
+    ) {
 
 
         if (user == null) {
@@ -234,7 +241,10 @@ public class AccompanyController {
         } else {
             AccArticleEntity article = this.accompanyService.getArticle(id);
 //            UserEntity articleUser = this.memberService.getUser(article.getUserEmail());
-            modelAndView.addObject("articleUser", article);
+            modelAndView.addObject("article", article);
+
+            List<CommentEntity> listC = this.bbsMapper.AllComment(id);
+            modelAndView.addObject("Pcomment", listC);
             modelAndView.setViewName("accompany/read");
         }
         return modelAndView;
@@ -383,5 +393,14 @@ public class AccompanyController {
         IResult result = this.accompanyService.putRequest(user, id);
         responseJson.put(IResult.ATTRIBUTE_NAME, result.name().toLowerCase());
         return responseJson.toString();
+    }
+
+    @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)
+    public String deleteComment(
+            @RequestParam(value = "commentIndex")int commentIndex,
+            @RequestParam(value = "articleIndex") int articleIndex
+    ) {
+        this.bbsMapper.deleteComment(commentIndex);
+        return "redirect:/accompany/read/"+ articleIndex;
     }
 }

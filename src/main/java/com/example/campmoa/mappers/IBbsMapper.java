@@ -56,14 +56,16 @@ public interface IBbsMapper {
 //                             @Param(value = "criterion") String criterion,
 //                             @Param(value = "keyword") String keyword);
 
-    CommentEntity selectParentComments(@Param(value = "commentIndex") int commentIndex);
+    CommentEntity selectParentComments(@Param("commentIndex") int commentIndex);
 
     void replySequence(CommentEntity comment);
 
     int replayInsert(CommentEntity comment);
 
-    List<CommentEntity> AllComment(@Param(value = "articleIndex") int articleIndex);
+    List<CommentEntity> AllComment(@Param("articleIndex") int articleIndex);
+
     int commentInsert(CommentEntity comment);
 
+    void deleteComment(@Param(value = "commentIndex") int commentIndex);
 
 }

@@ -273,9 +273,16 @@ public class MemberController {
 
     @RequestMapping(value = "userLogin", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
+//    RequestMapping 어노테이션을 사용하여, member/userLogin 이라는 웹 주소로 로그인페이지의 넘어오는 결과값을 받아서 ajax처리하기위해,
+//    ResponseBody 어노테이션을 활용한다.
+//    속성 value= "userLogin" 주소값 설정, method = RequestMethod.POST 으로 전달 방식을 정할 수있다.
+//    RestFul API 를 활용하여 같은 주소 값에 대한 전달방식의 다름을 활용하여 하나의 주소로 응답을 주고 받을수 있다.
+//    produces = "application/json" 혹은 MediaType.APPLICATION_JSON 을 활용하여 json 을 활용함을 알릴수 있다.
     public String postUserLogin(
             HttpSession session,
             UserEntity user
+//            HttpSession session 을 활용하여 , 로그인할 경우 session을 생성하여 로그인 된 유저의 정보값을 내려받을수 있게 설정.
+//            user의 정보값을 알아오기 위해 매개변수로 타입을 활용하여 로그인된 유저의 모든 정보를 저장하여 객체로 받아오기 위해 활용.
     ) {
         user.setName(null)
                 .setContactCountryValue(null)

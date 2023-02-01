@@ -178,5 +178,58 @@ function count_like(response){
 
 
 
+// 댓글 달기
+
+$('.replyForm').hide();
+
+$(document).ready(function () {
+    $('.replyBtn').each(function (index) {
+        $(this).addClass('replyBtn' + index);
+        $('.replyBtn' + index).click(function () {
+            $('.replyForm' + index).show();
+        })
+    })
+    $('.replyForm').each(function (index) {
+        $(this).addClass('replyForm' + index);
+    })
+    $('.replyTextarea').each(function (index) {
+        $(this).addClass('replyTextarea' + index);
+    })
+    $('.replySendBtn').each(function (index) {
+        $(this).addClass('replySendBtn' + index);
+    })
+})
+
+
+
+const commentBtn = document.getElementById("commentBtn");
+commentBtn.addEventListener('click', function () {
+    const articleIndex = $("#commentBNum").val();
+    const content = $("#comment").val();
+    const userEmail = $("#commentWriter").val();
+    const page = $("#page").val();
+
+    if(content === ""){
+        alert("댓글 내용을 입력하세요!")
+        return false;
+    }
+
+    $.ajax({
+        url: "/qna/insertComment",
+        method: "GET",
+        data: {"content": content, "userEmail": userEmail, "articleIndex": articleIndex},
+        success: function (responseJson) {
+            responseJson = JSON.parse(responseJson)
+            if (responseJson['result'] === 1) {
+                alert("댓글이 게시 되었습니다.")
+                window.location.href=`/qna/read?page=${page}&aid=${articleIndex}`
+            } else {
+                alert("댓글작성에 실패하였습니다. 잠시후 다시 시도해 주세요.");
+                window.location.href=`/qna/read?page=${page}&aid=${articleIndex}`
+            }
+        }
+    })
+})
+
 
 
