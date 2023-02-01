@@ -38,4 +38,6 @@ public interface IAccMapper {
             @Param(value = "requesterUserEmail") String requesterUserEmail,
             @Param(value = "articleIndex") int articleIndex
     );
+
+    AccArticleEntity[] mainAccompanyPic();
 }

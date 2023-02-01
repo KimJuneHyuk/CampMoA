@@ -17,3 +17,15 @@ _writeButton?.addEventListener('click', () => {
 _writeMenu?.addEventListener('mouseleave', () => {
     _writeMenu?.classList.remove('visible');
 })
+
+
+
+$('.multiple-items').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1
+});
+
+
+$(".slick-next").text(">>");
+$(".slick-prev").text("<<");

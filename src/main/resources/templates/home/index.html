@@ -5,31 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<!--    시작 페이지 아이콘 셋팅-->
-<!--    <link th:href="@{/}" rel="shortcut icon">-->
-<!--    프리텐다드 글꼴 추가.-->
+    <!--    시작 페이지 아이콘 셋팅-->
+    <!--    <link th:href="@{/}" rel="shortcut icon">-->
+    <!--    프리텐다드 글꼴 추가.-->
     <link crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard-dynamic-subset.css" rel="stylesheet">
-<!--    fontawsome 스크립트 추가.-->
+    <!--    fontawsome 스크립트 추가.-->
     <script src="https://kit.fontawesome.com/f5742d24cb.js" crossorigin="anonymous"></script>
-<!--    ==========================================================-->
-<!--    초기값 과  header footer css 설정 :: common.css -->
+    <!--    ==========================================================-->
+    <!--    초기값 과  header footer css 설정 :: common.css -->
     <link rel="stylesheet" th:href="@{/resources/css/common.css}">
-    <link th:href="@{/resources/images/_logo.svg}" rel="shortcut icon">
-<!--    header 에 필요한 js 파일 설정. :: common.js-->
+    <!--    header 에 필요한 js 파일 설정. :: common.js-->
     <script defer th:src="@{/resources/js/common.js}"></script>
-
-
-    <title>CampMoA에 오신것을 환영합니다.</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" th:href="@{/resources/css/index.css}">
+    <title>Document</title>
 </head>
 <body class="_layout-hmf">
 <!--header-->
 <th:block th:replace="~{fragments/header.html :: content}"></th:block>
 
 <main class="_main">
-    <h1>메인 컨텐츠 입니다. 메인 작성 부분.</h1>
-</main>
+    <h2 class="TT"> <i class="fa-regular fa-face-smile-wink"></i>  동행 친구와 같이 여행을 떠나보세요 </h2>
+    <div class="accompany-container multiple-items">
+        <!--/*@thymesVar id="articles" type="com.example.campmoa.entities.acconpany.AccArticleEntity"*/-->
+        <div th:each="aid : ${articles}" class="accompany ParentThreeDot">
+            <a th:href="@{'/accompany/read/'+${aid.getIndex()}}">
+                <img th:src="@{'/accompany/cover-image/'+${aid.getIndex()}}" alt="게시글의 썸네일" class="cover-image">
+                <b th:text="${'Title : '+aid.getTitle()}" class="ThreeDot title">본문</b>
+                <p th:text="${aid.getContent()}" class="ThreeDot content">내용</p>
+            </a>
+        </div>
+    </div>
 
-<!--footer-->
+</main>
+<!—footer—>
 <th:block th:replace="~{fragments/footer.html :: content}"></th:block>
 </body>
 </html>

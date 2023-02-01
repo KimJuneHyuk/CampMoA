@@ -91,7 +91,7 @@
     </select>
 
     <select id="selectRequestByRequesterArticleIndex"
-    resultType="com.example.campmoa.entities.acconpany.RequestEntity">
+            resultType="com.example.campmoa.entities.acconpany.RequestEntity">
         SELECT `index`                AS `index`,
                `requester_user_email` AS `requesterUserEmail`,
                `requestee_user_email` AS `requesteeUserEmail`,
@@ -133,19 +133,19 @@
     </insert>
 
     <insert id="insertRequest"
-    useGeneratedKeys="true"
-    keyColumn="index"
-    keyProperty="index"
-    parameterType="com.example.campmoa.entities.acconpany.RequestEntity">
-        INSERT INTO `campmoa_accompany`.`requests` (requester_user_email, requestee_user_email, article_index, created_at, granted_flag, declined_flag)
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.campmoa.entities.acconpany.RequestEntity">
+        INSERT INTO `campmoa_accompany`.`requests` (requester_user_email, requestee_user_email, article_index,
+                                                    created_at, granted_flag, declined_flag)
         VALUES (#{requesterUserEmail}, #{requesteeUserEmail}, #{articleIndex}, #{createdAt}, #{isGranted},
                 #{isDeclined})
     </insert>
 
 
-
     <update id="updateArticle"
-    parameterType="com.example.campmoa.entities.acconpany.AccArticleEntity">
+            parameterType="com.example.campmoa.entities.acconpany.AccArticleEntity">
         UPDATE `campmoa_accompany`.`articles`
         SET `user_email`       = #{userEmail},
             `created_at`       = #{createdAt},
@@ -170,5 +170,24 @@
         WHERE `index` = #{index}
         LIMIT 1
     </delete>
+
+    <select id="mainAccompanyPic"
+            parameterType="com.example.campmoa.entities.acconpany.AccArticleEntity"
+            resultType="com.example.campmoa.entities.acconpany.AccArticleEntity">
+        select `index`            AS `index`,
+               `user_email`       AS `userEmail`,
+               `created_at`       AS `createdAt`,
+               `continent_value`  AS `continentValue`,
+               `country_value`    AS `countryValue`,
+               `region_value`     AS `regionValue`,
+               `capacity`         AS `capacity`,
+               `date_from`        AS `dateFrom`,
+               `date_to`          AS `dateTo`,
+               `cover_image`      AS `coverImage`,
+               `cover_image_mime` AS `coverImageMime`,
+               `title`            AS `title`,
+               `content`          AS `content`
+        from `campmoa_accompany`.`articles`
+    </select>
 
 </mapper>

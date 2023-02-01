@@ -403,4 +403,6 @@ public class AccompanyController {
         this.bbsMapper.deleteComment(commentIndex);
         return "redirect:/accompany/read/"+ articleIndex;
     }
+
+
 }
